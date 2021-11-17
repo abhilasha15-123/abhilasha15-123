@@ -60,6 +60,7 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
+
     
     <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
     <string>Soul Tribe uses your current location for address updates.</string>
@@ -74,5 +75,11 @@
     <key>NSPhotoLibraryUsageDescription</key>
     <string>Soul Tribe need to access your photolibrary to get the photos from your device.</string>
     
+
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Soul Tribe would like to use your current location.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Soul Tribe would like to use your current location.</string>
+
 </dict>
 </plist>

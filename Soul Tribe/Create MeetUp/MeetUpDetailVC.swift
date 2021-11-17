@@ -24,8 +24,14 @@ class MeetUpDetailVC: UIViewController {
     @IBOutlet weak var btngoing: UIButton!
     @IBOutlet weak var btnmightgo: UIButton!
     @IBOutlet weak var btnnotgoing: UIButton!
+    @IBOutlet weak var lblGoing: UILabel!
+    @IBOutlet weak var lblNotGoing: UILabel!
+    @IBOutlet weak var lblMightGo: UILabel!
+    //MARK:- Variables
+    var ApiDict = NSMutableDictionary()
     override func viewDidLoad() {
         super.viewDidLoad()
+        getdata()
 
         btngoing.layer.cornerRadius = 6
 //        btngoing.layer.borderWidth = 0.7
@@ -45,6 +51,34 @@ class MeetUpDetailVC: UIViewController {
         navigationController?.popViewController(animated: true)
 
     }
-  
+    func getdata(){
+        let paraDict = NSMutableDictionary()
+        paraDict.setValue(Config().api_key, forKey: "api_key")
+        paraDict.setValue("36", forKey: "user_id")
+        paraDict.setValue("3", forKey: "mini_tribe_id")
+        paraDict.setValue("1", forKey: "mini_tribe_meetup_id")
+        
+        let methodName = "get_detail_mini_tribe_meetup"
+        DataManager.getAPIResponse(paraDict , methodName: methodName, methodType: "POST"){(responseData,error)-> Void in
+             let status  = DataManager.getVal(responseData?["status"]) as? String ?? ""
+             let message  = DataManager.getVal(responseData?["message"]) as? String ?? ""
+                print(message)
+             if status == "1" {
+                print(DataManager.getVal(responseData?["data"]) as? [String:Any] ?? [:])
+                self.ApiDict = DataManager.getVal(responseData?["data"]) as? NSMutableDictionary ?? [:]
+                self.lbldate.text = self.ApiDict["meetup_date"] as? String ?? ""
+                self.lbltime.text = self.ApiDict["meetup_time"] as? String ?? ""
+                self.lbllocation.text = self.ApiDict["meetup_location"] as? String ?? ""
+                self.lbldiscription.text = self.ApiDict["meetup_description"] as? String ?? ""
+                self.lblcreated.text = "Created By \(self.ApiDict["name"] as? String ?? "")"
+                self.lblGoing.text = "\(self.ApiDict["meetup_going_members"] as? Int ?? 0) People Are Going"
+                self.lblNotGoing.text = "\(self.ApiDict["meetup_not_going_members"] as? Int ?? 0) People Are Not Going"
+                self.lblMightGo.text = "\(self.ApiDict["meetup_might_go_members"] as? Int ?? 0) Might Go"
+             }
+             else {
+                print(message)
+             }
+    }
+    }
 
 }

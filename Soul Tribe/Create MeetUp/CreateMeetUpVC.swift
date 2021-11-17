@@ -6,8 +6,9 @@
 //
 
 import UIKit
-
-class CreateMeetUpVC: UIViewController,UIPopoverPresentationControllerDelegate {
+import MapKit
+import CoreLocation
+class CreateMeetUpVC: UIViewController,UIPopoverPresentationControllerDelegate, CLLocationManagerDelegate {
 
     @IBOutlet weak var btnback: UIButton!
     @IBOutlet weak var imguser: UIImageView!
@@ -42,9 +43,12 @@ class CreateMeetUpVC: UIViewController,UIPopoverPresentationControllerDelegate {
     @IBOutlet weak var btncreatepop: UIButton!
     @IBOutlet weak var btnbackpop: UIButton!
     @IBOutlet weak var innerpopview: UIView!
+    
+    let locationManager = CLLocationManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
 
         
         popupview.isHidden = true
@@ -117,6 +121,21 @@ class CreateMeetUpVC: UIViewController,UIPopoverPresentationControllerDelegate {
         
         // Do any additional setup after loading the view.
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // Ask for Authorisation from the User.
+        self.locationManager.requestAlwaysAuthorization()
+
+        // For use in foreground
+        self.locationManager.requestWhenInUseAuthorization()
+
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
+        
+    }
     @IBAction func backBtnAction(_ sender: Any) {
         navigationController?.popViewController(animated: true)
     }
@@ -157,6 +176,14 @@ class CreateMeetUpVC: UIViewController,UIPopoverPresentationControllerDelegate {
         present(vc, animated: true, completion: nil)
 
     }
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let locValue = locations.first {
+            let locValue:CLLocationCoordinate2D = manager.location!.coordinate
+                print("locations = \(locValue.latitude) \(locValue.longitude)")
+            }
+            locationManager.stopUpdatingLocation()
+        }
+    
     func getData(){
         
          self.view.endEditing(true)

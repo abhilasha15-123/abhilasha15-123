@@ -19,9 +19,39 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KolView" customModule="Soul_Tribe" customModuleProvider="target">
             <connections>
+                <outlet property="BtnLeftSwipe" destination="lva-cA-HIi" id="9pb-ZV-PhK"/>
+                <outlet property="BtnRightSwipe" destination="YKl-WA-Lle" id="M98-q6-Kyl"/>
+                <outlet property="ClickonOptionViewBtn" destination="kWx-xK-Z8H" id="9VN-0Q-IqU"/>
+                <outlet property="bottomViewProfileBtn" destination="xGE-Jp-g2S" id="31B-Dz-k8x"/>
+                <outlet property="cityBtn" destination="tf5-HN-eub" id="aT2-Xm-hr7"/>
                 <outlet property="contentView" destination="iN0-l3-epB" id="3WX-wM-UBc"/>
+                <outlet property="firstImpressionLbl" destination="TIZ-rv-0c9" id="q1M-2I-d6b"/>
+                <outlet property="hobbyImg1" destination="lJH-Cv-QCx" id="daW-HT-nmN"/>
+                <outlet property="hobbyImg2" destination="8gg-lZ-6bB" id="BZy-EQ-7f4"/>
+                <outlet property="hobbyImg3" destination="kb2-r3-Hth" id="PhR-kQ-Ygv"/>
+                <outlet property="hobbyImg4" destination="BCw-AS-Kme" id="Dab-sw-7tu"/>
+                <outlet property="hobbyImg5" destination="HsH-lw-A5s" id="zmg-yP-6qt"/>
+                <outlet property="hobbyImg6" destination="YMZ-dK-DbW" id="4oR-UV-ORo"/>
+                <outlet property="hobbyLbl1" destination="f2J-Gz-WVU" id="Wtp-Qc-8n8"/>
+                <outlet property="hobbyLbl2" destination="3By-fs-5DV" id="UbY-lH-wRz"/>
+                <outlet property="hobbyLbl3" destination="jDI-dd-kpO" id="25g-dV-5TY"/>
+                <outlet property="hobbyLbl4" destination="Euc-ke-LJ6" id="75T-n4-XND"/>
+                <outlet property="hobbyLbl5" destination="fSO-9L-0jD" id="Tsm-dg-tS1"/>
+                <outlet property="hobbyLbl6" destination="PjT-Nx-OYy" id="mM4-En-b5O"/>
+                <outlet property="hobbyView1" destination="PLY-NK-JcZ" id="avj-Rx-PjW"/>
+                <outlet property="hobbyView2" destination="5zF-8j-oyD" id="GIt-RU-Qph"/>
+                <outlet property="hobbyView3" destination="KKm-rK-yqi" id="xvl-Eu-VZf"/>
+                <outlet property="hobbyView4" destination="bHw-dg-3TA" id="9x6-l2-Oct"/>
+                <outlet property="hobbyView5" destination="aJk-Wn-hQK" id="ijo-de-D4L"/>
+                <outlet property="hobbyView6" destination="h7n-i8-xp5" id="Rac-zc-84s"/>
                 <outlet property="mainView" destination="yL0-zr-l8y" id="ZRs-3x-alm"/>
                 <outlet property="mainView1" destination="mnO-69-alA" id="iOp-fq-bSg"/>
+                <outlet property="menuOptionBlockUserBtn" destination="Yw5-e8-pf3" id="brd-C5-xqs"/>
+                <outlet property="menuOptionReportBtn" destination="Kae-x1-Hfw" id="xMc-3k-u2Z"/>
+                <outlet property="menuOptionViewProfileBtn" destination="Enj-JO-rwF" id="Ey8-Mb-6Gg"/>
+                <outlet property="menuoptionView" destination="jO9-sk-xeV" id="uQu-vs-ET6"/>
+                <outlet property="userImg" destination="4sC-Wk-I7d" id="yqq-iK-zyn"/>
+                <outlet property="userName" destination="A5P-f2-uas" id="efN-xR-Jqg"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -320,11 +350,65 @@
                                     <state key="normal" title="View Profile">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
+                                    <connections>
+                                        <action selector="viewProfileAction:" destination="-1" eventType="touchUpInside" id="mkA-VM-TgW"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YyQ-oq-Eh2">
                                     <rect key="frame" x="0.0" y="62" width="384" height="30"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </button>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jO9-sk-xeV">
+                                    <rect key="frame" x="239" y="46" width="120" height="120"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Rrg-Ze-Avv">
+                                            <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kae-x1-Hfw">
+                                                    <rect key="frame" x="0.0" y="0.0" width="120" height="40"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="40" id="eI1-kd-4Xn"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain" title="Report">
+                                                        <fontDescription key="titleFontDescription" type="system" pointSize="14"/>
+                                                        <color key="baseForegroundColor" red="0.0039215686269999999" green="0.0078431372550000003" blue="0.015686274510000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </buttonConfiguration>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yw5-e8-pf3">
+                                                    <rect key="frame" x="0.0" y="40" width="120" height="40"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="40" id="oSs-va-yvc"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain" title="Block User">
+                                                        <fontDescription key="titleFontDescription" type="system" pointSize="14"/>
+                                                        <color key="baseForegroundColor" red="0.0039215686269999999" green="0.0078431372550000003" blue="0.015686274510000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </buttonConfiguration>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Enj-JO-rwF">
+                                                    <rect key="frame" x="0.0" y="80" width="120" height="40"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="40" id="jXP-Pv-1e3"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain" title="View Profile">
+                                                        <fontDescription key="titleFontDescription" type="system" pointSize="14"/>
+                                                        <color key="baseForegroundColor" red="0.0039215686274509803" green="0.0078431372549019607" blue="0.015686274509803921" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </buttonConfiguration>
+                                                </button>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="120" id="E9R-MZ-gux"/>
+                                        <constraint firstAttribute="trailing" secondItem="Rrg-Ze-Avv" secondAttribute="trailing" id="YRN-gS-rM0"/>
+                                        <constraint firstAttribute="bottom" secondItem="Rrg-Ze-Avv" secondAttribute="bottom" id="Yrw-7L-hEE"/>
+                                        <constraint firstItem="Rrg-Ze-Avv" firstAttribute="top" secondItem="jO9-sk-xeV" secondAttribute="top" id="ZZP-J3-XIq"/>
+                                        <constraint firstItem="Rrg-Ze-Avv" firstAttribute="leading" secondItem="jO9-sk-xeV" secondAttribute="leading" id="qcF-U6-KbK"/>
+                                    </constraints>
+                                </view>
                             </subviews>
                             <color key="backgroundColor" red="0.10980392160000001" green="0.1058823529" blue="0.1058823529" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="calibratedRGB"/>
                             <constraints>
@@ -343,9 +427,11 @@
                                 <constraint firstItem="qi7-0K-Zml" firstAttribute="top" secondItem="cqR-QC-Jjj" secondAttribute="bottom" id="JPQ-Nw-gQO"/>
                                 <constraint firstItem="UI4-5k-2Kn" firstAttribute="top" secondItem="jS3-Fx-D1K" secondAttribute="bottom" constant="4" id="T6g-QC-z6R"/>
                                 <constraint firstItem="jS3-Fx-D1K" firstAttribute="top" secondItem="qi7-0K-Zml" secondAttribute="bottom" constant="2" id="UQD-mn-NYm"/>
+                                <constraint firstAttribute="trailing" secondItem="jO9-sk-xeV" secondAttribute="trailing" constant="25" id="VVt-5d-hn0"/>
                                 <constraint firstItem="UI4-5k-2Kn" firstAttribute="leading" secondItem="mnO-69-alA" secondAttribute="leading" constant="15" id="bdb-ja-WRs"/>
                                 <constraint firstAttribute="trailing" secondItem="qi7-0K-Zml" secondAttribute="trailing" id="edG-aQ-sC6"/>
                                 <constraint firstAttribute="trailing" secondItem="ama-g4-XjI" secondAttribute="trailing" constant="15" id="evE-64-u8e"/>
+                                <constraint firstItem="jO9-sk-xeV" firstAttribute="top" secondItem="cqR-QC-Jjj" secondAttribute="bottom" constant="-16" id="fIf-4O-nVg"/>
                                 <constraint firstItem="xGE-Jp-g2S" firstAttribute="top" secondItem="ama-g4-XjI" secondAttribute="bottom" constant="10" id="pAd-dq-qTj"/>
                                 <constraint firstAttribute="bottom" secondItem="xGE-Jp-g2S" secondAttribute="bottom" constant="8" id="soB-uc-pEW"/>
                                 <constraint firstItem="xGE-Jp-g2S" firstAttribute="centerX" secondItem="mnO-69-alA" secondAttribute="centerX" id="uCM-jd-lrd"/>
@@ -374,7 +460,7 @@
                 <constraint firstItem="yL0-zr-l8y" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="15" id="edh-tB-eFM"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-241" y="67"/>
+            <point key="canvasLocation" x="44.927536231884062" y="5.3571428571428568"/>
         </view>
     </objects>
     <resources>
