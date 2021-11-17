@@ -11,6 +11,9 @@ PODS:
   - Koloda (5.0.1):
     - pop (~> 1.0)
   - pop (1.0.12)
+  - SDWebImage (5.12.1):
+    - SDWebImage/Core (= 5.12.1)
+  - SDWebImage/Core (5.12.1)
 
 DEPENDENCIES:
   - FSCalendar
@@ -19,6 +22,7 @@ DEPENDENCIES:
   - IQKeyboardManagerSwift
   - KeychainSwift
   - Koloda
+  - SDWebImage
 
 SPEC REPOS:
   trunk:
@@ -29,6 +33,7 @@ SPEC REPOS:
     - KeychainSwift
     - Koloda
     - pop
+    - SDWebImage
 
 SPEC CHECKSUMS:
   FSCalendar: e6a2eb9c571bf0719ed797ef807e08426753c241
@@ -38,7 +43,8 @@ SPEC CHECKSUMS:
   KeychainSwift: a06190cf933ad46b1e0abc3d77d29c06331715c7
   Koloda: d07b9199a383abc5898b62aa945a599f5e7c0c4b
   pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
+  SDWebImage: 4dc3e42d9ec0c1028b960a33ac6b637bb432207b
 
-PODFILE CHECKSUM: 17d8c2334c84b6c53ed2f82ff69d169bfa0151b5
+PODFILE CHECKSUM: 61dc5654800a528cfbe34a7e6229bfcf54322482
 
 COCOAPODS: 1.11.2

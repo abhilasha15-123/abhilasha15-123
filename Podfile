@@ -13,5 +13,6 @@ pod 'FSCalendar'
 pod 'KeychainSwift'
 pod 'GoogleMaps'
 pod 'GooglePlaces'
+pod 'SDWebImage'
 
 end
