@@ -60,5 +60,9 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Soul Tribe would like to use your current location.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Soul Tribe would like to use your current location.</string>
 </dict>
 </plist>

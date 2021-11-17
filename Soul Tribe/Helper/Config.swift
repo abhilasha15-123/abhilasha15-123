@@ -13,7 +13,7 @@ import CoreData
 
 
 class Config: NSObject,UIAlertViewDelegate {
-    let API_URL = "https://soultribenow.com/api/user/"
+    let API_URL = "https://tribe.devtechnosys.tech/api/user/"
     let AppUserDefaults = UserDefaults.standard
     let debug_mode = 1
     

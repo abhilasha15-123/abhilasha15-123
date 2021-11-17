@@ -13,9 +13,11 @@ class ExploreMeetUpVC: UIViewController {
     @IBOutlet weak var btnback: UIButton!
     @IBOutlet weak var searchbar: UIView!
     @IBOutlet weak var headerview: UIView!
+    @IBOutlet weak var exploreMeetupTableView: UITableView!
+    
 //MARK:- variables
     var ApiData = NSMutableArray()
-    
+    var ApiDict = NSMutableDictionary()
     override func viewDidLoad() {
         super.viewDidLoad()
         getData()
@@ -54,7 +56,10 @@ class ExploreMeetUpVC: UIViewController {
              if status == "1" {
                 print(DataManager.getVal(responseData?["data"]) as? [String:Any] ?? [:])
                 self.ApiData = DataManager.getVal(responseData?["data"]) as? NSMutableArray ?? []
-                print("apidata is \(self.ApiData)")
+                
+//                print("apidict is \(self.ApiDict)")
+//                print("apidata is \(self.ApiData)")
+                self.exploreMeetupTableView.reloadData()
                 
              }
              else {
@@ -67,8 +72,8 @@ class ExploreMeetUpVC: UIViewController {
 }
 extension ExploreMeetUpVC: UITableViewDataSource,UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 3
-        
+        print(ApiData.count)
+        return ApiData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -78,6 +83,17 @@ extension ExploreMeetUpVC: UITableViewDataSource,UITableViewDelegate{
         cell.viewcornor.layer.shadowOffset = .zero
         cell.viewcornor.layer.shadowRadius = 8
         cell.viewcornor.layer.cornerRadius = 10
+        let apidata = ApiData[indexPath.row]
+        ApiDict = apidata as? NSMutableDictionary ?? [:]
+        print("apidata is \(ApiDict)")
+        cell.lbldate.text = ApiDict["meetup_date"] as? String ?? ""
+        cell.lbllocation.text = ApiDict["meetup_location"] as? String ?? ""
+        cell.lbltime.text = ApiDict["meetup_time"] as? String ?? ""
+        cell.lbldetails.text = ApiDict["meetup_description"] as? String ?? ""
+//        cell.lblname.text = ApiDict[""] as? String ?? ""
+        cell.lblgoing.text = "\(ApiDict["meetup_going_members"] as? Int ?? 1) People Are Going"
+        
+        
         
         return cell
     }
