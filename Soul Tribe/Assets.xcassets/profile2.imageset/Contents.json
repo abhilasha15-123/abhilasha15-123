@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "laura-chouette-Shx5k3M7-uU-unsplash.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "laura-chouette-Shx5k3M7-uU-unsplash@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "laura-chouette-Shx5k3M7-uU-unsplash@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

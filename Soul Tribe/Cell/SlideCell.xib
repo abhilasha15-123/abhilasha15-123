@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="OpenSans-Bold.ttf">
+            <string>OpenSans-Bold</string>
+        </array>
+        <array key="OpenSans-Regular.ttf">
+            <string>OpenSans-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="SlideCell" customModule="Soul_Tribe" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="introbg" translatesAutoresizingMaskIntoConstraints="NO" id="xq0-iD-Thx">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hA1-yE-S7v">
+                        <rect key="frame" x="310" y="608" width="50" height="44"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="44" id="8nk-Pz-7Q3"/>
+                            <constraint firstAttribute="width" constant="50" id="T4Z-dm-Dae"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="15"/>
+                        <state key="normal" title="Skip">
+                            <color key="titleColor" red="0.086274509799999996" green="0.78039215689999997" blue="0.60392156860000001" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="22"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        </userDefinedRuntimeAttributes>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ks3-NN-OBr">
+                        <rect key="frame" x="60" y="210" width="255" height="31"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="31" id="DuU-JV-u5e"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="24"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.63529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u79-Sx-Vcy">
+                        <rect key="frame" x="53" y="246" width="269" height="110"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="110" id="nh0-sG-hEC"/>
+                        </constraints>
+                        <string key="text">Soul Tribe! is the first social and dating platform which connects spiritually conscious souls from all over the world on one high vibrational app.</string>
+                        <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="u79-Sx-Vcy" secondAttribute="trailing" constant="53" id="Ebe-0x-FAO"/>
+                <constraint firstAttribute="bottom" secondItem="hA1-yE-S7v" secondAttribute="bottom" constant="15" id="HWk-Yi-t5l"/>
+                <constraint firstItem="ks3-NN-OBr" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="KkE-uV-3Ur"/>
+                <constraint firstAttribute="trailing" secondItem="hA1-yE-S7v" secondAttribute="trailing" constant="15" id="PhW-zq-CqU"/>
+                <constraint firstItem="ks3-NN-OBr" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="210" id="WmM-9p-xRT"/>
+                <constraint firstAttribute="trailing" secondItem="xq0-iD-Thx" secondAttribute="trailing" id="Xhk-yg-8td"/>
+                <constraint firstItem="u79-Sx-Vcy" firstAttribute="centerX" secondItem="ks3-NN-OBr" secondAttribute="centerX" id="dlb-8g-j6S"/>
+                <constraint firstItem="u79-Sx-Vcy" firstAttribute="top" secondItem="ks3-NN-OBr" secondAttribute="bottom" constant="5" id="fZx-95-PYV"/>
+                <constraint firstAttribute="trailing" secondItem="ks3-NN-OBr" secondAttribute="trailing" constant="60" id="ga6-bm-vxF"/>
+                <constraint firstItem="u79-Sx-Vcy" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="53" id="hBQ-uI-22L"/>
+                <constraint firstItem="xq0-iD-Thx" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="lzN-lm-riF"/>
+                <constraint firstItem="xq0-iD-Thx" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="m3v-0z-yGt"/>
+                <constraint firstItem="ks3-NN-OBr" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="60" id="nwo-YA-irE"/>
+                <constraint firstAttribute="bottom" secondItem="xq0-iD-Thx" secondAttribute="bottom" id="vWj-t9-nRF"/>
+            </constraints>
+            <size key="customSize" width="375" height="667"/>
+            <connections>
+                <outlet property="introImg" destination="xq0-iD-Thx" id="tsY-LP-zEq"/>
+                <outlet property="lblContent" destination="u79-Sx-Vcy" id="9aG-QZ-Typ"/>
+                <outlet property="lblHeading" destination="ks3-NN-OBr" id="5LN-JV-al1"/>
+                <outlet property="skipBtn" destination="hA1-yE-S7v" id="UOo-Dw-Seh"/>
+            </connections>
+            <point key="canvasLocation" x="131.15942028985509" y="11.049107142857142"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="introbg" width="375" height="812"/>
+    </resources>
+</document>

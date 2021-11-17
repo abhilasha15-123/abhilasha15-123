@@ -1,0 +1,44 @@
+PODS:
+  - FSCalendar (2.8.2)
+  - GoogleMaps (5.1.0):
+    - GoogleMaps/Maps (= 5.1.0)
+  - GoogleMaps/Base (5.1.0)
+  - GoogleMaps/Maps (5.1.0):
+    - GoogleMaps/Base
+  - GooglePlaces (5.1.0)
+  - IQKeyboardManagerSwift (6.5.6)
+  - KeychainSwift (19.0.0)
+  - Koloda (5.0.1):
+    - pop (~> 1.0)
+  - pop (1.0.12)
+
+DEPENDENCIES:
+  - FSCalendar
+  - GoogleMaps
+  - GooglePlaces
+  - IQKeyboardManagerSwift
+  - KeychainSwift
+  - Koloda
+
+SPEC REPOS:
+  trunk:
+    - FSCalendar
+    - GoogleMaps
+    - GooglePlaces
+    - IQKeyboardManagerSwift
+    - KeychainSwift
+    - Koloda
+    - pop
+
+SPEC CHECKSUMS:
+  FSCalendar: e6a2eb9c571bf0719ed797ef807e08426753c241
+  GoogleMaps: 086ae1dab659eaa7339bdb30fc88e2f44e7c597c
+  GooglePlaces: c57cd5aa7e91d10fa5106c792de74f3bd6436260
+  IQKeyboardManagerSwift: c7df9d2deb356c04522f5c4b7b6e4ce4d8ed94fe
+  KeychainSwift: a06190cf933ad46b1e0abc3d77d29c06331715c7
+  Koloda: d07b9199a383abc5898b62aa945a599f5e7c0c4b
+  pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
+
+PODFILE CHECKSUM: 17d8c2334c84b6c53ed2f82ff69d169bfa0151b5
+
+COCOAPODS: 1.11.2

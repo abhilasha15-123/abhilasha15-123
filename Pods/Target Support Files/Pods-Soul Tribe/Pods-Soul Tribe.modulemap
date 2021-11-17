@@ -1,0 +1,6 @@
+framework module Pods_Soul_Tribe {
+  umbrella header "Pods-Soul Tribe-umbrella.h"
+
+  export *
+  module * { export * }
+}

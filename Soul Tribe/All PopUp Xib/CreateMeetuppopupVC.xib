@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="OpenSans-Bold.ttf">
+            <string>OpenSans-Bold</string>
+        </array>
+        <array key="OpenSans-Regular.ttf">
+            <string>OpenSans-Regular</string>
+        </array>
+        <array key="OpenSans-SemiBold.ttf">
+            <string>OpenSans-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="wvP-VO-HRd" customClass="CreateMeetuppopupVC" customModule="Soul_Tribe" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="366" height="255"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oof-nb-jNZ">
+                    <rect key="frame" x="0.0" y="44" width="366" height="211"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a Meetup" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r30-GE-vbI">
+                            <rect key="frame" x="20" y="0.0" width="326" height="25"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="25" id="ne4-Yd-ZgD"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="18"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yHm-Gc-xQV">
+                            <rect key="frame" x="20" y="35" width="326" height="71"/>
+                            <string key="text">Please adhere to and be conscious of any mandated social distancing guidelines that may be in place when creating and accepting Meetups.</string>
+                            <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="12"/>
+                            <color key="textColor" red="0.72156862749999995" green="0.72156862749999995" blue="0.72549019609999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ccG-jP-cTG">
+                            <rect key="frame" x="30" y="116" width="306" height="45"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="twF-BR-AGO">
+                                    <rect key="frame" x="0.0" y="0.0" width="148" height="45"/>
+                                    <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="15"/>
+                                    <state key="normal" title="Back">
+                                        <color key="titleColor" red="0.086274509799999996" green="0.78039215689999997" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xby-Sy-nzQ">
+                                    <rect key="frame" x="158" y="0.0" width="148" height="45"/>
+                                    <color key="backgroundColor" red="0.086274509799999996" green="0.78039215689999997" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="15"/>
+                                    <state key="normal" title="Create">
+                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="45" id="YbB-sP-BYg"/>
+                            </constraints>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="ccG-jP-cTG" secondAttribute="trailing" constant="30" id="3Fj-CF-AYP"/>
+                        <constraint firstItem="yHm-Gc-xQV" firstAttribute="leading" secondItem="Oof-nb-jNZ" secondAttribute="leading" constant="20" id="7xc-Cu-a22"/>
+                        <constraint firstAttribute="trailing" secondItem="yHm-Gc-xQV" secondAttribute="trailing" constant="20" id="9LO-rg-ouQ"/>
+                        <constraint firstItem="ccG-jP-cTG" firstAttribute="leading" secondItem="Oof-nb-jNZ" secondAttribute="leading" constant="30" id="9u3-R9-vFH"/>
+                        <constraint firstItem="ccG-jP-cTG" firstAttribute="top" secondItem="yHm-Gc-xQV" secondAttribute="bottom" constant="10" id="Hcd-sK-2et"/>
+                        <constraint firstItem="yHm-Gc-xQV" firstAttribute="top" secondItem="r30-GE-vbI" secondAttribute="bottom" constant="10" id="dff-Pc-JGS"/>
+                        <constraint firstAttribute="bottom" secondItem="ccG-jP-cTG" secondAttribute="bottom" constant="50" id="g0Q-Qg-dLd"/>
+                        <constraint firstItem="r30-GE-vbI" firstAttribute="top" secondItem="Oof-nb-jNZ" secondAttribute="top" id="jXZ-Kl-JLT"/>
+                        <constraint firstAttribute="trailing" secondItem="r30-GE-vbI" secondAttribute="trailing" constant="20" id="xr2-el-VbP"/>
+                        <constraint firstItem="r30-GE-vbI" firstAttribute="leading" secondItem="Oof-nb-jNZ" secondAttribute="leading" constant="20" id="yQU-Ez-wLf"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="2Gp-fc-rhJ"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="2Gp-fc-rhJ" firstAttribute="bottom" secondItem="Oof-nb-jNZ" secondAttribute="bottom" id="I1W-iw-d9o"/>
+                <constraint firstItem="Oof-nb-jNZ" firstAttribute="leading" secondItem="2Gp-fc-rhJ" secondAttribute="leading" id="OaQ-sO-fk7"/>
+                <constraint firstItem="Oof-nb-jNZ" firstAttribute="trailing" secondItem="2Gp-fc-rhJ" secondAttribute="trailing" id="PSg-Ms-KCA"/>
+                <constraint firstItem="Oof-nb-jNZ" firstAttribute="top" secondItem="2Gp-fc-rhJ" secondAttribute="top" id="ZzO-HF-8Tb"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-696" y="32"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
