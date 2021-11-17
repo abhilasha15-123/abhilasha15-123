@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06A4DC31274509A100C34351 /* DistanceFormatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A4DC30274509A100C34351 /* DistanceFormatTableViewCell.swift */; };
 		06F45A072743AFB600B3A3B2 /* Extenisons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F459F92743AFB600B3A3B2 /* Extenisons.swift */; };
 		06F45A082743AFB600B3A3B2 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F459FA2743AFB600B3A3B2 /* DataManager.swift */; };
 		06F45A0A2743AFB600B3A3B2 /* ValidationClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F459FC2743AFB600B3A3B2 /* ValidationClass.swift */; };
@@ -56,8 +57,6 @@
 		6AEBA4A82695E3F200C61508 /* DrawerTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEBA4A62695E3F100C61508 /* DrawerTransition.swift */; };
 		6AEBA4A92695E3F200C61508 /* LeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEBA4A72695E3F200C61508 /* LeftMenuViewController.swift */; };
 		6AEBA4AF2695E81800C61508 /* SlideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEBA4AD2695E81700C61508 /* SlideMenuController.swift */; };
-		6EC29B092744CF91002813FE /* IntentionListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC29B072744CF91002813FE /* IntentionListVC.swift */; };
-		6EC29B0A2744CF91002813FE /* AddIntentionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EC29B082744CF91002813FE /* AddIntentionsVC.swift */; };
 		70361BD026A0091100921FEB /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 70361BC526A0091100921FEB /* OpenSans-SemiBold.ttf */; };
 		70361BD126A0091100921FEB /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 70361BC626A0091100921FEB /* OpenSans-Light.ttf */; };
 		70361BD226A0091100921FEB /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 70361BC726A0091100921FEB /* OpenSans-Italic.ttf */; };
@@ -178,6 +177,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		06A4DC30274509A100C34351 /* DistanceFormatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceFormatTableViewCell.swift; sourceTree = "<group>"; };
 		06F459F92743AFB600B3A3B2 /* Extenisons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extenisons.swift; sourceTree = "<group>"; };
 		06F459FA2743AFB600B3A3B2 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		06F459FC2743AFB600B3A3B2 /* ValidationClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationClass.swift; sourceTree = "<group>"; };
@@ -229,8 +229,6 @@
 		6AEBA4A72695E3F200C61508 /* LeftMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftMenuViewController.swift; sourceTree = "<group>"; };
 		6AEBA4AD2695E81700C61508 /* SlideMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideMenuController.swift; sourceTree = "<group>"; };
 		6AEBA4AE2695E81800C61508 /* SlideMenuControllerSwift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideMenuControllerSwift.h; sourceTree = "<group>"; };
-		6EC29B072744CF91002813FE /* IntentionListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntentionListVC.swift; sourceTree = "<group>"; };
-		6EC29B082744CF91002813FE /* AddIntentionsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddIntentionsVC.swift; sourceTree = "<group>"; };
 		70361BC526A0091100921FEB /* OpenSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiBold.ttf"; sourceTree = "<group>"; };
 		70361BC626A0091100921FEB /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Light.ttf"; sourceTree = "<group>"; };
 		70361BC726A0091100921FEB /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Italic.ttf"; sourceTree = "<group>"; };
@@ -478,18 +476,9 @@
 				6AE2EAE926931C2C0031FCEF /* InvaitaionReceivecell.swift */,
 				6AE2EAEE26931C460031FCEF /* InvaitaionsendCell.swift */,
 				6AE2EAF3269324010031FCEF /* ExploreMeetUpcell.swift */,
+				06A4DC30274509A100C34351 /* DistanceFormatTableViewCell.swift */,
 			);
 			path = TableviewCell;
-			sourceTree = "<group>";
-		};
-		6EC29B062744CF91002813FE /* Intentions */ = {
-			isa = PBXGroup;
-			children = (
-				6EC29B072744CF91002813FE /* IntentionListVC.swift */,
-				6EC29B082744CF91002813FE /* AddIntentionsVC.swift */,
-			);
-			name = Intentions;
-			path = ../../../Downloads/Intentions;
 			sourceTree = "<group>";
 		};
 		70361BC426A0091100921FEB /* Open_Sans */ = {
@@ -616,7 +605,6 @@
 				709A36E42698522500728F14 /* All PopUp Xib */,
 				6A31B99826947E01005819AD /* Koloda */,
 				6A31B95E26942C87005819AD /* Chat */,
-				6EC29B062744CF91002813FE /* Intentions */,
 				6A31B95826942C85005819AD /* Member */,
 				6A31B96126942C88005819AD /* Report */,
 				6A82A83026933197003905AC /* Ajeet class */,
@@ -1058,7 +1046,6 @@
 				8D702667266A1BD80045B05F /* VerficationViewController.swift in Sources */,
 				8D2C9A0E268DF3D8003ADE2B /* MiniTribeJoinVC.swift in Sources */,
 				8D6FDC93268B4D8E00AE09FD /* CreateMeetUpVC.swift in Sources */,
-				6EC29B092744CF91002813FE /* IntentionListVC.swift in Sources */,
 				8D6FDC8E268B4D4500AE09FD /* CreatePostVC.swift in Sources */,
 				6AE2EAEA26931C2C0031FCEF /* InvaitaionReceivecell.swift in Sources */,
 				6A82A83D269331DE003905AC /* SetProfilestep2VC.swift in Sources */,
@@ -1071,6 +1058,7 @@
 				6A31B96926942C88005819AD /* MessageVC.swift in Sources */,
 				06F45A0A2743AFB600B3A3B2 /* ValidationClass.swift in Sources */,
 				6A31B9AC26947E02005819AD /* CustomKolodaView.swift in Sources */,
+				06A4DC31274509A100C34351 /* DistanceFormatTableViewCell.swift in Sources */,
 				70A1656F269EF8360062156B /* BackModel.swift in Sources */,
 				06F45A0C2743AFB600B3A3B2 /* Config.swift in Sources */,
 				8DE90D81267372DB00BF0D4F /* NotificationsVC.swift in Sources */,
@@ -1128,7 +1116,6 @@
 				8D6FDCA2268B4E9A00AE09FD /* SentInviatationsVC.swift in Sources */,
 				8D70266C266A1BEA0045B05F /* ResetPasswordViewController.swift in Sources */,
 				8D6FDC90268B4D6400AE09FD /* CreatedPostDetailVC.swift in Sources */,
-				6EC29B0A2744CF91002813FE /* AddIntentionsVC.swift in Sources */,
 				8D6FDCA5268B4EF000AE09FD /* CreateMiniTribeVC.swift in Sources */,
 				6AEBA4A92695E3F200C61508 /* LeftMenuViewController.swift in Sources */,
 				6A31B9B526947EEF005819AD /* imgesCollectionCell.swift in Sources */,

@@ -57,8 +57,8 @@ class ProfileTabVC: UIViewController,UICollectionViewDelegate,UICollectionViewDa
     }
     
     @IBAction func btngotonext(_ sender: Any) {
-        let vc = self.storyboard?.instantiateViewController(identifier: "IntentionListVC") as! IntentionListVC
-        navigationController?.pushViewController(vc, animated: true)
+//        let vc = self.storyboard?.instantiateViewController(identifier: "IntentionListVC") as! IntentionListVC
+//        navigationController?.pushViewController(vc, animated: true)
 
     }
     @IBAction func btnsidemenu(_ sender: Any) {

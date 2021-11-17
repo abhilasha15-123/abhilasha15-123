@@ -135,6 +135,18 @@ class basicFunctions {
       }
     
     
+    
+   class func calcAge(birthday: String) -> Int {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
+        dateFormatter.dateFormat = "MM-dd-yy"
+        let birthdayDate = dateFormatter.date(from:birthday) ?? Date()
+        
+        let calcAge = Calendar.current.dateComponents([.year], from: birthdayDate, to: Date())
+        let age = calcAge.year
+        return age ?? -1
+    }
+    
    class func combinedImage(img1 : UIImage, img2 : UIImage) -> UIImage {
         let bottomImage = img1
         let topImage = img2

@@ -19,7 +19,8 @@ class Config: NSObject,UIAlertViewDelegate {
     
     let api_key = "tribe123"
     
-    let googleApiKey = "AIzaSyD0tudEKZMvuqLW-cxqQ-qtSrHIZjzlFm8"
+    let googleApiKey = "AIzaSyC4JU4fmfFQ8eHsksAF1GFbQePKev4Taak"
+    let placesApiKey = "AIzaSyCcPWHyC2mJjFtCKGRgQHyYO310KRH25tw"
     
     /********************************* App Color Codes ***************************************/
 //    #16C79A

@@ -64,7 +64,9 @@ class ValidationClass: NSObject {
         if trimmedString.isEmpty {
                return true
         }
-        else  if (thetext == ("About Business*")) || (thetext == ("Description*")) || (thetext == ("Message")) || (thetext == ("Enter Description")) || (thetext == ("Bio")) || (thetext == ("Additional Information")) || (thetext == ("Your Speciality")) || (thetext == ("Write a message...")) || (thetext == ("Post your review here")) || (thetext == ("Write a message...")) || (thetext == ("Please write a comment first.")) || (thetext == ("رسالة")) || (thetext == ("السيرة الذاتية")) || (thetext == ("معلومات إضافية")) || (thetext == ("تخصصك")) || (thetext == ("...كتابة رسالة")) || (thetext == ("قم بنشر رأيك هنا")) || (thetext == ("...كتابة رسالة")) || (thetext == ("الرجاء كتابة تعليق أولاً") || (thetext == Bundle.main.localizedString(forKey: "describeYourItem", value: nil, table: "Localizable")) || (thetext == Bundle.main.localizedString(forKey: "describeYourService", value: nil, table: "Localizable")))
+        
+       
+        else  if (thetext == ("About Business*")) || (thetext == ("A Share something that is unique and stands out. Something that makes users want to stop swiping and explore more about you!")) || (thetext == ("Description*")) || (thetext == ("Message")) || (thetext == ("Enter Description")) || (thetext == ("Bio")) || (thetext == ("Additional Information")) || (thetext == ("Your Speciality")) || (thetext == ("Write a message...")) || (thetext == ("Post your review here")) || (thetext == ("Write a message...")) || (thetext == ("Please write a comment first.")) || (thetext == ("رسالة")) || (thetext == ("السيرة الذاتية")) || (thetext == ("معلومات إضافية")) || (thetext == ("تخصصك")) || (thetext == ("...كتابة رسالة")) || (thetext == ("قم بنشر رأيك هنا")) || (thetext == ("...كتابة رسالة")) || (thetext == ("الرجاء كتابة تعليق أولاً") || (thetext == Bundle.main.localizedString(forKey: "describeYourItem", value: nil, table: "Localizable")) || (thetext == Bundle.main.localizedString(forKey: "describeYourService", value: nil, table: "Localizable")))
         {
             return true
         }
@@ -282,7 +284,61 @@ class ValidationClass: NSObject {
         
     }
 
+    
+    func ValidateProfileSetup1Form (_ SetprofileVCValidateObj:SetprofileVC) -> Bool {
 
+        if SetprofileVCValidateObj.profilePicAdded == false{
+            let titleTxt = "Please add your profile picture."
+            
+            SetprofileVCValidateObj.view.endEditing(true)
+            SetprofileVCValidateObj.view.makeToast(titleTxt)
+
+            return false
+        }
+        else if isBlank(SetprofileVCValidateObj.txtname) {
+
+            let titleTxt = "Please enter your name."
+            
+            SetprofileVCValidateObj.view.endEditing(true)
+            SetprofileVCValidateObj.txtname.layer.borderColor = UIColor.red.cgColor
+            SetprofileVCValidateObj.view.makeToast(titleTxt)
+
+            return false
+        }
+        else if SetprofileVCValidateObj.selectedDate == ""{
+            SetprofileVCValidateObj.txtname.layer.borderColor = correctColor
+            
+            let titleTxt = "Please select your Date of Birth."
+            
+            SetprofileVCValidateObj.view.endEditing(true)
+            SetprofileVCValidateObj.viewdob.layer.borderColor = UIColor.red.cgColor
+            SetprofileVCValidateObj.view.makeToast(titleTxt)
+
+            return false
+        }
+        else if SetprofileVCValidateObj.arr_assets.count == 0 {
+            SetprofileVCValidateObj.txtname.layer.borderColor = correctColor
+            SetprofileVCValidateObj.viewdob.layer.borderColor = correctColor
+            
+            let titleTxt = "Please upload minimum 1 picture to the collection."
+            
+            SetprofileVCValidateObj.view.endEditing(true)
+            SetprofileVCValidateObj.view.makeToast(titleTxt)
+
+            return false
+        }
+        else{
+            SetprofileVCValidateObj.txtname.layer.borderColor = correctColor
+            SetprofileVCValidateObj.viewdob.layer.borderColor = correctColor
+            
+            return true
+        }
+        
+    }
+
+    
+    
+    
 //    func ValidateForgotForm(_ ForgotPasswordVCValidateObj:ForgotPasswordViewController) -> Bool {
 //
 //        let language = DataManager.getVal(Config().AppUserDefaults.value(forKey:"language")) as? String ?? "en"

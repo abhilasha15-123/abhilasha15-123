@@ -87,8 +87,8 @@ class SetProfilefinalVC: UIViewController {
     }
     
     @IBAction func btnsave(_ sender: Any) {
-        let vc = self.storyboard?.instantiateViewController(identifier: "AddIntentionsVC") as! AddIntentionsVC
-        navigationController?.pushViewController(vc, animated: true)
+//        let vc = self.storyboard?.instantiateViewController(identifier: "AddIntentionsVC") as! AddIntentionsVC
+//        navigationController?.pushViewController(vc, animated: true)
 
 //        let storyboard = UIStoryboard(name: "Main", bundle: nil)
 //        let navigate = storyboard.instantiateViewController(withIdentifier: "TTabBarViewController") as! TTabBarViewController

@@ -13,5 +13,7 @@ pod 'FSCalendar'
 pod 'KeychainSwift'
 pod 'GoogleMaps'
 pod 'GooglePlaces'
+pod 'YYCalendar'
+pod 'AssetsPickerViewController'
 
 end

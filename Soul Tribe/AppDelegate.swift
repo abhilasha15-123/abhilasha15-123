@@ -17,8 +17,6 @@ import GooglePlaces
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-   
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         IQKeyboardManager.shared.enable = true
 
@@ -27,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
         
         GMSServices.provideAPIKey(Config().googleApiKey)
-        GMSPlacesClient.provideAPIKey(Config().googleApiKey)
+        GMSPlacesClient.provideAPIKey(Config().placesApiKey)
         
         
         return true

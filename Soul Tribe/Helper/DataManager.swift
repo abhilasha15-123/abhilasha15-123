@@ -516,8 +516,8 @@ class DataManager {
 
     let boundary = self.generateBoundaryString()
 
-    request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-    request.setValue(DataManager.getVal(Config().AppUserDefaults.value(forKey:"language")) as? String ?? "en", forHTTPHeaderField: "X-localization")
+//    request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+//    request.setValue(DataManager.getVal(Config().AppUserDefaults.value(forKey:"language")) as? String ?? "en", forHTTPHeaderField: "X-localization")
         
     var param : [String:String] = [:]
 

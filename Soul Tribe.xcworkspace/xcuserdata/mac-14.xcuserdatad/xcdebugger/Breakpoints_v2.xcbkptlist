@@ -3,4 +3,102 @@
    uuid = "F9B7906A-99DE-45DA-B1FF-79A14B8BCCD2"
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "33BEC1D8-EA9B-45B3-ABA8-2E33FDA8E83C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Soul Tribe/Location Access/LocationAccessVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "274"
+            endingLineNumber = "274"
+            landmarkName = "viewController(_:didAutocompleteWith:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1E131D5A-7FDA-472C-8280-01603188C6DD"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Soul Tribe/Location Access/LocationAccessVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "278"
+            endingLineNumber = "278"
+            landmarkName = "viewController(_:didFailAutocompleteWithError:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "40255883-671D-455F-AEBE-996B5C1E0C94"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Soul Tribe/Location Access/LocationAccessVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "282"
+            endingLineNumber = "282"
+            landmarkName = "wasCancelled(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4D585E08-5603-4929-96E9-40223BF644C3"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Soul Tribe/Ajeet class/SetprofileVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "360"
+            endingLineNumber = "360"
+            landmarkName = "btnnext(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "4D585E08-5603-4929-96E9-40223BF644C3 - b831fb41324e9829"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Soul_Tribe.SetprofileVC.btnnext(Any) -&gt; ()"
+                  moduleName = "Soul Tribe"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac-14/Desktop/Soul%20Tribe/Soul%20Tribe/Ajeet%20class/SetprofileVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "360"
+                  endingLineNumber = "360"
+                  offsetFromSymbolStart = "10787">
+               </Location>
+               <Location
+                  uuid = "4D585E08-5603-4929-96E9-40223BF644C3 - b831fb41324e9829"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Soul_Tribe.SetprofileVC.btnnext(Any) -&gt; ()"
+                  moduleName = "Soul Tribe"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac-14/Desktop/Soul%20Tribe/Soul%20Tribe/Ajeet%20class/SetprofileVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "360"
+                  endingLineNumber = "360"
+                  offsetFromSymbolStart = "11604">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
