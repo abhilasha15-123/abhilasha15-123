@@ -13,9 +13,12 @@ class ExploreMeetUpVC: UIViewController {
     @IBOutlet weak var btnback: UIButton!
     @IBOutlet weak var searchbar: UIView!
     @IBOutlet weak var headerview: UIView!
-
+//MARK:- variables
+    var ApiData = NSMutableArray()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        getData()
         searchbar.layer.cornerRadius = 6
         searchbar.layer.borderWidth = 1
         searchbar.layer.borderColor = #colorLiteral(red: 0.8941176471, green: 0.9019607843, blue: 0.9176470588, alpha: 1)
@@ -35,6 +38,29 @@ class ExploreMeetUpVC: UIViewController {
         let vc = self.storyboard?.instantiateViewController(identifier: "MeetUpDetailVC") as! MeetUpDetailVC
         navigationController?.pushViewController(vc, animated: true)
 
+    }
+    func getData(){
+        let paraDict = NSMutableDictionary()
+        paraDict.setValue(Config().api_key, forKey: "api_key")
+        paraDict.setValue("37", forKey: "user_id")
+        paraDict.setValue("7.88888", forKey: "latitude")
+        paraDict.setValue("8.66666", forKey: "longitude")
+        
+        let methodName = "get_mini_tribe_meetup_list"
+        DataManager.getAPIResponse(paraDict , methodName: methodName, methodType: "POST"){(responseData,error)-> Void in
+             let status  = DataManager.getVal(responseData?["status"]) as? String ?? ""
+             let message  = DataManager.getVal(responseData?["message"]) as? String ?? ""
+                print(message)
+             if status == "1" {
+                print(DataManager.getVal(responseData?["data"]) as? [String:Any] ?? [:])
+                self.ApiData = DataManager.getVal(responseData?["data"]) as? NSMutableArray ?? []
+                print("apidata is \(self.ApiData)")
+                
+             }
+             else {
+                print(message)
+             }
+    }
     }
     
 

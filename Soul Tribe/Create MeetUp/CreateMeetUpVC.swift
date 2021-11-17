@@ -102,7 +102,7 @@ class CreateMeetUpVC: UIViewController,UIPopoverPresentationControllerDelegate {
 //                       nextview.buttonCreateHandler = {
 //                           model.closewithAnimation()
 //                       }
-//
+//                       
 //                       nextview.buttoncancelHandler = {
 //                           let deafults = UserDefaults.standard
 //                           deafults.set("0", forKey: "Logoutstatus")
@@ -122,7 +122,7 @@ class CreateMeetUpVC: UIViewController,UIPopoverPresentationControllerDelegate {
     }
 
     @IBAction func btncreatemeet(_ sender: Any) {
-        
+        print(imguser.image!)
        popupview.isHidden = false
 //        let nextview = CreateMeetuppopupVC.intitiateFromNib()
 //        let model = BackModel()
@@ -174,7 +174,7 @@ class CreateMeetUpVC: UIViewController,UIPopoverPresentationControllerDelegate {
         paraDict.setValue("8.66666", forKey: "meetup_longitude")
         paraDict.setValue("1", forKey: "meetup_visibility")
         paraDict.setValue("1", forKey: "invite_ids")
-        paraDict.setValue( "", forKey: "meetup_icon")
+        paraDict.setValue( imguser.image!, forKey: "meetup_icon")
         paraDict.setValue("", forKey: "meetup_status")
         print(paraDict)
          let methodName = "create_mini_tribe_meetup"
@@ -184,22 +184,10 @@ class CreateMeetUpVC: UIViewController,UIPopoverPresentationControllerDelegate {
              let message  = DataManager.getVal(responseData?["message"]) as? String ?? ""
                 print(message)
              if status == "1" {
-                
-                print(DataManager.getVal(responseData?["message"]) as? [String:Any] ?? [:])
-//                 self.userDict = DataManager.getVal(responseData?["profile"]) as? [String:Any] ?? [:]
-//                 let countryDict = DataManager.getVal(self.userDict["country"]) as? [String:Any] ?? [:]
-//
-//                 self.lbl_name.text = DataManager.getVal(self.userDict["username"]) as? String ?? ""
-//                 self.lbl_email.text = DataManager.getVal(self.userDict["email"]) as? String ?? ""
-//                 self.lbl_phone.text = "+\(DataManager.getVal(self.userDict["phone"]) as? String ?? "")"
-//                 self.lbl_country.text = DataManager.getVal(countryDict["name"]) as? String ?? ""
-//                 self.img_disp.sd_setImage(with: URL(string: DataManager.getVal(self.userDict["image"]) as? String ?? ""), placeholderImage: UIImage(named: "user"))
-//                 Config().AppUserDefaults.setValue(DataManager.getVal(self.userDict["image"]) as? String ?? "", forKey: "user_img")
-//                 Config().AppUserDefaults.setValue(DataManager.getVal(self.userDict["username"]) as? String ?? "", forKey: "user_name")
-//                 Config().AppUserDefaults.setValue(DataManager.getVal(self.userDict["phone"]) as? String ?? "", forKey: "user_phone")
+                print(DataManager.getVal(responseData?["data"]) as? [String:Any] ?? [:])
              }
              else {
-//                 self.view.makeToast(message)
+                print(message)
              }
 //         basicFunctions.stopLoading()
          }
