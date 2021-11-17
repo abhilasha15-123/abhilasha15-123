@@ -1,0 +1,6 @@
+framework module Pods_Soul_Tribe_Soul_TribeUITests {
+  umbrella header "Pods-Soul Tribe-Soul TribeUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

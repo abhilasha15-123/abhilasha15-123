@@ -1,0 +1,10 @@
+${PODS_ROOT}/Target Support Files/Pods-Soul Tribe-Soul TribeUITests/Pods-Soul Tribe-Soul TribeUITests-frameworks.sh
+${BUILT_PRODUCTS_DIR}/AssetsPickerViewController/AssetsPickerViewController.framework
+${BUILT_PRODUCTS_DIR}/FSCalendar/FSCalendar.framework
+${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework
+${BUILT_PRODUCTS_DIR}/KeychainSwift/KeychainSwift.framework
+${BUILT_PRODUCTS_DIR}/Koloda/Koloda.framework
+${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework
+${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework
+${BUILT_PRODUCTS_DIR}/YYCalendar/YYCalendar.framework
+${BUILT_PRODUCTS_DIR}/pop/pop.framework

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		004FB76DE5351974A988171F /* Pods_Soul_Tribe_Soul_TribeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E19E1EFB84AAAA2A7670DF1 /* Pods_Soul_Tribe_Soul_TribeUITests.framework */; };
 		06A4DC31274509A100C34351 /* DistanceFormatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A4DC30274509A100C34351 /* DistanceFormatTableViewCell.swift */; };
 		06F45A072743AFB600B3A3B2 /* Extenisons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F459F92743AFB600B3A3B2 /* Extenisons.swift */; };
 		06F45A082743AFB600B3A3B2 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F459FA2743AFB600B3A3B2 /* DataManager.swift */; };
@@ -23,6 +24,7 @@
 		06F45A162743BDD700B3A3B2 /* WebVwViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F45A152743BDD700B3A3B2 /* WebVwViewController.swift */; };
 		06F935B02744BDB00086CFA9 /* KolView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 06F935AE2744BDB00086CFA9 /* KolView.xib */; };
 		06F935B12744BDB00086CFA9 /* KolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F935AF2744BDB00086CFA9 /* KolView.swift */; };
+		5554AEE5D259B75560E2A060 /* Pods_Soul_TribeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8224AD56BD7936521C307E8 /* Pods_Soul_TribeTests.framework */; };
 		58732032BAB0FF1C502BF752 /* Pods_Soul_Tribe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2ABBAD53EF5CC8D1DBF3F3B /* Pods_Soul_Tribe.framework */; };
 		6A31B96426942C88005819AD /* MemberListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A31B95926942C85005819AD /* MemberListVC.swift */; };
 		6A31B96526942C88005819AD /* InviteMemberVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A31B95A26942C85005819AD /* InviteMemberVC.swift */; };
@@ -194,7 +196,9 @@
 		06F45A152743BDD700B3A3B2 /* WebVwViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebVwViewController.swift; sourceTree = "<group>"; };
 		06F935AE2744BDB00086CFA9 /* KolView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KolView.xib; sourceTree = "<group>"; };
 		06F935AF2744BDB00086CFA9 /* KolView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KolView.swift; sourceTree = "<group>"; };
+		0E19E1EFB84AAAA2A7670DF1 /* Pods_Soul_Tribe_Soul_TribeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Soul_Tribe_Soul_TribeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DD4AD03D0E5BFAB7859900C /* Pods-Soul Tribe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Soul Tribe.debug.xcconfig"; path = "Target Support Files/Pods-Soul Tribe/Pods-Soul Tribe.debug.xcconfig"; sourceTree = "<group>"; };
+		3B91093C59F7C088747170E5 /* Pods-Soul Tribe-Soul TribeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Soul Tribe-Soul TribeUITests.release.xcconfig"; path = "Target Support Files/Pods-Soul Tribe-Soul TribeUITests/Pods-Soul Tribe-Soul TribeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		4F25FF14FBC63EC8981AAD71 /* Pods-Soul Tribe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Soul Tribe.release.xcconfig"; path = "Target Support Files/Pods-Soul Tribe/Pods-Soul Tribe.release.xcconfig"; sourceTree = "<group>"; };
 		6A0BE8642694263700500C0C /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		6A31B95926942C85005819AD /* MemberListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberListVC.swift; sourceTree = "<group>"; };
@@ -337,7 +341,11 @@
 		8DE90D8E2673737000BF0D4F /* RateSoulTribeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateSoulTribeVC.swift; sourceTree = "<group>"; };
 		8DE90D902673738100BF0D4F /* T&CVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "T&CVC.swift"; sourceTree = "<group>"; };
 		8DE90D922673739400BF0D4F /* FAQ'sVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FAQ'sVC.swift"; sourceTree = "<group>"; };
+		B006C3FE1407AE3E51777DAC /* Pods-Soul TribeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Soul TribeTests.release.xcconfig"; path = "Target Support Files/Pods-Soul TribeTests/Pods-Soul TribeTests.release.xcconfig"; sourceTree = "<group>"; };
+		B8224AD56BD7936521C307E8 /* Pods_Soul_TribeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Soul_TribeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D69C2E83479387CD03FC4F03 /* Pods-Soul Tribe-Soul TribeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Soul Tribe-Soul TribeUITests.debug.xcconfig"; path = "Target Support Files/Pods-Soul Tribe-Soul TribeUITests/Pods-Soul Tribe-Soul TribeUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		E2ABBAD53EF5CC8D1DBF3F3B /* Pods_Soul_Tribe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Soul_Tribe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E604344606A4DA168CD6BEA3 /* Pods-Soul TribeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Soul TribeTests.debug.xcconfig"; path = "Target Support Files/Pods-Soul TribeTests/Pods-Soul TribeTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -353,6 +361,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5554AEE5D259B75560E2A060 /* Pods_Soul_TribeTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,6 +369,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				004FB76DE5351974A988171F /* Pods_Soul_Tribe_Soul_TribeUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -399,6 +409,10 @@
 			children = (
 				1DD4AD03D0E5BFAB7859900C /* Pods-Soul Tribe.debug.xcconfig */,
 				4F25FF14FBC63EC8981AAD71 /* Pods-Soul Tribe.release.xcconfig */,
+				D69C2E83479387CD03FC4F03 /* Pods-Soul Tribe-Soul TribeUITests.debug.xcconfig */,
+				3B91093C59F7C088747170E5 /* Pods-Soul Tribe-Soul TribeUITests.release.xcconfig */,
+				E604344606A4DA168CD6BEA3 /* Pods-Soul TribeTests.debug.xcconfig */,
+				B006C3FE1407AE3E51777DAC /* Pods-Soul TribeTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -554,6 +568,8 @@
 			isa = PBXGroup;
 			children = (
 				E2ABBAD53EF5CC8D1DBF3F3B /* Pods_Soul_Tribe.framework */,
+				0E19E1EFB84AAAA2A7670DF1 /* Pods_Soul_Tribe_Soul_TribeUITests.framework */,
+				B8224AD56BD7936521C307E8 /* Pods_Soul_TribeTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -839,6 +855,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8D1323142665167700DE2B87 /* Build configuration list for PBXNativeTarget "Soul TribeTests" */;
 			buildPhases = (
+				2F9B1DEAB83461C5FB042F9D /* [CP] Check Pods Manifest.lock */,
 				8D1322F92665167600DE2B87 /* Sources */,
 				8D1322FA2665167600DE2B87 /* Frameworks */,
 				8D1322FB2665167600DE2B87 /* Resources */,
@@ -857,9 +874,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8D1323172665167700DE2B87 /* Build configuration list for PBXNativeTarget "Soul TribeUITests" */;
 			buildPhases = (
+				B2C8E386B650135834C951E7 /* [CP] Check Pods Manifest.lock */,
 				8D1323042665167600DE2B87 /* Sources */,
 				8D1323052665167600DE2B87 /* Frameworks */,
 				8D1323062665167600DE2B87 /* Resources */,
+				4188DC5AAD288FFB91EF86BF /* [CP] Embed Pods Frameworks */,
+				501A492A4876D28CEC475445 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -989,6 +1009,62 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		2F9B1DEAB83461C5FB042F9D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Soul TribeTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4188DC5AAD288FFB91EF86BF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Soul Tribe-Soul TribeUITests/Pods-Soul Tribe-Soul TribeUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Soul Tribe-Soul TribeUITests/Pods-Soul Tribe-Soul TribeUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Soul Tribe-Soul TribeUITests/Pods-Soul Tribe-Soul TribeUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		501A492A4876D28CEC475445 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Soul Tribe-Soul TribeUITests/Pods-Soul Tribe-Soul TribeUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Soul Tribe-Soul TribeUITests/Pods-Soul Tribe-Soul TribeUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Soul Tribe-Soul TribeUITests/Pods-Soul Tribe-Soul TribeUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		5884AC4989A9BB8D56448BDF /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1021,6 +1097,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Soul Tribe/Pods-Soul Tribe-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B2C8E386B650135834C951E7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Soul Tribe-Soul TribeUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1357,6 +1455,7 @@
 		};
 		8D1323152665167700DE2B87 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E604344606A4DA168CD6BEA3 /* Pods-Soul TribeTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1379,6 +1478,7 @@
 		};
 		8D1323162665167700DE2B87 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B006C3FE1407AE3E51777DAC /* Pods-Soul TribeTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1401,6 +1501,7 @@
 		};
 		8D1323182665167700DE2B87 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D69C2E83479387CD03FC4F03 /* Pods-Soul Tribe-Soul TribeUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1421,6 +1522,7 @@
 		};
 		8D1323192665167700DE2B87 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3B91093C59F7C088747170E5 /* Pods-Soul Tribe-Soul TribeUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
