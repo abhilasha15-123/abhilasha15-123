@@ -23,7 +23,7 @@ class LocationAccessVC: UIViewController,GMSAutocompleteViewControllerDelegate {
             basicFunctions.presentLoader()
 
             let parameterDictionary = NSMutableDictionary()
-            parameterDictionary.setValue(userId, forKey: "user_id")
+            parameterDictionary.setValue(Config().AppUserDefaults.value(forKey:"user_id") as? String ?? "", forKey: "user_id")
             parameterDictionary.setValue(Config().api_key, forKey: "api_key")
             parameterDictionary.setValue(lbl_address.text ?? "", forKey: "address")
             parameterDictionary.setValue(self.lat, forKey: "lat")

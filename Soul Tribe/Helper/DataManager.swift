@@ -506,6 +506,11 @@ class DataManager {
     }
     
     
+        
+    
+    
+    
+    
     
     class func getAPIResponseFileMultipleImageArray( parameterDictionary :NSDictionary,methodName:String, DocimageArray:NSArray, success: @escaping (( _ iTunesData: NSDictionary?, _ error:NSError?) -> Void)) {
 
@@ -516,7 +521,7 @@ class DataManager {
 
     let boundary = self.generateBoundaryString()
 
-//    request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+    request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
 //    request.setValue(DataManager.getVal(Config().AppUserDefaults.value(forKey:"language")) as? String ?? "en", forHTTPHeaderField: "X-localization")
         
     var param : [String:String] = [:]
@@ -529,7 +534,7 @@ class DataManager {
     param[key as! String] = val as? String
     }
 
-    request.httpBody = MultipleImageArraycreateBodyWithParameters(parameters: param, DocumentimageArray: DocimageArray, filePathKey: "image", boundary: boundary) as Data
+        request.httpBody = MultipleImageArraycreateBodyWithParameters(parameters: param, DocumentimageArray: DocimageArray, filePathKey: "image", boundary: boundary) as Data
 
     loadDataFromURL(request, completion:{(data, error) -> Void in
     //2
@@ -544,7 +549,8 @@ class DataManager {
     })
     }
     
-    class func MultipleImageArraycreateBodyWithParameters(parameters: [String: String]?, DocumentimageArray: NSArray, filePathKey: String?, boundary: String) -> NSData {
+    
+    class func MultipleImageArraycreateBodyWithParameters(parameters: [String: String]?,DocumentimageArray: NSArray, filePathKey: String?, boundary: String) -> NSData {
     let body = NSMutableData();
         
     if parameters != nil {
@@ -593,10 +599,12 @@ class DataManager {
 
         print (parameters as Any)
     }
+       
     return body
     }
+
     
-    class func UploadTwoDocumentsFileAndSingleImage(_ parameterDictionary :NSMutableDictionary,methodName:String, DocumentArray1:NSArray,DocumentArray2:NSArray,ImgArray:NSArray, success: @escaping ((_ iTunesData: NSDictionary?,_ error:NSError?) -> Void)) {
+        class func UploadTwoDocumentsFileAndSingleImage(_ parameterDictionary :NSMutableDictionary,methodName:String, DocumentArray1:NSArray,DocumentArray2:NSArray,ImgArray:NSArray, success: @escaping ((_ iTunesData: NSDictionary?,_ error:NSError?) -> Void)) {
         
         
         let apiPath = "\(Config().API_URL)\(methodName)"
@@ -626,9 +634,9 @@ class DataManager {
             for dataDict in DocumentArray1 {
                 let dataDictionary = dataDict as! NSDictionary
                 
-                documentName1 = dataDictionary.object(forKey: "document") as! String
-                documentData1 = dataDictionary.object(forKey: "documentData") as! Data
-                documenttype1 = dataDictionary.object(forKey: "documenttype") as! String
+                documentName1 = dataDictionary.object(forKey: "keyName") as! String
+                documentData1 = dataDictionary.object(forKey: "MyData") as! Data
+                documenttype1 = dataDictionary.object(forKey: "ext") as! String
             }
         }
        
@@ -818,6 +826,132 @@ class DataManager {
 
         return body
     }
+    
+    
+    
+    class func MultipleImageArrayAndSingleImage( parameterDictionary :NSDictionary,methodName:String, dataArray:NSArray,CertificateArray:NSArray, success: @escaping (( _ iTunesData: NSDictionary?, _ error:NSError?) -> Void)) {
+        
+        let apiPath = "\(Config().API_URL)\(methodName)"
+        print(apiPath)
+        let request = NSMutableURLRequest(url:NSURL(string: apiPath)! as URL);
+        request.httpMethod = "POST"
+        
+        let boundary = self.generateBoundaryString()
+        
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        
+        var param : [String:String] = [:]
+
+        
+        let sessionConfig = URLSessionConfiguration.default
+        sessionConfig.timeoutIntervalForRequest = 30.0
+        sessionConfig.timeoutIntervalForResource = 30.0
+        
+        for (key,val) in parameterDictionary {
+            param[key as! String] = val as? String
+        }
+        
+        request.httpBody = MultipleImageArraycreateBodyWithParameters(parameters: param, imageArray: dataArray, CertificateArray: CertificateArray, boundary: boundary) as Data
+        
+        loadDataFromURL(request, completion:{(data, error) -> Void in
+            //2
+            if let urlData = data {
+                
+                success(urlData,error)
+            }
+            else{
+                // SwAlert.showNoActionAlert(SwAlert().AppAlertTitle, message:error?.domain ?? "Server not responding" , buttonTitle: "OK")
+            }
+        })
+        
+    }
+    
+    
+    
+    
+    class func MultipleImageArraycreateBodyWithParameters(parameters: [String: String]?, imageArray: NSArray,CertificateArray:NSArray, boundary: String) -> NSData {
+        let body = NSMutableData();
+        
+        if parameters != nil {
+            for (key, value) in parameters! {
+                body.append(("--\(boundary)\r\n" as NSString).data(using: String.Encoding.utf8.rawValue)!)
+                body.append(("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n" as NSString).data(using: String.Encoding.utf8.rawValue)!)
+                body.append(("\(value)\r\n" as NSString).data(using: String.Encoding.utf8.rawValue)!)
+            }
+        }
+        var imageData = Data()
+        var imageName  = ""
+        
+        for index in 0..<imageArray.count {
+             
+            let dataDictionary = imageArray[index] as! NSDictionary
+            
+            imageName = dataDictionary.object(forKey: "keyName") as! String
+            imageData = dataDictionary.object(forKey: "MyData") as! Data
+            
+            let mimetype = "application/octet-stream"
+            
+            let imageName = dataDictionary.object(forKey: "keyName") as! NSString
+            let imageExt = dataDictionary.object(forKey: "ext") as! NSString
+            let imageData = dataDictionary.object(forKey: "MyData") as! Data
+            
+            let randmstr = self.randomStringWithLength(8)
+            
+            body.append(("--\(boundary)\r\n" as NSString).data(using: String.Encoding.utf8.rawValue)!)
+            body.append(("Content-Disposition: form-data; name=\"\(imageName)[\(index)]\"; filename=\"\(randmstr).\(imageExt)\"\r\n" as NSString).data(using: String.Encoding.utf8.rawValue)!)
+            body.append(("Content-Type: \(mimetype)\r\n\r\n" as NSString).data(using: String.Encoding.utf8.rawValue)!)
+            body.append(imageData as Data)
+            body.append(("\r\n" as NSString).data(using: String.Encoding.utf8.rawValue)!)
+            body.append(("--\(boundary)--\r\n" as NSString).data(using: String.Encoding.utf8.rawValue)!)
+            
+        }
+        
+        let tempDict = CertificateArray[0] as! NSDictionary
+        
+        let imageName1 = tempDict.object(forKey: "image") as! String
+        let imageExt1 = tempDict.object(forKey: "imagetype") as! String
+        let imageData1 = tempDict.object(forKey: "imageData") as! Data
+        
+        let mimetype1 = "application/octet-stream"
+        
+     
+        let randmstr = self.randomStringWithLength(8)
+        
+        body.append(("--\(boundary)\r\n" as NSString).data(using: String.Encoding.utf8.rawValue)!)
+        body.append(("Content-Disposition: form-data; name=\"\(imageName1)\"; filename=\"\(randmstr).\(imageExt1)\"\r\n" as NSString).data(using: String.Encoding.utf8.rawValue)!)
+        body.append(("Content-Type: \(mimetype1)\r\n\r\n" as NSString).data(using: String.Encoding.utf8.rawValue)!)
+        body.append(imageData1 as Data)
+        body.append(("\r\n" as NSString).data(using: String.Encoding.utf8.rawValue)!)
+        body.append(("--\(boundary)--\r\n" as NSString).data(using: String.Encoding.utf8.rawValue)!)
+        
+        
+//        for index in 0..<CertificateArray.count {
+//
+//            let dataDictionary = CertificateArray[index] as! NSDictionary
+//
+//            imageName = dataDictionary.object(forKey: "image") as! String
+//            imageData = dataDictionary.object(forKey: "imageData") as! Data
+//
+//            let mimetype = "application/octet-stream"
+//
+//            let imageName = dataDictionary.object(forKey: "image") as! NSString
+//            let imageExt = dataDictionary.object(forKey: "imagetype") as! NSString
+//            let imageData = dataDictionary.object(forKey: "imageData") as! Data
+//
+//            let randmstr = self.randomStringWithLength(8)
+//
+//            body.append(("--\(boundary)\r\n" as NSString).data(using: String.Encoding.utf8.rawValue)!)
+//            body.append(("Content-Disposition: form-data; name=\"\(imageName)[\(index)]\"; filename=\"\(randmstr).\(imageExt)\"\r\n" as NSString).data(using: String.Encoding.utf8.rawValue)!)
+//            body.append(("Content-Type: \(mimetype)\r\n\r\n" as NSString).data(using: String.Encoding.utf8.rawValue)!)
+//            body.append(imageData as Data)
+//            body.append(("\r\n" as NSString).data(using: String.Encoding.utf8.rawValue)!)
+//            body.append(("--\(boundary)--\r\n" as NSString).data(using: String.Encoding.utf8.rawValue)!)
+//
+//        }
+        
+        return body
+    }
+    
 }
 
 

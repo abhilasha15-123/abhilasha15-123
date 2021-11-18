@@ -19,20 +19,18 @@ class SetprofileVC: UIViewController {
     
     @IBAction func btn_profilePicChangeAction(_ sender: UIButton) {
         addingPicssDp = "dp"
-        
         let picker = AssetsPickerViewController()
         let config = AssetsPickerConfig()
         config.albumIsShowEmptyAlbum = false
-
+        
         let options = PHFetchOptions()
         options.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
         options.sortDescriptors = [NSSortDescriptor(key: "duration", ascending: true)]
-
+        
         config.assetFetchOptions = [
             .smartAlbum: options,
             .album: options
         ]
-
         picker.pickerConfig = config
         picker.pickerDelegate = self
         present(picker, animated: true, completion: nil)
@@ -114,7 +112,8 @@ class SetprofileVC: UIViewController {
     @IBOutlet weak var slider: UISlider!
     
     var addingPicssDp = ""
-    
+    var genderVal = ""
+    var arr_gender : NSMutableArray = []
     var imgarray = ["Group 27152.png"]
     
     var arr_disFormat = ["Km","Mi"]
@@ -123,7 +122,6 @@ class SetprofileVC: UIViewController {
     var selectedDate : String = ""
     
     var arr_assets = [PHAsset]()
-    
     
     var profilePicAdded = false
     
@@ -272,29 +270,8 @@ class SetprofileVC: UIViewController {
     }
     
     @IBAction func btnnext(_ sender: Any) {
-        
-//        profile_image , photos , gender , dob , age , search_distance , first_impression , type
-//        
-        var genderVal = ""
-        
-        if btnchk1.isSelected == true {
-            genderVal += "Female,"
-        }
-        if btnchk2.isSelected == true {
-            genderVal += "Male"
-        }
-        if btnchk3.isSelected == true {
-            genderVal += "Transagender,"
-        }
-        if btnchk4.isSelected == true {
-            genderVal += "Gender Fluid,"
-        }
-        if btnchk5.isSelected == true {
-            genderVal += "Prefer not to say"
-        }
-        if btnchk6.isSelected == true {
-            genderVal += "Other"
-        }
+ 
+        genderVal = arr_gender.componentsJoined(by: ",")
         
         self.view.endEditing(true)
 
@@ -315,55 +292,58 @@ class SetprofileVC: UIViewController {
             parameterDictionary.setValue(txtkm.text ?? "", forKey: "search_distance")
             parameterDictionary.setValue(txt_firstImpression.text ?? "", forKey: "first_impression")
             parameterDictionary.setValue("add", forKey: "type")
+            parameterDictionary.setValue(selectedDistanceFormat, forKey: "distance_type")
+            
+            //For upload image
+            let dataArr = NSMutableArray()
+            let dataDict = NSMutableDictionary()
+            dataDict.setObject("profile_image", forKey: "image" as NSCopying)
+            dataDict.setObject(self.img_profilePic.image!.pngData()!, forKey: "imageData" as NSCopying)
+            dataDict.setObject("png", forKey: "imagetype" as NSCopying)
+            dataArr.add(dataDict)
             
             let arr_images = NSMutableArray()
             
-                for index in 0..<self.arr_assets.count{
-                    let asset = arr_assets[index]
-                    let img = basicFunctions.getAssetThumbnail(asset: asset)
+            for index in 0..<self.arr_assets.count {
+                let asset = arr_assets[index]
+                let img = basicFunctions.getAssetThumbnail(asset: asset)
                     
-                    let dataDict = NSMutableDictionary()
+                let dataDict = NSMutableDictionary()
                     
-                    dataDict.setObject("photos", forKey: "keyName" as NSCopying)
-                    dataDict.setObject(img.pngData() ?? Data(), forKey: "MyData" as NSCopying)
-                    dataDict.setObject("png", forKey: "ext" as NSCopying)
-                    arr_images.add(dataDict)
-                }
+                dataDict.setObject("photos", forKey: "keyName" as NSCopying)
+                dataDict.setObject(img.pngData() ?? Data(), forKey: "MyData" as NSCopying)
+                dataDict.setObject("png", forKey: "ext" as NSCopying)
+                arr_images.add(dataDict)
+            }
             
             print(parameterDictionary)
 
             let methodName = "update_form_one"
             
-
-            DataManager.getAPIResponseFileMultipleImageArray(parameterDictionary: parameterDictionary, methodName: methodName, DocimageArray: arr_images){ (responseData,error)-> Void in
-                
-                let status = DataManager.getVal(responseData?["status"]) as! String
-                let message = DataManager.getVal(responseData?["message"]) as! String
-                 
-                if status == "1" {
-                    self.view.makeToast(message)
-                    DispatchQueue.main.asyncAfter(deadline: .now()+1.5, execute: {
-                        self.navigationController?.popViewController(animated: true)
-                    })
-                }
-                else {
-                    self.view.makeToast(message)
-                }
-                basicFunctions.stopLoading()
-            }
+            DataManager.MultipleImageArrayAndSingleImage(parameterDictionary: parameterDictionary, methodName: methodName, dataArray: arr_images, CertificateArray: dataArr, success: {
+                (responseData,error)-> Void in
+                    
+                    let status = DataManager.getVal(responseData?["status"]) as! String
+                    let message = DataManager.getVal(responseData?["message"]) as! String
+                     
+                    if status == "1" {
+                        self.view.makeToast(message)
+                        DispatchQueue.main.asyncAfter(deadline: .now()+1.5, execute: {
+                            let vc = self.storyboard?.instantiateViewController(identifier: "SetProfilestep2VC") as! SetProfilestep2VC
+                            vc.userId = Config().AppUserDefaults.value(forKey:"user_id") as? String ?? ""
+                            self.navigationController?.pushViewController(vc, animated: true)
+                        })
+                    }
+                    else {
+                        self.view.makeToast(message)
+                    }
+                    basicFunctions.stopLoading()
+            })
         }
-        
-        
-        
-        
-        
-        let vc = self.storyboard?.instantiateViewController(identifier: "SetProfilestep2VC") as! SetProfilestep2VC
-        navigationController?.pushViewController(vc, animated: true)
-        
     }
+    
     @IBAction func btnBack(_ sender: Any) {
         navigationController?.popViewController(animated: true)
-
     }
 
     @IBAction func btnfemale(_ sender: UIButton) {
@@ -372,12 +352,13 @@ class SetprofileVC: UIViewController {
             genderview1.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             genderview1.layer.borderWidth = 1
             btnchk1.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
-            
+            arr_gender.add("Female")
         }
         else{
             genderview1.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             genderview1.layer.borderWidth = 1
             btnchk1.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_gender.remove("Female")
         }
     }
     @IBAction func btnmale(_ sender: UIButton) {
@@ -386,11 +367,13 @@ class SetprofileVC: UIViewController {
             genderview2.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             genderview2.layer.borderWidth = 1.5
             btnchk2.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_gender.add("Male")
         }
         else{
             genderview2.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             genderview2.layer.borderWidth = 1
             btnchk2.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_gender.remove("Male")
         }
     }
     @IBAction func btntransgender(_ sender: UIButton) {
@@ -399,11 +382,13 @@ class SetprofileVC: UIViewController {
             genderview3.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             genderview3.layer.borderWidth = 1.5
             btnchk3.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_gender.add("Transgender")
         }
         else{
             genderview3.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             genderview3.layer.borderWidth = 1
             btnchk3.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_gender.remove("Transgender")
         }
     }
     
@@ -414,11 +399,13 @@ class SetprofileVC: UIViewController {
             genderview4.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             genderview4.layer.borderWidth = 1.5
             btnchk4.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_gender.add("Gender Fluid")
         }
         else{
             genderview4.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             genderview4.layer.borderWidth = 1
             btnchk4.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_gender.remove("Gender Fluid")
         }
     }
     @IBAction func btnprefertosay(_ sender: UIButton) {
@@ -427,11 +414,13 @@ class SetprofileVC: UIViewController {
             genderview5.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             genderview5.layer.borderWidth = 1.5
             btnchk5.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_gender.add("Prefer not to say")
         }
         else{
             genderview5.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             genderview5.layer.borderWidth = 1
             btnchk5.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_gender.remove("Prefer not to say")
         }
     }
     
@@ -441,11 +430,13 @@ class SetprofileVC: UIViewController {
             genderview6.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             genderview6.layer.borderWidth = 1.5
             btnchk6.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_gender.add("Other")
         }
         else{
             genderview6.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             genderview6.layer.borderWidth = 1
             btnchk6.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_gender.remove("Other")
         }
     }
     
@@ -567,11 +558,10 @@ extension SetprofileVC: AssetsPickerViewControllerDelegate {
     func assetsPicker(controller: AssetsPickerViewController, shouldSelect asset: PHAsset, at indexPath: IndexPath) -> Bool {
        
         if addingPicssDp == "dp" {
-            if controller.selectedAssets.count >= 1 {
-                return false
-            }else{
-                return true
+            if controller.selectedAssets.count > 0 {
+                controller.photoViewController.deselectAll()
             }
+            return true
         }else{
             if controller.selectedAssets.count >= 5 {
                 return false
