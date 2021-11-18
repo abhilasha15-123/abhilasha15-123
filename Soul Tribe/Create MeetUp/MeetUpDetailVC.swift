@@ -9,6 +9,7 @@ import UIKit
 import MapKit
 
 class MeetUpDetailVC: UIViewController {
+    //MARK:- IBOutlet
 
     @IBOutlet weak var btnback: UIButton!
     @IBOutlet weak var imguser: UIImageView!
@@ -29,6 +30,8 @@ class MeetUpDetailVC: UIViewController {
     @IBOutlet weak var lblMightGo: UILabel!
     //MARK:- Variables
     var ApiDict = NSMutableDictionary()
+    //MARK:- viewDidLoad
+
     override func viewDidLoad() {
         super.viewDidLoad()
         getdata()
@@ -47,10 +50,14 @@ class MeetUpDetailVC: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    //MARK:- backBtnAction
+
     @IBAction func backBtnAction(_ sender: Any) {
         navigationController?.popViewController(animated: true)
 
     }
+    //MARK:- ApiManager
+
     func getdata(){
         let paraDict = NSMutableDictionary()
         paraDict.setValue(Config().api_key, forKey: "api_key")

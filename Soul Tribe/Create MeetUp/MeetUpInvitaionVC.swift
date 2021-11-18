@@ -6,6 +6,7 @@
 //
 
 import UIKit
+//MARK:- MeetUpInvitaioncell
 class MeetUpInvitaioncell: UITableViewCell{
     
     @IBOutlet weak var imguser: UIImageView!
@@ -23,13 +24,21 @@ class MeetUpInvitaioncell: UITableViewCell{
     @IBOutlet weak var lblmightgoing: UILabel!
     @IBOutlet weak var viewcornor: UIView!
 }
+//MARK:- MeetUpInvitaionVC
+
 class MeetUpInvitaionVC: UIViewController {
+    
+    //MARK:- IBOutlet
+    
     @IBOutlet weak var btnback: UIView!
     @IBOutlet weak var headerview: UIView!
     @IBOutlet weak var meetUpInvitationTableView: UITableView!
+    
     //MARK:- variables
+    
     var ApiDataArr = NSMutableArray()
     var ApiDict = NSMutableDictionary()
+    //MARK:-
     override func viewDidLoad() {
         super.viewDidLoad()
         getdata()
@@ -39,10 +48,13 @@ class MeetUpInvitaionVC: UIViewController {
         headerview.layer.shadowOffset = .zero
         headerview.layer.shadowRadius = 5
     }
+    //MARK:- backBtnAction
     @IBAction func backBtnAction(_ sender: Any) {
         navigationController?.popViewController(animated: true)
 
     }
+    //MARK:- apiManager
+    
     func getdata(){
         let paraDict = NSMutableDictionary()
         paraDict.setValue(Config().api_key, forKey: "api_key")
@@ -65,17 +77,24 @@ class MeetUpInvitaionVC: UIViewController {
              }
     }
     }
+    //MARK:- goingSelection
     @objc func goingSelection(){
         print("goingSelected")
     }
+    //MARK:- NotSureSelection
+    
     @objc func NotSureSelection(){
         print("NotSureSelected")
     }
+    
+    //MARK:- NotGoingSelection
+    
     @objc func NotGoingSelection(){
         print("NotGoingSelected")
     }
 }
 extension MeetUpInvitaionVC: UITableViewDelegate,UITableViewDataSource{
+    //MARK:- tableViewDataSourceMethods
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return ApiDataArr.count
         
@@ -115,6 +134,7 @@ extension MeetUpInvitaionVC: UITableViewDelegate,UITableViewDataSource{
         
         return cell
     }
+    //MARK:- tableViewDelegateMethods
     
     
 }

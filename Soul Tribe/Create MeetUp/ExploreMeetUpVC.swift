@@ -9,6 +9,7 @@ import UIKit
 
 
 class ExploreMeetUpVC: UIViewController {
+    //MARK:- IBOutlets
 
     @IBOutlet weak var btnback: UIButton!
     @IBOutlet weak var searchbar: UIView!
@@ -18,6 +19,8 @@ class ExploreMeetUpVC: UIViewController {
 //MARK:- variables
     var ApiData = NSMutableArray()
     var ApiDict = NSMutableDictionary()
+    //MARK:- viewDidLoad
+
     override func viewDidLoad() {
         super.viewDidLoad()
         getData()
@@ -31,16 +34,21 @@ class ExploreMeetUpVC: UIViewController {
         headerview.layer.shadowRadius = 5
         // Do any additional setup after loading the view.
     }
+    //MARK:- backBtnAction
+
     @IBAction func backBtnAction(_ sender: Any) {
         navigationController?.popViewController(animated: true)
 
     }
+    //MARK:- btngotodetails
 
     @IBAction func btngotodetails(_ sender: Any) {
         let vc = self.storyboard?.instantiateViewController(identifier: "MeetUpDetailVC") as! MeetUpDetailVC
         navigationController?.pushViewController(vc, animated: true)
 
     }
+    //MARK:- ApiManager
+
     func getData(){
         let paraDict = NSMutableDictionary()
         paraDict.setValue(Config().api_key, forKey: "api_key")
@@ -70,12 +78,16 @@ class ExploreMeetUpVC: UIViewController {
     
 
 }
+//MARK:- extension
+
 extension ExploreMeetUpVC: UITableViewDataSource,UITableViewDelegate{
+    //MARK:- TableViewDataSourceMethods
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print(ApiData.count)
         return ApiData.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ExploreMeetUpcell", for: indexPath) as! ExploreMeetUpcell
         cell.viewcornor.layer.shadowColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
@@ -97,6 +109,8 @@ extension ExploreMeetUpVC: UITableViewDataSource,UITableViewDelegate{
         
         return cell
     }
+    //MARK:- DelegateMethods
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 265
     }

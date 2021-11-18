@@ -8,6 +8,8 @@
 import UIKit
 import FSCalendar
 class AcceptedMeetUpVC: UIViewController {
+    //MARK:- IBOutlet
+
     @IBOutlet weak var btnback: UIButton!
     @IBOutlet weak var viewdate: UIView!
     @IBOutlet weak var txtdate: UITextField!
@@ -15,6 +17,8 @@ class AcceptedMeetUpVC: UIViewController {
     @IBOutlet weak var viewcalendar: UIView!
     @IBOutlet weak var headerview: UIView!
     @IBOutlet weak var MeetupsTableView: UITableView!
+    //MARK:- viewDidLoad
+
     override func viewDidLoad() {
         super.viewDidLoad()
         MeetupsTableView.delegate = self
@@ -39,11 +43,14 @@ class AcceptedMeetUpVC: UIViewController {
         
         // Do any additional setup after loading the view.
     }
-    
+    //MARK:- backBtnAction
+
     @IBAction func backBtnAction(_ sender: Any) {
         navigationController?.popViewController(animated: true)
 
     }
+    //MARK:- ApiManager
+
     func getdata(){
         let paraDict = NSMutableDictionary()
         paraDict.setValue(Config().api_key, forKey: "api_key")
@@ -68,6 +75,10 @@ class AcceptedMeetUpVC: UIViewController {
 
 }
 extension AcceptedMeetUpVC : UITableViewDelegate, UITableViewDataSource {
+
+    //MARK:- TableViewDatasourceMethods
+
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }
@@ -76,6 +87,8 @@ extension AcceptedMeetUpVC : UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AcceptedMeetUpCell", for: indexPath) as! AcceptedMeetUpCell
         return cell
     }
+    //MARK:- TableViewDelegateMethods
+
     
     
 }
