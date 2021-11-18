@@ -82,6 +82,8 @@ class SignUpViewController: UIViewController {
                    
                     let data = DataManager.getVal(responseData?["data"]) as? [String:Any] ?? [:]
                  
+                    Config().AppUserDefaults.setValue(DataManager.getVal(data["id"]) as? String ?? "", forKey: "user_id")
+                        
                     self.view.makeToast(message)
                             
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.5){

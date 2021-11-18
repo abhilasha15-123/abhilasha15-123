@@ -33,6 +33,18 @@ class SetProfilefinalVC: UIViewController {
     @IBOutlet weak var btnchk9: UIButton!
     @IBOutlet weak var btnchk10: UIButton!
 
+    var vibe = ""
+    
+    var arr_my_sexuality : NSMutableArray = []
+    var arr_my_relationshipStatus : NSMutableArray = []
+    var arr_soul_gender : NSMutableArray = []
+    var arr_soul_sexuality : NSMutableArray = []
+    var arr_soul_relationshipGoal : NSMutableArray = []
+    
+    var arr_tribe_gender : NSMutableArray = []
+    var arr_tribe_sexuality : NSMutableArray = []
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -87,16 +99,60 @@ class SetProfilefinalVC: UIViewController {
     }
     
     @IBAction func btnsave(_ sender: Any) {
-//        let vc = self.storyboard?.instantiateViewController(identifier: "AddIntentionsVC") as! AddIntentionsVC
-//        navigationController?.pushViewController(vc, animated: true)
+        if ValidationClass().ValidateProfileSetup4Form(self){
+            
+            basicFunctions.presentLoader()
 
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let navigate = storyboard.instantiateViewController(withIdentifier: "TTabBarViewController") as! TTabBarViewController
-//        let leftController = storyboard.instantiateViewController(withIdentifier: "LeftMenuViewController") as! LeftMenuViewController
-//        let slideMenuController = SlideMenuController(mainViewController: UINavigationController(rootViewController:navigate), leftMenuViewController: leftController)
-//        slideMenuController.delegate = leftController as? SlideMenuControllerDelegate
-//        UIApplication.shared.windows.first?.rootViewController = slideMenuController
-//        UIApplication.shared.windows.first?.makeKeyAndVisible()
+            let parameterDictionary = NSMutableDictionary()
+            parameterDictionary.setValue(Config().AppUserDefaults.value(forKey:"user_id") as? String ?? "", forKey: "user_id")
+            parameterDictionary.setValue(Config().api_key, forKey: "api_key")
+            
+         
+            parameterDictionary.setValue("", forKey: "soul_love_my_sexuality")
+            parameterDictionary.setValue("", forKey: "soul_love_my_relationship_status")
+            parameterDictionary.setValue("", forKey: "soul_love_my_prefer_gender")
+            parameterDictionary.setValue("", forKey: "soul_love_my_prefer_sexuality")
+            parameterDictionary.setValue("", forKey: "relationship_looking_for_soul_love")
+            parameterDictionary.setValue("", forKey: "soul_love_QA")
+            parameterDictionary.setValue("", forKey: "tribe_gender")
+            parameterDictionary.setValue("", forKey: "tribe_sexuality")
+            parameterDictionary.setValue("", forKey: "tribe_QA")
+            parameterDictionary.setValue("", forKey: "mini_tribe_sexuality")
+            parameterDictionary.setValue("", forKey: "mini_tribe_relationship_status")
+            
+            parameterDictionary.setValue("add", forKey: "type")
+            
+            print(parameterDictionary)
+
+            let methodName = "update_form_three"
+
+            DataManager.getAPIResponse(parameterDictionary , methodName: methodName, methodType: "POST"){(responseData,error)-> Void in
+                let status  = DataManager.getVal(responseData?["status"]) as! String
+                let message  = DataManager.getVal(responseData?["message"]) as! String
+
+                if status == "1" {
+                    self.view.makeToast(message)
+
+                    let data = DataManager.getVal(responseData?["data"]) as? [String:Any] ?? [:]
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now()+1.5, execute: {
+                       
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        let navigate = storyboard.instantiateViewController(withIdentifier: "TTabBarViewController") as! TTabBarViewController
+                        let leftController = storyboard.instantiateViewController(withIdentifier: "LeftMenuViewController") as! LeftMenuViewController
+                        let slideMenuController = SlideMenuController(mainViewController: UINavigationController(rootViewController:navigate), leftMenuViewController: leftController)
+                        slideMenuController.delegate = leftController as? SlideMenuControllerDelegate
+                        UIApplication.shared.windows.first?.rootViewController = slideMenuController
+                        UIApplication.shared.windows.first?.makeKeyAndVisible()
+                    })
+                }
+                else {
+                    self.view.makeToast(message, duration: 2.0, position: .bottom, title: nil, image: nil, style: ToastManager.shared.style, completion: nil)
+                }
+//                self.removeSpinner()
+                basicFunctions.stopLoading()
+            }
+        }
 
         
         

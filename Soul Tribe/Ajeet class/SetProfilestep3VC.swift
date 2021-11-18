@@ -8,8 +8,9 @@
 import UIKit
 
 class SetProfilestep3VC: UIViewController {
+    
+    @IBOutlet weak var constraint_top_vwTribe: NSLayoutConstraint! //15
     @IBOutlet weak var headerview: UIView!
-
     @IBOutlet weak var sexview1: UIView!
     @IBOutlet weak var sexview2: UIView!
     @IBOutlet weak var sexview3: UIView!
@@ -110,11 +111,45 @@ class SetProfilestep3VC: UIViewController {
     @IBOutlet weak var btntribechk14: UIButton!
     @IBOutlet weak var btntribechk15: UIButton!
 
+    @IBOutlet weak var vw_hideShow: UIView!
     
+    var vibe = ""
+    var arr_vibes = [String]()
+    var api_call_here = false
+    
+    
+    var arr_my_sexuality : NSMutableArray = []
+    var arr_my_relationshipStatus : NSMutableArray = []
+    var arr_soul_gender : NSMutableArray = []
+    var arr_soul_sexuality : NSMutableArray = []
+    var arr_soul_relationshipGoal : NSMutableArray = []
+    
+    var arr_tribe_gender : NSMutableArray = []
+    var arr_tribe_sexuality : NSMutableArray = []
+   
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        vw_hideShow.isHidden = true
+        arr_vibes = vibe.components(separatedBy: ",")
+        
+        if arr_vibes.contains("Soul Love"){
+            constraint_top_vwTribe.constant = 15
+            vw_hideShow.isHidden = true
+        }else{
+            constraint_top_vwTribe.constant = -1135
+            vw_hideShow.isHidden = false
+        }
+        
+        
+        if arr_vibes.contains("Mini Tribes") {
+            api_call_here = false
+        }else{
+            api_call_here = true
+        }
+        
         
         headerview.layer.shadowColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         headerview.layer.shadowOpacity = 0.5
@@ -309,9 +344,86 @@ class SetProfilestep3VC: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+ 
+    
     @IBAction func btnnext(_ sender: Any) {
-        let vc = self.storyboard?.instantiateViewController(identifier: "SetProfilefinalVC") as! SetProfilefinalVC
-        navigationController?.pushViewController(vc, animated: true)
+        
+        if api_call_here == true {
+            
+            if ValidationClass().ValidateProfileSetup3Form(self){
+                
+                basicFunctions.presentLoader()
+
+                let parameterDictionary = NSMutableDictionary()
+                parameterDictionary.setValue(Config().AppUserDefaults.value(forKey:"user_id") as? String ?? "", forKey: "user_id")
+                parameterDictionary.setValue(Config().api_key, forKey: "api_key")
+                
+                parameterDictionary.setValue(arr_my_sexuality.componentsJoined(by:","), forKey: "soul_love_my_sexuality")
+                parameterDictionary.setValue(arr_my_relationshipStatus.componentsJoined(by:","), forKey: "soul_love_my_relationship_status")
+                parameterDictionary.setValue(arr_soul_gender.componentsJoined(by:","), forKey: "soul_love_my_prefer_gender")
+                parameterDictionary.setValue(arr_soul_sexuality.componentsJoined(by:","), forKey: "soul_love_my_prefer_sexuality")
+                parameterDictionary.setValue(arr_soul_relationshipGoal.componentsJoined(by:","), forKey: "relationship_looking_for_soul_love")
+                parameterDictionary.setValue("", forKey: "soul_love_QA")
+                parameterDictionary.setValue(arr_tribe_gender.componentsJoined(by:","), forKey: "tribe_gender")
+                parameterDictionary.setValue(arr_tribe_sexuality.componentsJoined(by:","), forKey: "tribe_sexuality")
+                
+                parameterDictionary.setValue("", forKey: "tribe_QA")
+                parameterDictionary.setValue("", forKey: "mini_tribe_sexuality")
+                parameterDictionary.setValue("", forKey: "mini_tribe_relationship_status")
+                
+                parameterDictionary.setValue("add", forKey: "type")
+                
+                print(parameterDictionary)
+
+                let methodName = "update_form_three"
+
+                DataManager.getAPIResponse(parameterDictionary , methodName: methodName, methodType: "POST"){(responseData,error)-> Void in
+                    let status  = DataManager.getVal(responseData?["status"]) as! String
+                    let message  = DataManager.getVal(responseData?["message"]) as! String
+
+                    if status == "1" {
+                        self.view.makeToast(message)
+
+                        let data = DataManager.getVal(responseData?["data"]) as? [String:Any] ?? [:]
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now()+1.5, execute: {
+                           
+                            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                            let navigate = storyboard.instantiateViewController(withIdentifier: "TTabBarViewController") as! TTabBarViewController
+                            let leftController = storyboard.instantiateViewController(withIdentifier: "LeftMenuViewController") as! LeftMenuViewController
+                            let slideMenuController = SlideMenuController(mainViewController: UINavigationController(rootViewController:navigate), leftMenuViewController: leftController)
+                            slideMenuController.delegate = leftController as? SlideMenuControllerDelegate
+                            UIApplication.shared.windows.first?.rootViewController = slideMenuController
+                            UIApplication.shared.windows.first?.makeKeyAndVisible()
+                        })
+                    }
+                    else {
+                        self.view.makeToast(message, duration: 2.0, position: .bottom, title: nil, image: nil, style: ToastManager.shared.style, completion: nil)
+                    }
+    //                self.removeSpinner()
+                    basicFunctions.stopLoading()
+                }
+            }
+
+//                    let vc = self.storyboard?.instantiateViewController(identifier: "AddIntentionsVC") as! AddIntentionsVC
+//                    navigationController?.pushViewController(vc, animated: true)
+
+        }else{
+            
+            if ValidationClass().ValidateProfileSetup3Form(self){
+                let vc = self.storyboard?.instantiateViewController(identifier: "SetProfilefinalVC") as! SetProfilefinalVC
+                
+                vc.arr_my_sexuality = self.arr_my_sexuality
+                vc.arr_my_relationshipStatus = self.arr_my_relationshipStatus
+                vc.arr_soul_gender = self.arr_soul_gender
+                vc.arr_soul_sexuality = self.arr_soul_sexuality
+                vc.arr_soul_relationshipGoal = self.arr_soul_relationshipGoal
+                vc.arr_tribe_gender = self.arr_tribe_gender
+                vc.arr_tribe_sexuality = self.arr_tribe_sexuality
+                
+                navigationController?.pushViewController(vc, animated: true)
+            }
+        }
     }
     
     @IBAction func btnBack(_ sender: Any) {
@@ -324,12 +436,13 @@ class SetProfilestep3VC: UIViewController {
             sexview1.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             sexview1.layer.borderWidth = 1
             btncheck1.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
-           
+            arr_my_sexuality.add("Straight")
         }
         else{
             sexview1.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             sexview1.layer.borderWidth = 1
             btncheck1.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_my_sexuality.remove("Straight")
         }
     }
     @IBAction func soulsex2(_ sender: UIButton) {
@@ -338,12 +451,13 @@ class SetProfilestep3VC: UIViewController {
             sexview2.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             sexview2.layer.borderWidth = 1
             btncheck2.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_my_sexuality.add("Gay")
         }
         else{
             sexview2.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             sexview2.layer.borderWidth = 1
             btncheck2.setImage(UIImage(named: "black circle"), for: .normal)
-
+            arr_my_sexuality.remove("Gay")
         }
     }
     @IBAction func soulsex3(_ sender: UIButton) {
@@ -352,11 +466,13 @@ class SetProfilestep3VC: UIViewController {
             sexview3.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             sexview3.layer.borderWidth = 1
             btncheck3.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_my_sexuality.add("Bisexual")
         }
         else{
             sexview3.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             sexview3.layer.borderWidth = 1
             btncheck3.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_my_sexuality.remove("Bisexual")
 
         }
     }
@@ -366,11 +482,13 @@ class SetProfilestep3VC: UIViewController {
             sexview4.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             sexview4.layer.borderWidth = 1
             btncheck4.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_my_sexuality.add("Queer")
         }
         else{
             sexview4.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             sexview4.layer.borderWidth = 1
             btncheck4.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_my_sexuality.remove("Queer")
         }
     }
     @IBAction func soulsex5(_ sender: UIButton) {
@@ -379,11 +497,13 @@ class SetProfilestep3VC: UIViewController {
             sexview5.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             sexview5.layer.borderWidth = 1
             btncheck5.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_my_sexuality.add("Questioning")
         }
         else{
             sexview5.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             sexview5.layer.borderWidth = 1
             btncheck5.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_my_sexuality.remove("Questioning")
         }
     }
     @IBAction func soulsex6(_ sender: UIButton) {
@@ -392,11 +512,13 @@ class SetProfilestep3VC: UIViewController {
             sexview6.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             sexview6.layer.borderWidth = 1
             btncheck6.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_my_sexuality.add("Asexual")
         }
         else{
             sexview6.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             sexview6.layer.borderWidth = 1
             btncheck6.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_my_sexuality.remove("Asexual")
         }
     }
     @IBAction func soulsex7(_ sender: UIButton) {
@@ -405,11 +527,13 @@ class SetProfilestep3VC: UIViewController {
             sexview7.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             sexview7.layer.borderWidth = 1
             btncheck7.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_my_sexuality.add("Other")
         }
         else{
             sexview7.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             sexview7.layer.borderWidth = 1
             btncheck7.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_my_sexuality.remove("Other")
         }
     }
     @IBAction func soulrelation1(_ sender: UIButton) {
@@ -418,11 +542,13 @@ class SetProfilestep3VC: UIViewController {
             relationstaus1.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             relationstaus1.layer.borderWidth = 1
             btncheck8.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_my_relationshipStatus.add("Single")
         }
         else{
             relationstaus1.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             relationstaus1.layer.borderWidth = 1
             btncheck8.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_my_relationshipStatus.remove("Single")
         }
     }
     @IBAction func soulrelation2(_ sender: UIButton) {
@@ -431,11 +557,13 @@ class SetProfilestep3VC: UIViewController {
             relationstaus2.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             relationstaus2.layer.borderWidth = 1
             btncheck9.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_my_relationshipStatus.add("Married")
         }
         else{
             relationstaus2.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             relationstaus2.layer.borderWidth = 1
             btncheck9.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_my_relationshipStatus.remove("Married")
         }
     }
     @IBAction func soulreletion3(_ sender: UIButton) {
@@ -444,11 +572,13 @@ class SetProfilestep3VC: UIViewController {
             relationstaus3.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             relationstaus3.layer.borderWidth = 1
             btncheck10.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_my_relationshipStatus.add("It's complicated")
         }
         else{
             relationstaus3.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             relationstaus3.layer.borderWidth = 1
             btncheck10.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_my_relationshipStatus.remove("It's complicated")
         }
     }
     @IBAction func solulreletion4(_ sender: UIButton) {
@@ -457,11 +587,13 @@ class SetProfilestep3VC: UIViewController {
             relationstaus4.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             relationstaus4.layer.borderWidth = 1
             btncheck11.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_my_relationshipStatus.add("In Relationship")
         }
         else{
             relationstaus4.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             relationstaus4.layer.borderWidth = 1
             btncheck11.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_my_relationshipStatus.remove("In Relationship")
         }
     }
     @IBAction func solulgender1(_ sender: UIButton) {
@@ -470,11 +602,13 @@ class SetProfilestep3VC: UIViewController {
             mysoullovegender1.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             mysoullovegender1.layer.borderWidth = 1
             btncheck12.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_soul_gender.add("Female")
         }
         else{
             mysoullovegender1.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             mysoullovegender1.layer.borderWidth = 1
             btncheck12.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_soul_gender.remove("Female")
         }
     }
     @IBAction func soulgender2(_ sender: UIButton) {
@@ -483,11 +617,13 @@ class SetProfilestep3VC: UIViewController {
             mysoullovegender2.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             mysoullovegender2.layer.borderWidth = 1
             btncheck13.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_soul_gender.add("Male")
         }
         else{
             mysoullovegender2.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             mysoullovegender2.layer.borderWidth = 1
             btncheck13.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_soul_gender.remove("Male")
         }
     }
     
@@ -497,11 +633,13 @@ class SetProfilestep3VC: UIViewController {
             mysoullovegender3.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             mysoullovegender3.layer.borderWidth = 1
             btncheck14.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_soul_gender.add("Transgender")
         }
         else{
             mysoullovegender3.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             mysoullovegender3.layer.borderWidth = 1
             btncheck14.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_soul_gender.remove("Transgender")
         }
     }
     
@@ -511,11 +649,13 @@ class SetProfilestep3VC: UIViewController {
             mysoullovegender4.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             mysoullovegender4.layer.borderWidth = 1
             btncheck15.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_soul_gender.add("Gender Fluid")
         }
         else{
             mysoullovegender4.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             mysoullovegender4.layer.borderWidth = 1
             btncheck15.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_soul_gender.remove("Gender Fluid")
         }
     }
     
@@ -525,11 +665,13 @@ class SetProfilestep3VC: UIViewController {
             mysoullovegender5.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             mysoullovegender5.layer.borderWidth = 1
             btncheck16.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_soul_gender.add("Prefer not to say")
         }
         else{
             mysoullovegender5.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             mysoullovegender5.layer.borderWidth = 1
             btncheck16.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_soul_gender.remove("Prefer not to say")
         }
     }
     
@@ -539,11 +681,13 @@ class SetProfilestep3VC: UIViewController {
             mysoullovegender6.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             mysoullovegender6.layer.borderWidth = 1
             btncheck17.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_soul_gender.add("Other")
         }
         else{
             mysoullovegender6.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             mysoullovegender6.layer.borderWidth = 1
             btncheck17.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_soul_gender.remove("Other")
         }
     }
     
@@ -553,11 +697,13 @@ class SetProfilestep3VC: UIViewController {
             mysoullovegender7.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             mysoullovegender7.layer.borderWidth = 1
             btncheck18.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_soul_gender.add("No Preference")
         }
         else{
             mysoullovegender7.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             mysoullovegender7.layer.borderWidth = 1
             btncheck18.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_soul_gender.remove("No Preference")
         }
     }
    
@@ -568,11 +714,13 @@ class SetProfilestep3VC: UIViewController {
            soulSexualityview1.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             soulSexualityview1.layer.borderWidth = 1
             btncheck19.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_soul_sexuality.add("Straight")
         }
         else{
             soulSexualityview1.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             soulSexualityview1.layer.borderWidth = 1
             btncheck19.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_soul_sexuality.remove("Straight")
         }
     }
     @IBAction func soullsexualtiy2(_ sender: UIButton) {
@@ -581,11 +729,13 @@ class SetProfilestep3VC: UIViewController {
             soulSexualityview2.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             soulSexualityview2.layer.borderWidth = 1
             btncheck20.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_soul_sexuality.add("Gay")
         }
         else{
             soulSexualityview2.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             soulSexualityview2.layer.borderWidth = 1
             btncheck20.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_soul_sexuality.remove("Gay")
         }
     }
     @IBAction func soullsexualtiy3(_ sender: UIButton) {
@@ -594,11 +744,13 @@ class SetProfilestep3VC: UIViewController {
             soulSexualityview3.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             soulSexualityview3.layer.borderWidth = 1
             btncheck21.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_soul_sexuality.add("Bisexual")
         }
         else{
             soulSexualityview3.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             soulSexualityview3.layer.borderWidth = 1
             btncheck21.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_soul_sexuality.remove("Bisexual")
         }
     }
     
@@ -608,11 +760,13 @@ class SetProfilestep3VC: UIViewController {
             soulSexualityview4.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             soulSexualityview4.layer.borderWidth = 1
             btncheck22.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_soul_sexuality.add("Queer")
         }
         else{
             soulSexualityview4.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             soulSexualityview4.layer.borderWidth = 1
             btncheck22.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_soul_sexuality.remove("Queer")
         }
     }
     
@@ -622,11 +776,13 @@ class SetProfilestep3VC: UIViewController {
             soulSexualityview5.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             soulSexualityview5.layer.borderWidth = 1
             btncheck23.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_soul_sexuality.add("Questioning")
         }
         else{
             soulSexualityview5.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             soulSexualityview5.layer.borderWidth = 1
             btncheck23.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_soul_sexuality.remove("Questioning")
         }
     }
     @IBAction func soullsexualtiy6(_ sender: UIButton) {
@@ -635,11 +791,13 @@ class SetProfilestep3VC: UIViewController {
             soulSexualityview6.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             soulSexualityview6.layer.borderWidth = 1
             btncheck24.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_soul_sexuality.add("Asexual")
         }
         else{
             soulSexualityview6.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             soulSexualityview6.layer.borderWidth = 1
             btncheck24.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_soul_sexuality.remove("Asexual")
         }
     }
     
@@ -649,11 +807,13 @@ class SetProfilestep3VC: UIViewController {
             soulSexualityview7.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             soulSexualityview7.layer.borderWidth = 1
             btncheck25.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_soul_sexuality.add("Other")
         }
         else{
             soulSexualityview7.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             soulSexualityview7.layer.borderWidth = 1
             btncheck25.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_soul_sexuality.remove("Other")
         }
     }
     
@@ -663,11 +823,13 @@ class SetProfilestep3VC: UIViewController {
             soulSexualityview8.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             soulSexualityview8.layer.borderWidth = 1
             btncheck26.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_soul_sexuality.add("No Preference")
         }
         else{
             soulSexualityview8.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             soulSexualityview8.layer.borderWidth = 1
             btncheck26.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_soul_sexuality.remove("No Preference")
         }
     }
     
@@ -677,11 +839,13 @@ class SetProfilestep3VC: UIViewController {
             soultermview1.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             soultermview1.layer.borderWidth = 1
             btncheck27.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_soul_relationshipGoal.add("Long term")
         }
         else{
             soultermview1.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             soultermview1.layer.borderWidth = 1
             btncheck27.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_soul_relationshipGoal.remove("Long term")
         }
     }
     @IBAction func btnsoulterm2(_ sender: UIButton) {
@@ -690,12 +854,13 @@ class SetProfilestep3VC: UIViewController {
             soultermview2.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             soultermview2.layer.borderWidth = 1
             btncheck28.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
-
+            arr_soul_relationshipGoal.add("Casual")
         }
         else{
             soultermview2.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             soultermview2.layer.borderWidth = 1
             btncheck28.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_soul_relationshipGoal.remove("Casual")
         }
     }
     
@@ -707,11 +872,13 @@ class SetProfilestep3VC: UIViewController {
             Tribegender1.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             Tribegender1.layer.borderWidth = 1
             btntribechk1.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_tribe_gender.add("Female")
         }
         else{
             Tribegender1.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             Tribegender1.layer.borderWidth = 1
             btntribechk1.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_tribe_gender.remove("Female")
         }
     }
     
@@ -721,11 +888,13 @@ class SetProfilestep3VC: UIViewController {
             Tribegender2.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             Tribegender2.layer.borderWidth = 1
             btntribechk2.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_tribe_gender.add("Male")
         }
         else{
             Tribegender2.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             Tribegender2.layer.borderWidth = 1
             btntribechk2.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_tribe_gender.remove("Male")
 
         }
     }
@@ -736,25 +905,29 @@ class SetProfilestep3VC: UIViewController {
             Tribegender3.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             Tribegender3.layer.borderWidth = 1
             btntribechk3.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_tribe_gender.add("Transgender")
         }
         else{
             Tribegender3.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             Tribegender3.layer.borderWidth = 1
             btntribechk3.setImage(UIImage(named: "black circle"), for: .normal)
-
+            arr_tribe_gender.remove("Transgender")
         }
     }
+    
     @IBAction func tribegender4(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         if sender.isSelected{
             Tribegender4.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             Tribegender4.layer.borderWidth = 1
             btntribechk4.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_tribe_gender.add("Gender Fluid")
         }
         else{
             Tribegender4.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             Tribegender4.layer.borderWidth = 1
             btntribechk4.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_tribe_gender.remove("Gender Fluid")
 
         }
     }
@@ -764,12 +937,14 @@ class SetProfilestep3VC: UIViewController {
             Tribegender5.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             Tribegender5.layer.borderWidth = 1
             btntribechk5.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_tribe_gender.add("Prefer not to say")
         }
         else{
             Tribegender5.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             Tribegender5.layer.borderWidth = 1
             btntribechk5.setImage(UIImage(named: "black circle"), for: .normal)
-
+            arr_tribe_gender.remove("Prefer not to say")
+            
         }
     }
     @IBAction func tribegender6(_ sender: UIButton) {
@@ -778,11 +953,13 @@ class SetProfilestep3VC: UIViewController {
             Tribegender6.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             Tribegender6.layer.borderWidth = 1
             btntribechk6.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_tribe_gender.add("Other")
         }
         else{
             Tribegender6.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             Tribegender6.layer.borderWidth = 1
             btntribechk6.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_tribe_gender.remove("Other")
 
         }
     }
@@ -792,25 +969,30 @@ class SetProfilestep3VC: UIViewController {
             Tribegender7.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             Tribegender7.layer.borderWidth = 1
             btntribechk7.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_tribe_gender.add("No Preference")
         }
         else{
             Tribegender7.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             Tribegender7.layer.borderWidth = 1
             btntribechk7.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_tribe_gender.add("No Preference")
 
         }
     }
+    
     @IBAction func tribesexualtiy1(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         if sender.isSelected{
             TribeSexuality1.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             TribeSexuality1.layer.borderWidth = 1
             btntribechk8.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_tribe_sexuality.add("Straight")
         }
         else{
             TribeSexuality1.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             TribeSexuality1.layer.borderWidth = 1
             btntribechk8.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_tribe_sexuality.remove("Straight")
 
         }
     }
@@ -821,11 +1003,13 @@ class SetProfilestep3VC: UIViewController {
             TribeSexuality2.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             TribeSexuality2.layer.borderWidth = 1
             btntribechk9.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_tribe_sexuality.add("Gay")
         }
         else{
             TribeSexuality2.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             TribeSexuality2.layer.borderWidth = 1
             btntribechk9.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_tribe_sexuality.remove("Gay")
 
         }
     }
@@ -836,12 +1020,13 @@ class SetProfilestep3VC: UIViewController {
             TribeSexuality3.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             TribeSexuality3.layer.borderWidth = 1
             btntribechk10.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
-
+            arr_tribe_sexuality.add("Bisexual")
         }
         else{
             TribeSexuality3.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             TribeSexuality3.layer.borderWidth = 1
             btntribechk10.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_tribe_sexuality.remove("Bisexual")
         }
     }
     
@@ -851,11 +1036,13 @@ class SetProfilestep3VC: UIViewController {
             TribeSexuality4.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             TribeSexuality4.layer.borderWidth = 1
             btntribechk11.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_tribe_sexuality.add("Queer")
         }
         else{
             TribeSexuality4.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             TribeSexuality4.layer.borderWidth = 1
             btntribechk11.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_tribe_sexuality.remove("Queer")
 
         }
     }
@@ -865,11 +1052,13 @@ class SetProfilestep3VC: UIViewController {
             TribeSexuality5.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             TribeSexuality5.layer.borderWidth = 1
             btntribechk12.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_tribe_sexuality.add("Questioning")
         }
         else{
             TribeSexuality5.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             TribeSexuality5.layer.borderWidth = 1
             btntribechk12.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_tribe_sexuality.remove("Questioning")
 
         }
     }
@@ -880,12 +1069,13 @@ class SetProfilestep3VC: UIViewController {
             TribeSexuality6.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             TribeSexuality6.layer.borderWidth = 1
             btntribechk13.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_tribe_sexuality.add("Asexual")
         }
         else{
             TribeSexuality6.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             TribeSexuality6.layer.borderWidth = 1
             btntribechk13.setImage(UIImage(named: "black circle"), for: .normal)
-
+            arr_tribe_sexuality.remove("Asexual")
         }
     }
     
@@ -895,12 +1085,14 @@ class SetProfilestep3VC: UIViewController {
             TribeSexuality7.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             TribeSexuality7.layer.borderWidth = 1
             btntribechk14.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_tribe_sexuality.add("Other")
 
         }
         else{
             TribeSexuality7.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             TribeSexuality7.layer.borderWidth = 1
             btntribechk14.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_tribe_sexuality.remove("Other")
 
         }
     }
@@ -911,15 +1103,17 @@ class SetProfilestep3VC: UIViewController {
             TribeSexuality8.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             TribeSexuality8.layer.borderWidth = 1
             btntribechk15.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_tribe_sexuality.add("No Preference")
+
         }
         else{
             TribeSexuality8.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             TribeSexuality8.layer.borderWidth = 1
             btntribechk15.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_tribe_sexuality.remove("No Preference")
+
 
         }
     }
-    
-    
 }
 

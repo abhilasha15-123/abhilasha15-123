@@ -108,10 +108,11 @@ class LoginViewController: UIViewController {
                         let vc = self.storyboard?.instantiateViewController(identifier: "SetProfilestep2VC") as! SetProfilestep2VC
                         self.navigationController?.pushViewController(vc, animated: true)
                     }else if screen_val == "3"{
-                        let arr = (DataManager.getVal(responseData?["vibe"]) as? String ?? "").components(separatedBy: ",")
+                        let arr = (DataManager.getVal(data["vibe"]) as? String ?? "").components(separatedBy: ",")
                             
                         if arr.contains("Soul Love") || arr.contains("Tribe"){
                             let vc = self.storyboard?.instantiateViewController(identifier: "SetProfilestep3VC") as! SetProfilestep3VC
+                            vc.vibe = DataManager.getVal(data["vibe"]) as? String ?? ""
                             self.navigationController?.pushViewController(vc, animated: true)
                         }
                         else{
