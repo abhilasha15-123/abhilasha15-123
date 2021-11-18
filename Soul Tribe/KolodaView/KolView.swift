@@ -38,6 +38,7 @@ class KolView: UIView,UIScrollViewDelegate {
     @IBOutlet weak var hobbyLbl4: UILabel!
     @IBOutlet weak var hobbyLbl5: UILabel!
     @IBOutlet weak var hobbyLbl6: UILabel!
+    @IBOutlet weak var ageLbl: UILabel!
     @IBOutlet weak var cityBtn: UIButton!
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var mainView1: UIView!
@@ -73,7 +74,7 @@ class KolView: UIView,UIScrollViewDelegate {
     private func commonInit() {
         Bundle.main.loadNibNamed("KolView", owner: self, options: nil)
         addSubview(contentView)
-//        menuoptionView.isHidden = true
+        menuoptionView.isHidden = true
         menuoptionView.layer.cornerRadius = 8
         hobbyView1.layer.cornerRadius = 8
         hobbyView2.layer.cornerRadius = 8

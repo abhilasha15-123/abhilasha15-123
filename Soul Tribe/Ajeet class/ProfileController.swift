@@ -24,6 +24,8 @@ class ProfileController: UIViewController {
     @IBOutlet weak var vibeStatusTribeWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var vibeStatusSoulWidthConstraint: NSLayoutConstraint!
 
+    @IBOutlet weak var intrestCollectionView: UICollectionView!
+    
     @IBOutlet weak var optionMenuView: UIView!
     @IBOutlet weak var vibeStatusTribeLbl: UILabel!
     @IBOutlet weak var vibeStatusSoulLbl: UILabel!
@@ -43,6 +45,7 @@ class ProfileController: UIViewController {
     @IBOutlet weak var ReligiousViewsLbl: UILabel!
     @IBOutlet weak var CurrentLocationLbl: UILabel!
     
+    var hobbiesArray = [String]()
     var AgeInt = Int()
     var profileDict = NSDictionary()
     var swipeUserID = Int()
@@ -51,6 +54,9 @@ class ProfileController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        optionMenuView.layer.cornerRadius = 6
+        optionMenuView.layer.borderColor = UIColor.lightGray.cgColor
+        optionMenuView.layer.borderWidth = 0.6
         self.optionMenuView.isHidden = true
         viewcorner.layer.cornerRadius = 10
         imgprofile.layer.cornerRadius = 27.5
@@ -151,6 +157,8 @@ class ProfileController: UIViewController {
                 let profileImg = self.profileDict.value(forKey: "profile_image") as? String
                 self.firstImpressionLbl.text = self.profileDict.value(forKey: "first_impression") as? String
                 let hobbiesStr = self.profileDict.value(forKey: "hobbies") as? String
+                let result = hobbiesStr!.filter { !$0.isWhitespace }
+                self.hobbiesArray = result.components(separatedBy: ",")
                 self.vibeStatusSoulLbl.text = self.profileDict.value(forKey: "vibe") as? String
                 self.SexualityLbl.text = self.profileDict.value(forKey: "tribe_sexuality") as? String
                 self.GenderLbl.text = self.profileDict.value(forKey: "gender") as? String
@@ -160,6 +168,7 @@ class ProfileController: UIViewController {
                 self.ReligiousViewsLbl.text = self.profileDict.value(forKey: "religious") as? String
                 self.AgeInt = self.profileDict.value(forKey: "age") as! Int
                 self.userAge.text = String(self.AgeInt)
+                self.intrestCollectionView.reloadData()
             }
             else {
 //                 self.view.makeToast(message)
@@ -173,8 +182,7 @@ extension ProfileController: UICollectionViewDelegate,UICollectionViewDataSource
     //MARK: COLLECTION VIEW METHOD
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return interestTxt.count
-        
+        return self.hobbiesArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -182,8 +190,8 @@ extension ProfileController: UICollectionViewDelegate,UICollectionViewDataSource
         cell.cellview.layer.cornerRadius = 5
         cell.cellview.layer.borderWidth = 1
         cell.cellview.layer.borderColor = #colorLiteral(red: 0.8941176471, green: 0.9019607843, blue: 0.9176470588, alpha: 1)
-        cell.interestImage.image = UIImage(named: interestImage[indexPath.item])
-        cell.interstedLbl.text = interestTxt[indexPath.item]
+        cell.interestImage.image = UIImage(named: self.hobbiesArray[indexPath.row])
+        cell.interstedLbl.text = self.hobbiesArray[indexPath.row]
         
         return cell
         

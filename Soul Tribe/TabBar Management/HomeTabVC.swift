@@ -25,8 +25,12 @@ class HomeTabVC: UIViewController, SlideMenuControllerDelegate{
   @IBOutlet weak var cardView: CustomKolodaView!
   @IBOutlet weak var topView: UIView!
   @IBOutlet weak var topOptionMenuView: UIView!
-    
-    
+  @IBOutlet weak var HomeVibeBtn: UIButton!
+  @IBOutlet weak var confirmBlockView: UIView!
+  
+  var receiverName = String()
+  var receiverAddress = String()
+  var ageInt = Int()
   var CategorySelect = String()
   var profileDict = [NSDictionary]()
   var hobbiesArray = [[String:Any]]()
@@ -44,9 +48,15 @@ class HomeTabVC: UIViewController, SlideMenuControllerDelegate{
         popupview.isHidden = false
         innerpopupvc.isHidden = false
         innerpopupvc.layer.cornerRadius = 8
+        confirmBlockView.layer.cornerRadius = 8
         btnsoullove.layer.cornerRadius = 8
         btntribe.layer.cornerRadius = 8
+        self.confirmBlockView.isHidden = true
         //innerpopupvc.frame = CGRect(x: 0, y: 0, width: view.frame.width * 1.2, height: view.frame.height * 1.2
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        cardView.reloadData()
     }
     @IBAction func HometopMenuAction(_ sender: Any) {
         self.topOptionMenuView.isHidden = !self.topOptionMenuView.isHidden
@@ -55,19 +65,51 @@ class HomeTabVC: UIViewController, SlideMenuControllerDelegate{
         self.topOptionMenuView.isHidden = true
         popupview.isHidden = true
         self.CategorySelect = "Soul Love"
+        self.HomeVibeBtn.setTitle("Soul Love", for: .normal)
         self.getData(vibeType: self.CategorySelect)
     }
     @IBAction func HometopMenuTribeAction(_ sender: Any) {
         self.topOptionMenuView.isHidden = true
         popupview.isHidden = true
         innerpopupvc.isHidden = true
-        self.CategorySelect = "Soul Love"
+        self.CategorySelect = "Tribe"
+        self.HomeVibeBtn.setTitle("Tribe", for: .normal)
         self.getData(vibeType: self.CategorySelect)
     }
     @IBAction func btnnotification(_ sender: Any) {
         let vc = self.storyboard?.instantiateViewController(identifier: "NotificationsVC") as! NotificationsVC
         navigationController?.pushViewController(vc, animated: true)
        // NotificationsVC
+    }
+    @IBAction func ConfirmBlock_Cancel(_ sender: Any) {
+        self.confirmBlockView.isHidden = true
+    }
+    @IBAction func ConfirmBlock_Accept(_ sender: Any) {
+        self.confirmBlockView.isHidden = true
+        let tempVw = KolView()
+        tempVw.menuoptionView.isHidden = true
+        self.view.endEditing(true)
+        let parameterDictionary = NSMutableDictionary()
+     
+       parameterDictionary.setValue("tribe123", forKey: "api_key")
+       parameterDictionary.setValue("14", forKey: "user_id")
+       parameterDictionary.setValue("Tribe", forKey: "vibe")
+        parameterDictionary.setValue(self.swipeUserID, forKey: "block_user_id")
+       print(parameterDictionary)
+        let methodName = "user_block"
+
+        DataManager.getAPIResponse(parameterDictionary , methodName: methodName, methodType: "POST"){(responseData,error)-> Void in
+            let status  = DataManager.getVal(responseData?["status"]) as? String ?? ""
+            let message  = DataManager.getVal(responseData?["message"]) as? String ?? ""
+
+            if status == "1" {
+                self.cardView.reloadData()
+                print("rr")
+            }
+            else {
+//                 self.view.makeToast(message)
+            }
+        }
     }
     
     @IBAction func btnexploreuser(_ sender: Any) {
@@ -83,6 +125,7 @@ class HomeTabVC: UIViewController, SlideMenuControllerDelegate{
         popupview.isHidden = true
         innerpopupvc.isHidden = true
         self.CategorySelect = "Soul Love"
+        self.HomeVibeBtn.setTitle("Soul Love", for: .normal)
         self.getData(vibeType: self.CategorySelect)
     }
     
@@ -90,6 +133,7 @@ class HomeTabVC: UIViewController, SlideMenuControllerDelegate{
         popupview.isHidden = true
         innerpopupvc.isHidden = true
         self.CategorySelect = "Tribe"
+        self.HomeVibeBtn.setTitle("Tribe", for: .normal)
         self.getData(vibeType: self.CategorySelect)
     }
     
@@ -219,57 +263,14 @@ class HomeTabVC: UIViewController, SlideMenuControllerDelegate{
         tempVw.menuoptionView.isHidden = !tempVw.menuoptionView.isHidden
     }
     @objc func menuOptionReportBtnAction(){
-        let tempVw = KolView()
-        tempVw.menuoptionView.isHidden = true
-        self.view.endEditing(true)
-        let parameterDictionary = NSMutableDictionary()
-     
-       parameterDictionary.setValue("tribe123", forKey: "api_key")
-       parameterDictionary.setValue("14", forKey: "user_id")
-       parameterDictionary.setValue("Tribe", forKey: "vibe")
-       parameterDictionary.setValue(self.swipeUserID, forKey: "report_reason_id")
-       parameterDictionary.setValue("", forKey: "comment")
-       print(parameterDictionary)
-        let methodName = "get_report_reason"
-
-        DataManager.getAPIResponse(parameterDictionary , methodName: methodName, methodType: "POST"){(responseData,error)-> Void in
-            let status  = DataManager.getVal(responseData?["status"]) as? String ?? ""
-            let message  = DataManager.getVal(responseData?["message"]) as? String ?? ""
-
-            if status == "1" {
-                self.cardView.reloadData()
-                print("rr")
-            }
-            else {
-//                 self.view.makeToast(message)
-            }
-        }
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ReportPopUpVC") as! ReportPopUpVC
+        vc.GetSwipeUserID = self.swipeUserID
+        vc.getUserName = self.receiverName
+        vc.GetAddress = self.receiverAddress
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     @objc func menuOptionBlockUserBtnAction(){
-        let tempVw = KolView()
-        tempVw.menuoptionView.isHidden = true
-        self.view.endEditing(true)
-        let parameterDictionary = NSMutableDictionary()
-     
-       parameterDictionary.setValue("tribe123", forKey: "api_key")
-       parameterDictionary.setValue("14", forKey: "user_id")
-       parameterDictionary.setValue("Tribe", forKey: "vibe")
-        parameterDictionary.setValue(self.swipeUserID, forKey: "block_user_id")
-       print(parameterDictionary)
-        let methodName = "user_block"
-
-        DataManager.getAPIResponse(parameterDictionary , methodName: methodName, methodType: "POST"){(responseData,error)-> Void in
-            let status  = DataManager.getVal(responseData?["status"]) as? String ?? ""
-            let message  = DataManager.getVal(responseData?["message"]) as? String ?? ""
-
-            if status == "1" {
-                self.cardView.reloadData()
-                print("rr")
-            }
-            else {
-//                 self.view.makeToast(message)
-            }
-        }
+        self.confirmBlockView.isHidden = false
     }
     @objc func menuOptionViewProfileBtnAction(){
         let tempVw = KolView()
@@ -340,21 +341,45 @@ extension HomeTabVC: KolodaViewDataSource {
 //        }
         let dict = self.profileDict[index]
         print(dict)
-        let address = dict.value(forKey: "address") as! String
-        let name = dict.value(forKey: "name") as? String
+        self.receiverAddress = dict.value(forKey: "address") as! String
+        self.receiverName = dict.value(forKey: "name") as! String
         let profileImg = dict.value(forKey: "profile_image") as? String
         let firstImpresssion = dict.value(forKey: "first_impression") as? String
         let hobbiesStr = dict.value(forKey: "hobbies") as? String
-        let hobbies = hobbiesStr?.components(separatedBy: ",")
+        let result = hobbiesStr!.filter { !$0.isWhitespace }
+        let hobbies = result.components(separatedBy: ",")
         let urlString = Config().API_URL + profileImg!
         tempVw.userImg.sd_setImage(with: URL(string: urlString), completed: nil)
-        tempVw.userName.text = name
-        tempVw.cityBtn.setTitle(" \(address)", for: .normal)
+        self.ageInt = dict.value(forKey: "age") as! Int
+        tempVw.ageLbl.text = String(self.ageInt)
+        tempVw.userName.text = self.receiverName
+        tempVw.cityBtn.setTitle(" \(self.receiverAddress)", for: .normal)
         tempVw.firstImpressionLbl.text = firstImpresssion
-        print(hobbies![0])
+        
+        print(hobbies[0])
+        print(hobbies[1])
+        print(hobbies[2])
+        print(hobbies[3])
+        print(hobbies[4])
+        print(hobbies[5])
+        
+        
+        tempVw.hobbyLbl1.text = hobbies[0]
+        tempVw.hobbyLbl2.text = hobbies[1]
+        tempVw.hobbyLbl3.text = hobbies[2]
+        tempVw.hobbyLbl4.text = hobbies[3]
+        tempVw.hobbyLbl5.text = hobbies[4]
+        tempVw.hobbyLbl6.text = hobbies[5]
+
+        tempVw.hobbyImg1.image = UIImage(named: hobbies[0])
+        tempVw.hobbyImg2.image = UIImage(named: hobbies[1])
+        tempVw.hobbyImg3.image = UIImage(named: hobbies[2])
+        tempVw.hobbyImg4.image = UIImage(named: hobbies[3])
+        tempVw.hobbyImg5.image = UIImage(named: hobbies[4])
+        tempVw.hobbyImg6.image = UIImage(named: hobbies[5])
      //   ["Fitness","Music","Shopping","Aliens","Art","Sport","Fitness","Music","Shopping","Aliens"]
         self.hobbiesArray = [
-                        ["key": hobbies![0],"image": "Aliens"],
+                        ["key": hobbies[0],"image": "Aliens"],
             ]
         
         tempVw.menuOptionReportBtn.addTarget(self, action: #selector(menuOptionReportBtnAction), for: .touchUpInside)
