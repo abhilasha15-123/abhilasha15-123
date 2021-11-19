@@ -10,6 +10,9 @@ import UIKit
 class MatchListCell: UITableViewCell {
     @IBOutlet weak var cornorview: UIView!
 
+    @IBOutlet weak var btn_redirect: UIButton!
+    @IBOutlet weak var lbl_name: UILabel!
+    @IBOutlet weak var img_profile: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

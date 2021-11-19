@@ -9,6 +9,12 @@ import UIKit
 
 class MessageListCell: UITableViewCell {
     @IBOutlet weak var cornorview: UIView!
+    
+    @IBOutlet weak var lbl_time: UILabel!
+    @IBOutlet weak var lbl_msg: UILabel!
+    @IBOutlet weak var lbl_name: UILabel!
+    @IBOutlet weak var img_profile: UIImageView!
+    
 
     override func awakeFromNib() {
         super.awakeFromNib()

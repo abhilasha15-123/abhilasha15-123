@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		004FB76DE5351974A988171F /* Pods_Soul_Tribe_Soul_TribeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E19E1EFB84AAAA2A7670DF1 /* Pods_Soul_Tribe_Soul_TribeUITests.framework */; };
 		06A4DC31274509A100C34351 /* DistanceFormatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A4DC30274509A100C34351 /* DistanceFormatTableViewCell.swift */; };
+		06EE84BA274775AC00A0B4F2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 06EE84B9274775AC00A0B4F2 /* GoogleService-Info.plist */; };
 		06F45A072743AFB600B3A3B2 /* Extenisons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F459F92743AFB600B3A3B2 /* Extenisons.swift */; };
 		06F45A082743AFB600B3A3B2 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F459FA2743AFB600B3A3B2 /* DataManager.swift */; };
 		06F45A0A2743AFB600B3A3B2 /* ValidationClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F459FC2743AFB600B3A3B2 /* ValidationClass.swift */; };
@@ -113,7 +114,6 @@
 		8D1322F72665167600DE2B87 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D1322F52665167600DE2B87 /* LaunchScreen.storyboard */; };
 		8D1323022665167600DE2B87 /* Soul_TribeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1323012665167600DE2B87 /* Soul_TribeTests.swift */; };
 		8D13230D2665167600DE2B87 /* Soul_TribeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D13230C2665167600DE2B87 /* Soul_TribeUITests.swift */; };
-		8D13233D26651A7600DE2B87 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D13233C26651A7600DE2B87 /* GoogleService-Info.plist */; };
 		8D2C9A0A268DF3A0003ADE2B /* MiniTribeRequestJoinVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2C9A09268DF3A0003ADE2B /* MiniTribeRequestJoinVC.swift */; };
 		8D2C9A0C268DF3BD003ADE2B /* MiniTribeRequetedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2C9A0B268DF3BD003ADE2B /* MiniTribeRequetedVC.swift */; };
 		8D2C9A0E268DF3D8003ADE2B /* MiniTribeJoinVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2C9A0D268DF3D8003ADE2B /* MiniTribeJoinVC.swift */; };
@@ -181,6 +181,8 @@
 
 /* Begin PBXFileReference section */
 		06A4DC30274509A100C34351 /* DistanceFormatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceFormatTableViewCell.swift; sourceTree = "<group>"; };
+		06EE84B82747709D00A0B4F2 /* Soul Tribe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Soul Tribe.entitlements"; sourceTree = "<group>"; };
+		06EE84B9274775AC00A0B4F2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Documents/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		06F459F92743AFB600B3A3B2 /* Extenisons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extenisons.swift; sourceTree = "<group>"; };
 		06F459FA2743AFB600B3A3B2 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		06F459FC2743AFB600B3A3B2 /* ValidationClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationClass.swift; sourceTree = "<group>"; };
@@ -616,6 +618,8 @@
 		8D1322E62665167300DE2B87 /* Soul Tribe */ = {
 			isa = PBXGroup;
 			children = (
+				06EE84B9274775AC00A0B4F2 /* GoogleService-Info.plist */,
+				06EE84B82747709D00A0B4F2 /* Soul Tribe.entitlements */,
 				06F935AD2744BDB00086CFA9 /* KolodaView */,
 				06F459F82743AFB600B3A3B2 /* Helper */,
 				704EE20826B56460008B2366 /* introview */,
@@ -942,6 +946,7 @@
 				70361BD026A0091100921FEB /* OpenSans-SemiBold.ttf in Resources */,
 				6A31B994269437D5005819AD /* Main.storyboard in Resources */,
 				06F45A0B2743AFB600B3A3B2 /* CountryCodes.json in Resources */,
+				06EE84BA274775AC00A0B4F2 /* GoogleService-Info.plist in Resources */,
 				70361BD426A0091100921FEB /* OpenSans-LightItalic.ttf in Resources */,
 				6A31B9BD26947F7F005819AD /* InterestCollectionCell.xib in Resources */,
 				70A16585269F00D00062156B /* PremiumFeaturepopupVC.xib in Resources */,
@@ -961,7 +966,6 @@
 				70361BD626A0091100921FEB /* OpenSans-SemiBoldItalic.ttf in Resources */,
 				6A31B9A826947E02005819AD /* myCellCollectionViewCell.xib in Resources */,
 				6A31B9A426947E02005819AD /* myView.xib in Resources */,
-				8D13233D26651A7600DE2B87 /* GoogleService-Info.plist in Resources */,
 				70A16581269F005B0062156B /* MeetUpPopupVC.xib in Resources */,
 				70361BD826A0091100921FEB /* LICENSE.txt in Resources */,
 				70361BD926A0091100921FEB /* OpenSans-Regular.ttf in Resources */,
@@ -1415,17 +1419,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3D9N3B78VP;
+				CODE_SIGN_ENTITLEMENTS = "Soul Tribe/Soul Tribe.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 452CFVTRY5;
 				INFOPLIST_FILE = "Soul Tribe/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = app.soultribe.com;
+				PRODUCT_BUNDLE_IDENTIFIER = soultribe.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = soul_devv;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1437,17 +1442,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3D9N3B78VP;
+				CODE_SIGN_ENTITLEMENTS = "Soul Tribe/Soul Tribe.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 452CFVTRY5;
 				INFOPLIST_FILE = "Soul Tribe/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = app.soultribe.com;
+				PRODUCT_BUNDLE_IDENTIFIER = soultribe.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = soul_devv;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

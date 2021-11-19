@@ -122,8 +122,11 @@ class SetprofileVC: UIViewController {
     var selectedDate : String = ""
     
     var arr_assets = [PHAsset]()
-    
     var profilePicAdded = false
+    
+    var userData = [String:Any]()
+    
+    var comesFrom = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -131,8 +134,6 @@ class SetprofileVC: UIViewController {
         txt_firstImpression.delegate = self
         txt_firstImpression.text = "Share something that is unique and stands out. Something that makes users want to stop swiping and explore more about you!"
         txt_firstImpression.textColor = UIColor.lightGray
-        
-        
         
         constraint_height_collectionVw.constant = collectionView.frame.width/2.1 + 20
         
@@ -228,6 +229,44 @@ class SetprofileVC: UIViewController {
         self.slider.setThumbImage(UIImage(named: "Group 27193"), for: .normal)
 
         txt_dob.isUserInteractionEnabled = false
+        
+        if comesFrom == "Edit"{
+            api_getData()
+        }
+        
+    }
+    
+    func api_getData(){
+           
+        basicFunctions.presentLoader()
+
+        let parameterDictionary = NSMutableDictionary()
+        parameterDictionary.setValue(Config().AppUserDefaults.value(forKey:"user_id") as? String ?? "", forKey: "user_id")
+        parameterDictionary.setValue(Config().api_key, forKey: "api_key")
+        print(parameterDictionary)
+
+        let methodName = "get_profile"
+
+        DataManager.getAPIResponse(parameterDictionary , methodName: methodName, methodType: "POST"){(responseData,error)-> Void in
+            let status  = DataManager.getVal(responseData?["status"]) as! String
+            let message  = DataManager.getVal(responseData?["message"]) as! String
+
+            if status == "1" {
+                self.view.makeToast(message)
+                self.userData = DataManager.getVal(responseData?["data"]) as? [String:Any] ?? [:]
+                self.setData()
+            }
+            else {
+                self.view.makeToast(message, duration: 2.0, position: .bottom, title: nil, image: nil, style: ToastManager.shared.style, completion: nil)
+            }
+//            self.removeSpinner()
+            basicFunctions.stopLoading()
+        }
+    }
+    
+    
+    func setData(){
+        
     }
     
     @objc func selectDistanceFormat(){

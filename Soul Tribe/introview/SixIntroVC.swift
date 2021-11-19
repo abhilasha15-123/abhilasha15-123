@@ -12,6 +12,9 @@ class SixIntroVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        Config().AppUserDefaults.setValue("1", forKey: "WalkthroughCompleted")
+        
         // Do any additional setup after loading the view.
     }
     

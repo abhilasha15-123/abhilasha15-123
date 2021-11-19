@@ -46,6 +46,10 @@ extension UIImage{
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
+        
+        Config().AppUserDefaults.setValue("yes", forKey: "Login")
+        
+        
         // Draw Indicator above the tab bar items
         guard let numberOfTabs = tabBar.items?.count else {
             return

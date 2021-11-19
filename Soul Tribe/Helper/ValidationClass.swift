@@ -259,26 +259,26 @@ class ValidationClass: NSObject {
            let titleTxt = "Please enter the Email Id."
             
             loginVCValidateObj.view.endEditing(true)
-            loginVCValidateObj.emailTxt.layer.borderColor = UIColor.red.cgColor
+            loginVCValidateObj.emailview.layer.borderColor = UIColor.red.cgColor
             loginVCValidateObj.view.makeToast(titleTxt)
 
             return false
         }
 
         else if isBlank(loginVCValidateObj.passwordTxt) {
-            loginVCValidateObj.emailTxt.layer.borderColor = correctColor
+            loginVCValidateObj.emailview.layer.borderColor = correctColor
 
             let titleTxt = "Please enter password."
             
             loginVCValidateObj.view.endEditing(true)
-            loginVCValidateObj.passwordTxt.layer.borderColor = UIColor.red.cgColor
+            loginVCValidateObj.passwordview.layer.borderColor = UIColor.red.cgColor
             loginVCValidateObj.view.makeToast(titleTxt)
             return false
         }
         
         else{
-            loginVCValidateObj.emailTxt.layer.borderColor = correctColor
-            loginVCValidateObj.passwordTxt.layer.borderColor = correctColor
+            loginVCValidateObj.emailview.layer.borderColor = correctColor
+            loginVCValidateObj.passwordview.layer.borderColor = correctColor
             return true
         }
         
@@ -382,7 +382,7 @@ class ValidationClass: NSObject {
     
     func ValidateProfileSetup3Form (_ SetprofileVCValidateObj:SetProfilestep3VC) -> Bool {
 
-        if SetprofileVCValidateObj.arr_my_sexuality.count == 0 && SetprofileVCValidateObj.vw_hideShow.isHidden == true{
+        if SetprofileVCValidateObj.arr_my_sexuality.count == 0 && SetprofileVCValidateObj.arr_vibes.contains("Soul Love"){
 
             let titleTxt = "Please select your sexuality."
             
@@ -392,7 +392,7 @@ class ValidationClass: NSObject {
             return false
         }
         
-        else if SetprofileVCValidateObj.arr_my_relationshipStatus.count == 0 && SetprofileVCValidateObj.vw_hideShow.isHidden == true{
+        else if SetprofileVCValidateObj.arr_my_relationshipStatus.count == 0 && SetprofileVCValidateObj.arr_vibes.contains("Soul Love"){
             
             let titleTxt = "Please select your relationship status."
             
@@ -402,7 +402,7 @@ class ValidationClass: NSObject {
             return false
         }
      
-        else if SetprofileVCValidateObj.arr_soul_gender.count == 0 && SetprofileVCValidateObj.vw_hideShow.isHidden == true{
+        else if SetprofileVCValidateObj.arr_soul_gender.count == 0 && SetprofileVCValidateObj.arr_vibes.contains("Soul Love"){
             
             let titleTxt = "Please select gender preference."
             
@@ -412,7 +412,7 @@ class ValidationClass: NSObject {
             return false
         }
         
-        else if SetprofileVCValidateObj.arr_soul_sexuality.count == 0 && SetprofileVCValidateObj.vw_hideShow.isHidden == true{
+        else if SetprofileVCValidateObj.arr_soul_sexuality.count == 0 && SetprofileVCValidateObj.arr_vibes.contains("Soul Love"){
             
             let titleTxt = "Please select sexuality preference."
             
@@ -422,7 +422,7 @@ class ValidationClass: NSObject {
             return false
         }
         
-        else if SetprofileVCValidateObj.arr_soul_relationshipGoal.count == 0 && SetprofileVCValidateObj.vw_hideShow.isHidden == true{
+        else if SetprofileVCValidateObj.arr_soul_relationshipGoal.count == 0 && SetprofileVCValidateObj.arr_vibes.contains("Soul Love"){
             
             let titleTxt = "Please select type of relationship your are looking for."
             
@@ -432,7 +432,7 @@ class ValidationClass: NSObject {
             return false
         }
         
-        else if SetprofileVCValidateObj.arr_tribe_gender.count == 0 && SetprofileVCValidateObj.vw_hideShow.isHidden == false{
+        else if SetprofileVCValidateObj.arr_tribe_gender.count == 0 && SetprofileVCValidateObj.arr_vibes.contains("Tribe"){
             
             let titleTxt = "Please select type of tribe gender preference your are looking for."
             
@@ -441,7 +441,7 @@ class ValidationClass: NSObject {
 
             return false
         }
-        else if SetprofileVCValidateObj.arr_tribe_sexuality.count == 0  && SetprofileVCValidateObj.vw_hideShow.isHidden == false{
+        else if SetprofileVCValidateObj.arr_tribe_sexuality.count == 0  &&  SetprofileVCValidateObj.arr_vibes.contains("Tribe"){
             
             let titleTxt = "Please select type of tribe sexuality preference your are looking for."
             
@@ -450,90 +450,36 @@ class ValidationClass: NSObject {
 
             return false
         }
-      
         else{
-           
             return true
         }
-        
     }
     
     
     func ValidateProfileSetup4Form (_ SetprofileVCValidateObj:SetProfilefinalVC) -> Bool {
 
-//        if SetprofileVCValidateObj.arr_my_sexuality.count == 0 && SetprofileVCValidateObj.vw_hideShow.isHidden == true{
-//
-//            let titleTxt = "Please select your sexuality."
-//
-//            SetprofileVCValidateObj.view.endEditing(true)
-//            SetprofileVCValidateObj.view.makeToast(titleTxt)
-//
-//            return false
-//        }
-//
-//        else if SetprofileVCValidateObj.arr_my_relationshipStatus.count == 0 && SetprofileVCValidateObj.vw_hideShow.isHidden == true{
-//
-//            let titleTxt = "Please select your relationship status."
-//
-//            SetprofileVCValidateObj.view.endEditing(true)
-//            SetprofileVCValidateObj.view.makeToast(titleTxt)
-//
-//            return false
-//        }
-//
-//        else if SetprofileVCValidateObj.arr_soul_gender.count == 0 && SetprofileVCValidateObj.vw_hideShow.isHidden == true{
-//
-//            let titleTxt = "Please select gender preference."
-//
-//            SetprofileVCValidateObj.view.endEditing(true)
-//            SetprofileVCValidateObj.view.makeToast(titleTxt)
-//
-//            return false
-//        }
-//
-//        else if SetprofileVCValidateObj.arr_soul_sexuality.count == 0 && SetprofileVCValidateObj.vw_hideShow.isHidden == true{
-//
-//            let titleTxt = "Please select sexuality preference."
-//
-//            SetprofileVCValidateObj.view.endEditing(true)
-//            SetprofileVCValidateObj.view.makeToast(titleTxt)
-//
-//            return false
-//        }
-//
-//        else if SetprofileVCValidateObj.arr_soul_relationshipGoal.count == 0 && SetprofileVCValidateObj.vw_hideShow.isHidden == true{
-//
-//            let titleTxt = "Please select type of relationship your are looking for."
-//
-//            SetprofileVCValidateObj.view.endEditing(true)
-//            SetprofileVCValidateObj.view.makeToast(titleTxt)
-//
-//            return false
-//        }
-//
-//        else if SetprofileVCValidateObj.arr_tribe_gender.count == 0 {
-//
-//            let titleTxt = "Please select type of tribe gender preference your are looking for."
-//
-//            SetprofileVCValidateObj.view.endEditing(true)
-//            SetprofileVCValidateObj.view.makeToast(titleTxt)
-//
-//            return false
-//        }
-//        else if SetprofileVCValidateObj.arr_tribe_sexuality.count == 0 {
-//
-//            let titleTxt = "Please select type of tribe sexuality preference your are looking for."
-//
-//            SetprofileVCValidateObj.view.endEditing(true)
-//            SetprofileVCValidateObj.view.makeToast(titleTxt)
-//
-//            return false
-//        }
-//
-//        else{
-           
+        if SetprofileVCValidateObj.arr_mini_tribe_sexuality.count == 0 {
+
+            let titleTxt = "Please select your sexuality preferences."
+
+            SetprofileVCValidateObj.view.endEditing(true)
+            SetprofileVCValidateObj.view.makeToast(titleTxt)
+
+            return false
+        }
+
+        else if SetprofileVCValidateObj.arr_mini_tribe_relationshipStatus.count == 0 {
+
+            let titleTxt = "Please select your relationship status prefernces."
+
+            SetprofileVCValidateObj.view.endEditing(true)
+            SetprofileVCValidateObj.view.makeToast(titleTxt)
+
+            return false
+        }
+        else{
             return true
-//        }
+        }
         
     }
     
