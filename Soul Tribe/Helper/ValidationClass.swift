@@ -251,6 +251,72 @@ class ValidationClass: NSObject {
             return true
         }
     }
+     
+    func ValidateCreateMeetup(_ createMeetUpVCValidateObj:CreateMeetUpVC) -> Bool {
+        if isBlank(createMeetUpVCValidateObj.txtMeetupTopic) {
+           
+            let titleTxt = "Please Select a Meetup Topic."
+           
+            createMeetUpVCValidateObj.view.endEditing(true)
+            
+         
+            createMeetUpVCValidateObj.viewtopic.layer.borderColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+            createMeetUpVCValidateObj.view.makeToast(titleTxt)
+
+            return false
+        }
+        else if isBlank(createMeetUpVCValidateObj.txtdate) {
+           
+            let titleTxt = "Please Select a Date For Meetup."
+           
+            createMeetUpVCValidateObj.view.endEditing(true)
+            
+         
+            createMeetUpVCValidateObj.viewdate.layer.borderColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+            createMeetUpVCValidateObj.view.makeToast(titleTxt)
+
+            return false
+        }
+        else if isBlank(createMeetUpVCValidateObj.txttime) {
+            
+            let titleTxt = "Please Select a Time for Meetup."
+           
+            createMeetUpVCValidateObj.view.endEditing(true)
+            
+         
+            createMeetUpVCValidateObj.viewtime.layer.borderColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+            createMeetUpVCValidateObj.view.makeToast(titleTxt)
+
+            return false
+        }
+        else if isBlank(createMeetUpVCValidateObj.txtlocation) {
+           
+            let titleTxt = "Please select location of meetup."
+           
+            createMeetUpVCValidateObj.view.endEditing(true)
+            
+         
+            createMeetUpVCValidateObj.viewlocation.layer.borderColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+            createMeetUpVCValidateObj.view.makeToast(titleTxt)
+
+            return false
+        }
+//        else if isBlank((createMeetUpVCValidateObj.txtviewdiscription as? UITextField?)!!) {
+//            
+//            let titleTxt = "Please enter description of meetup."
+//           
+//            createMeetUpVCValidateObj.view.endEditing(true)
+//            
+//         
+////            createMeetUpVCValidateObj..layer.borderColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+//            createMeetUpVCValidateObj.view.makeToast(titleTxt)
+//
+//            return false
+//        }
+        else{
+            return true
+        }
+    }
 
     func ValidateLoginForm (_ loginVCValidateObj:LoginViewController) -> Bool {
 
