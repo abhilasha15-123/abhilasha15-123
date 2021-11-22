@@ -49,8 +49,8 @@ class ProfileController: UIViewController {
     var AgeInt = Int()
     var profileDict = NSDictionary()
     var swipeUserID = Int()
-    var interestImage = ["Fitness","Music","Shopping","Aliens","Art","Sport"]
-    var interestTxt = ["Fitness","Music","Shopping","Aliens","Art","Sport"]
+    var interestImage = ["Aliens","Art","Cooking","Dancing","Fitness","Gaming","Hiking","Law of Attraction","Meditation","Music","Outdoors","Plant Medicine","Quantam Physics","Reading","Shopping","Social Events","Spirituality","Sports","Travel","Yoga"]
+    var interestTxt = ["Aliens","Art","Cooking","Dancing","Fitness","Gaming","Hiking","Law of Attraction","Meditation","Music","Outdoors","Plant Medicine","Quantam Physics","Reading","Shopping","Social Events","Spirituality","Sports","Travel","Yoga"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
