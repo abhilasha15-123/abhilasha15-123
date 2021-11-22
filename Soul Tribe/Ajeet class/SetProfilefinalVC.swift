@@ -45,6 +45,13 @@ class SetProfilefinalVC: UIViewController {
     var arr_tribe_sexuality : NSMutableArray = []
     
     
+    var arr_mini_tribe_relationshipStatus : NSMutableArray = []
+    var arr_mini_tribe_sexuality : NSMutableArray = []
+    
+    
+    var q1Soul = ""
+    var q1Tribe = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -53,7 +60,6 @@ class SetProfilefinalVC: UIViewController {
         headerview.layer.shadowOffset = .zero
         headerview.layer.shadowRadius = 5
        
-        
         minitribesex1.layer.cornerRadius = 5
         minitribesex1.layer.borderWidth = 1
         minitribesex1.layer.borderColor = #colorLiteral(red: 0.8941176471, green: 0.9019607843, blue: 0.9176470588, alpha: 1)
@@ -95,7 +101,6 @@ class SetProfilefinalVC: UIViewController {
     }
     @IBAction func btnback(_ sender: Any) {
         navigationController?.popViewController(animated: true)
-
     }
     
     @IBAction func btnsave(_ sender: Any) {
@@ -107,18 +112,18 @@ class SetProfilefinalVC: UIViewController {
             parameterDictionary.setValue(Config().AppUserDefaults.value(forKey:"user_id") as? String ?? "", forKey: "user_id")
             parameterDictionary.setValue(Config().api_key, forKey: "api_key")
             
-         
-            parameterDictionary.setValue("", forKey: "soul_love_my_sexuality")
-            parameterDictionary.setValue("", forKey: "soul_love_my_relationship_status")
-            parameterDictionary.setValue("", forKey: "soul_love_my_prefer_gender")
-            parameterDictionary.setValue("", forKey: "soul_love_my_prefer_sexuality")
-            parameterDictionary.setValue("", forKey: "relationship_looking_for_soul_love")
-            parameterDictionary.setValue("", forKey: "soul_love_QA")
-            parameterDictionary.setValue("", forKey: "tribe_gender")
-            parameterDictionary.setValue("", forKey: "tribe_sexuality")
-            parameterDictionary.setValue("", forKey: "tribe_QA")
-            parameterDictionary.setValue("", forKey: "mini_tribe_sexuality")
-            parameterDictionary.setValue("", forKey: "mini_tribe_relationship_status")
+            parameterDictionary.setValue(arr_my_sexuality.componentsJoined(by:","), forKey: "soul_love_my_sexuality")
+            parameterDictionary.setValue(arr_my_relationshipStatus.componentsJoined(by:","), forKey: "soul_love_my_relationship_status")
+            parameterDictionary.setValue(arr_soul_gender.componentsJoined(by:","), forKey: "soul_love_my_prefer_gender")
+            parameterDictionary.setValue(arr_soul_sexuality.componentsJoined(by:","), forKey: "soul_love_my_prefer_sexuality")
+            parameterDictionary.setValue(arr_soul_relationshipGoal.componentsJoined(by:","), forKey: "relationship_looking_for_soul_love")
+            parameterDictionary.setValue(q1Soul, forKey: "soul_love_QA")
+            parameterDictionary.setValue(arr_tribe_gender.componentsJoined(by:","), forKey: "tribe_gender")
+            parameterDictionary.setValue(arr_tribe_sexuality.componentsJoined(by:","), forKey: "tribe_sexuality")
+            
+            parameterDictionary.setValue(q1Tribe, forKey: "tribe_QA")
+            parameterDictionary.setValue(arr_mini_tribe_sexuality.componentsJoined(by:","), forKey: "mini_tribe_sexuality")
+            parameterDictionary.setValue(arr_mini_tribe_relationshipStatus.componentsJoined(by:","), forKey: "mini_tribe_relationship_status")
             
             parameterDictionary.setValue("add", forKey: "type")
             
@@ -133,10 +138,7 @@ class SetProfilefinalVC: UIViewController {
                 if status == "1" {
                     self.view.makeToast(message)
 
-                    let data = DataManager.getVal(responseData?["data"]) as? [String:Any] ?? [:]
-                    
                     DispatchQueue.main.asyncAfter(deadline: .now()+1.5, execute: {
-                       
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
                         let navigate = storyboard.instantiateViewController(withIdentifier: "TTabBarViewController") as! TTabBarViewController
                         let leftController = storyboard.instantiateViewController(withIdentifier: "LeftMenuViewController") as! LeftMenuViewController
@@ -153,8 +155,6 @@ class SetProfilefinalVC: UIViewController {
                 basicFunctions.stopLoading()
             }
         }
-
-        
         
     }
     @IBAction func soullsexualtiy1(_ sender: UIButton) {
@@ -163,12 +163,14 @@ class SetProfilefinalVC: UIViewController {
             minitribesex1.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             minitribesex1.layer.borderWidth = 1
             btnchk1.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            
+            arr_mini_tribe_sexuality.add("Straight")
         }
         else{
             minitribesex1.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             minitribesex1.layer.borderWidth = 1
             btnchk1.setImage(UIImage(named: "black circle"), for: .normal)
-
+            arr_mini_tribe_sexuality.remove("Straight")
         }
     }
     @IBAction func soullsexualtiy2(_ sender: UIButton) {
@@ -177,11 +179,13 @@ class SetProfilefinalVC: UIViewController {
             minitribesex2.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             minitribesex2.layer.borderWidth = 1
             btnchk2.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_mini_tribe_sexuality.add("Gay")
         }
         else{
             minitribesex2.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             minitribesex2.layer.borderWidth = 1
             btnchk2.setImage(UIImage(named: "black circle"), for: .normal)
+            arr_mini_tribe_sexuality.remove("Gay")
         }
     }
     @IBAction func soullsexualtiy3(_ sender: UIButton) {
@@ -190,12 +194,13 @@ class SetProfilefinalVC: UIViewController {
             minitribesex3.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             minitribesex3.layer.borderWidth = 1
             btnchk3.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_mini_tribe_sexuality.add("Bisexual")
         }
         else{
             minitribesex3.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             minitribesex3.layer.borderWidth = 1
             btnchk3.setImage(UIImage(named: "black circle"), for: .normal)
-
+            arr_mini_tribe_sexuality.remove("Bisexual")
         }
     }
     @IBAction func soullsexualtiy4(_ sender: UIButton) {
@@ -204,12 +209,13 @@ class SetProfilefinalVC: UIViewController {
             minitribesex4.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             minitribesex4.layer.borderWidth = 1
             btnchk4.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_mini_tribe_sexuality.add("Queer")
         }
         else{
             minitribesex3.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             minitribesex3.layer.borderWidth = 1
             btnchk4.setImage(UIImage(named: "black circle"), for: .normal)
-
+            arr_mini_tribe_sexuality.remove("Queer")
         }
     }
     @IBAction func soullsexualtiy5(_ sender: UIButton) {
@@ -218,12 +224,13 @@ class SetProfilefinalVC: UIViewController {
             minitribesex5.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             minitribesex5.layer.borderWidth = 1
             btnchk5.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_mini_tribe_sexuality.add("Questioning")
         }
         else{
             minitribesex5.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             minitribesex5.layer.borderWidth = 1
             btnchk5.setImage(UIImage(named: "black circle"), for: .normal)
-
+            arr_mini_tribe_sexuality.remove("Questioning")
         }
     }
     @IBAction func soullsexualtiy6(_ sender: UIButton) {
@@ -232,12 +239,13 @@ class SetProfilefinalVC: UIViewController {
             minitribesex6.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             minitribesex6.layer.borderWidth = 1
             btnchk6.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_mini_tribe_sexuality.add("Asexual")
         }
         else{
             minitribesex6.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             minitribesex6.layer.borderWidth = 1
             btnchk6.setImage(UIImage(named: "black circle"), for: .normal)
-
+            arr_mini_tribe_sexuality.remove("Asexual")
         }
     }
     @IBAction func soullsexualtiy7(_ sender: UIButton) {
@@ -246,12 +254,13 @@ class SetProfilefinalVC: UIViewController {
             minitribesex7.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             minitribesex7.layer.borderWidth = 1
             btnchk7.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_mini_tribe_sexuality.add("Other")
         }
         else{
             minitribesex7.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             minitribesex7.layer.borderWidth = 1
             btnchk7.setImage(UIImage(named: "black circle"), for: .normal)
-
+            arr_mini_tribe_sexuality.remove("Other")
         }
     }
     @IBAction func relation1(_ sender: UIButton) {
@@ -260,12 +269,13 @@ class SetProfilefinalVC: UIViewController {
             minitribereletion1.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             minitribereletion1.layer.borderWidth = 1
             btnchk8.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_mini_tribe_relationshipStatus.add("Single")
         }
         else{
             minitribereletion1.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             minitribereletion1.layer.borderWidth = 1
             btnchk8.setImage(UIImage(named: "black circle"), for: .normal)
-
+            arr_mini_tribe_relationshipStatus.remove("Single")
         }
     }
     @IBAction func relation2(_ sender: UIButton) {
@@ -274,11 +284,13 @@ class SetProfilefinalVC: UIViewController {
         minitribereletion2.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
         minitribereletion2.layer.borderWidth = 1
         btnchk9.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+        arr_mini_tribe_relationshipStatus.add("Married")
     }
     else{
         minitribereletion2.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         minitribereletion2.layer.borderWidth = 1
         btnchk9.setImage(UIImage(named: "black circle"), for: .normal)
+        arr_mini_tribe_relationshipStatus.remove("Married")
     }
     }
     @IBAction func relation3(_ sender: UIButton) {
@@ -287,12 +299,14 @@ class SetProfilefinalVC: UIViewController {
             minitribereletion3.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             minitribereletion3.layer.borderWidth = 1
             btnchk10.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+            arr_mini_tribe_relationshipStatus.add("It's complicated")
+
         }
         else{
             minitribereletion3.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             minitribereletion3.layer.borderWidth = 1
             btnchk10.setImage(UIImage(named: "black circle"), for: .normal)
-
+            arr_mini_tribe_relationshipStatus.remove("It's complicated")
         }
     }
 }

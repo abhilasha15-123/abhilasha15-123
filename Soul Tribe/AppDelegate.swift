@@ -11,6 +11,12 @@ import IQKeyboardManagerSwift
 import UserNotifications
 import GoogleMaps
 import GooglePlaces
+
+import FirebaseMessaging
+import Firebase
+import GoogleSignIn
+import FBSDKCoreKit
+
 //import Firebase
 //import FirebaseMessaging
 
@@ -28,9 +34,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSPlacesClient.provideAPIKey(Config().placesApiKey)
         
         
+        FirebaseApp.configure()
+        
+        GIDSignIn.sharedInstance.restorePreviousSignIn()
+        
+        ApplicationDelegate.shared.application(
+                   application,
+                   didFinishLaunchingWithOptions: launchOptions
+            )
+        
         return true
     }
 
+    
+    @available(iOS 9.0, *)
+    func application(_ application: UIApplication, open url: URL,
+                     options: [UIApplication.OpenURLOptionsKey: Any])
+      -> Bool {
+      return GIDSignIn.sharedInstance.handle(url)
+    }
+    
+    
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {

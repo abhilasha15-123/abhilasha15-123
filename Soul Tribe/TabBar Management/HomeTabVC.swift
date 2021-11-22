@@ -37,6 +37,8 @@ class HomeTabVC: UIViewController, SlideMenuControllerDelegate{
   var leftDrawerTransition:DrawerTransition!
   var left = LeftMenuViewController()
   var swipeUserID = Int()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         topOptionMenuView.isHidden = true
@@ -54,13 +56,16 @@ class HomeTabVC: UIViewController, SlideMenuControllerDelegate{
         self.confirmBlockView.isHidden = true
         //innerpopupvc.frame = CGRect(x: 0, y: 0, width: view.frame.width * 1.2, height: view.frame.height * 1.2
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         cardView.reloadData()
     }
+    
     @IBAction func HometopMenuAction(_ sender: Any) {
         self.topOptionMenuView.isHidden = !self.topOptionMenuView.isHidden
     }
+    
     @IBAction func HometopMenuSoulTribeAction(_ sender: Any) {
         self.topOptionMenuView.isHidden = true
         popupview.isHidden = true
@@ -68,6 +73,7 @@ class HomeTabVC: UIViewController, SlideMenuControllerDelegate{
         self.HomeVibeBtn.setTitle("Soul Love", for: .normal)
         self.getData(vibeType: self.CategorySelect)
     }
+    
     @IBAction func HometopMenuTribeAction(_ sender: Any) {
         self.topOptionMenuView.isHidden = true
         popupview.isHidden = true
@@ -356,12 +362,12 @@ extension HomeTabVC: KolodaViewDataSource {
         tempVw.cityBtn.setTitle(" \(self.receiverAddress)", for: .normal)
         tempVw.firstImpressionLbl.text = firstImpresssion
         
-        print(hobbies[0])
-        print(hobbies[1])
-        print(hobbies[2])
-        print(hobbies[3])
-        print(hobbies[4])
-        print(hobbies[5])
+//        print(hobbies[0])
+//        print(hobbies[1])
+//        print(hobbies[2])
+//        print(hobbies[3])
+//        print(hobbies[4])
+//        print(hobbies[5])
         
         
         tempVw.hobbyLbl1.text = hobbies[0]

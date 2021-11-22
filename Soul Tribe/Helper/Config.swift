@@ -14,6 +14,8 @@ import CoreData
 
 class Config: NSObject,UIAlertViewDelegate {
     let API_URL = "https://soultribenow.com/api/user/"
+    let baseImageUrl = "https://soultribenow.com/storage/app/public/"
+    
     let AppUserDefaults = UserDefaults.standard
     let debug_mode = 1
     

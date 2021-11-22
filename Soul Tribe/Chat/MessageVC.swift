@@ -32,12 +32,12 @@ class MessageVC: UIViewController {
         headerview.layer.shadowOffset = .zero
         headerview.layer.shadowRadius = 5
 
-        
         // Do any additional setup after loading the view.
     }
+    
+    
     @IBAction func backBtnAction(_ sender: Any) {
         navigationController?.popViewController(animated: true)
-
     }
     
     

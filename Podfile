@@ -17,7 +17,11 @@ pod 'AssetsPickerViewController'
 
 pod 'SDWebImage'
 
-
+pod 'GoogleSignIn'
+pod 'FBSDKLoginKit'
+pod 'Firebase/Core'
+pod 'Firebase/Auth'
+pod 'FirebaseMessaging'
 
 
   # Pods for Soul Tribe

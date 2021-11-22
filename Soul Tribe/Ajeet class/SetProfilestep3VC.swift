@@ -9,6 +9,13 @@ import UIKit
 
 class SetProfilestep3VC: UIViewController {
     
+    
+    @IBOutlet weak var constraint_height_vwTribe: NSLayoutConstraint! //709
+    
+    @IBOutlet weak var vw_mainTribe: UIView!
+    
+    @IBOutlet weak var txt_q1Tribe: UITextView!
+    @IBOutlet weak var txt_q1: UITextView!
     @IBOutlet weak var constraint_top_vwTribe: NSLayoutConstraint! //15
     @IBOutlet weak var headerview: UIView!
     @IBOutlet weak var sexview1: UIView!
@@ -127,7 +134,6 @@ class SetProfilestep3VC: UIViewController {
     var arr_tribe_gender : NSMutableArray = []
     var arr_tribe_sexuality : NSMutableArray = []
    
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -143,6 +149,14 @@ class SetProfilestep3VC: UIViewController {
             vw_hideShow.isHidden = false
         }
         
+        if !arr_vibes.contains("Tribe"){
+            constraint_height_vwTribe.constant = 0
+            vw_mainTribe.isHidden = true
+        }
+        else{
+            constraint_height_vwTribe.constant = 709
+            vw_mainTribe.isHidden = false
+        }
         
         if arr_vibes.contains("Mini Tribes") {
             api_call_here = false
@@ -340,7 +354,13 @@ class SetProfilestep3VC: UIViewController {
         btnnext.layer.borderWidth = 1
         btnnext.layer.borderColor = #colorLiteral(red: 0.8941176471, green: 0.9019607843, blue: 0.9176470588, alpha: 1)
         
-    
+        txt_q1.delegate = self
+        txt_q1.text = "Write your answer here (Optional)"
+        txt_q1.textColor = UIColor.lightGray
+        txt_q1Tribe.delegate = self
+        txt_q1Tribe.text = "Write your answer here (Optional)"
+        txt_q1Tribe.textColor = UIColor.lightGray
+        
         // Do any additional setup after loading the view.
     }
     
@@ -363,7 +383,7 @@ class SetProfilestep3VC: UIViewController {
                 parameterDictionary.setValue(arr_soul_gender.componentsJoined(by:","), forKey: "soul_love_my_prefer_gender")
                 parameterDictionary.setValue(arr_soul_sexuality.componentsJoined(by:","), forKey: "soul_love_my_prefer_sexuality")
                 parameterDictionary.setValue(arr_soul_relationshipGoal.componentsJoined(by:","), forKey: "relationship_looking_for_soul_love")
-                parameterDictionary.setValue("", forKey: "soul_love_QA")
+                parameterDictionary.setValue(txt_q1.text ?? "", forKey: "soul_love_QA")
                 parameterDictionary.setValue(arr_tribe_gender.componentsJoined(by:","), forKey: "tribe_gender")
                 parameterDictionary.setValue(arr_tribe_sexuality.componentsJoined(by:","), forKey: "tribe_sexuality")
                 
@@ -384,7 +404,7 @@ class SetProfilestep3VC: UIViewController {
                     if status == "1" {
                         self.view.makeToast(message)
 
-                        let data = DataManager.getVal(responseData?["data"]) as? [String:Any] ?? [:]
+//                        let data = DataManager.getVal(responseData?["data"]) as? [String:Any] ?? [:]
                         
                         DispatchQueue.main.asyncAfter(deadline: .now()+1.5, execute: {
                            
@@ -420,6 +440,8 @@ class SetProfilestep3VC: UIViewController {
                 vc.arr_soul_relationshipGoal = self.arr_soul_relationshipGoal
                 vc.arr_tribe_gender = self.arr_tribe_gender
                 vc.arr_tribe_sexuality = self.arr_tribe_sexuality
+                vc.q1Soul = txt_q1.text == "Write your answer here (Optional)" ? "" : txt_q1.text
+                vc.q1Tribe = txt_q1Tribe.text == "Write your answer here (Optional)" ? "" : txt_q1Tribe.text
                 
                 navigationController?.pushViewController(vc, animated: true)
             }
@@ -1117,3 +1139,20 @@ class SetProfilestep3VC: UIViewController {
     }
 }
 
+extension SetProfilestep3VC : UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        
+        if textView.textColor == UIColor.lightGray {
+            textView.text = ""
+            textView.textColor = UIColor.black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        
+        if textView.text == "" {
+            textView.text = "Write your answer here (Optional)"
+            textView.textColor = UIColor.lightGray
+        }
+    }
+}

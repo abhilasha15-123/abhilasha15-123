@@ -19,13 +19,86 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
-//        let nav1 = UINavigationController()
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let navigate = storyboard.instantiateViewController(withIdentifier: "WalkPageVC") as! WalkPageVC
-//        nav1.navigationBar.isHidden = true
-//        nav1.viewControllers = [navigate]
-//        UIApplication.shared.windows.first?.rootViewController = nav1
-//        UIApplication.shared.windows.first?.makeKeyAndVisible()
+
+        
+        
+        
+        let LoginVal = Config().AppUserDefaults.object(forKey: "Login") as? String ?? ""
+        let walkthroughValue = Config().AppUserDefaults.value(forKey: "WalkthroughCompleted") as? String ?? ""
+
+        if LoginVal == "yes" && walkthroughValue == "1"{
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let navigate = storyboard.instantiateViewController(withIdentifier: "TTabBarViewController") as! TTabBarViewController
+            let leftController = storyboard.instantiateViewController(withIdentifier: "LeftMenuViewController") as! LeftMenuViewController
+            let slideMenuController = SlideMenuController(mainViewController: UINavigationController(rootViewController:navigate), leftMenuViewController: leftController)
+            slideMenuController.delegate = leftController as? SlideMenuControllerDelegate
+            UIApplication.shared.windows.first?.rootViewController = slideMenuController
+            UIApplication.shared.windows.first?.makeKeyAndVisible()
+
+        }
+        else if LoginVal == "no" && walkthroughValue != "1"{
+//            let story = UIStoryboard(name: "Main", bundle:nil)
+//            let vc = story.instantiateViewController(withIdentifier: "firstNavBar")
+//            UIApplication.shared.windows.first?.rootViewController = vc
+//            UIApplication.shared.windows.first?.makeKeyAndVisible()
+        }
+        else if LoginVal == "no" && walkthroughValue == "1"{
+            let story = UIStoryboard(name: "Main", bundle:nil)
+            let vc = story.instantiateViewController(withIdentifier: "startupNavBar")
+
+            UIApplication.shared.windows.first?.rootViewController = vc
+            UIApplication.shared.windows.first?.makeKeyAndVisible()
+
+        }else if LoginVal == nil && walkthroughValue == "1"{
+
+            let story = UIStoryboard(name: "Main", bundle:nil)
+            let vc = story.instantiateViewController(withIdentifier: "startupNavBar")
+
+            UIApplication.shared.windows.first?.rootViewController = vc
+            UIApplication.shared.windows.first?.makeKeyAndVisible()
+        }
+        else {
+            
+            let nav1 = UINavigationController()
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let navigate = storyboard.instantiateViewController(withIdentifier: "WalkPageVC") as! WalkPageVC
+            nav1.navigationBar.isHidden = true
+            nav1.viewControllers = [navigate]
+            UIApplication.shared.windows.first?.rootViewController = nav1
+            UIApplication.shared.windows.first?.makeKeyAndVisible()
+            
+            
+//           let langStr : String = Locale.current.languageCode ?? "en"
+//           basicFunctions.setLanguage(languageCode: langStr)
+
+//           if langStr == "ar" {
+//               UIView.appearance().semanticContentAttribute = .forceRightToLeft
+//           }
+//           else {
+//               UIView.appearance().semanticContentAttribute = .forceLeftToRight
+//           }
+
+//            let story = UIStoryboard(name: "Main", bundle:nil)
+//            let vc = story.instantiateViewController(withIdentifier: "firstNavBar")
+//            UIApplication.shared.windows.first?.rootViewController = vc
+//            UIApplication.shared.windows.first?.makeKeyAndVisible()
+       }
+        
+        
+        
+        
+        
+        
+  
+
+        let nav1 = UINavigationController()
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let navigate = storyboard.instantiateViewController(withIdentifier: "WalkPageVC") as! WalkPageVC
+        nav1.navigationBar.isHidden = true
+        nav1.viewControllers = [navigate]
+        UIApplication.shared.windows.first?.rootViewController = nav1
+        UIApplication.shared.windows.first?.makeKeyAndVisible()
+
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {
