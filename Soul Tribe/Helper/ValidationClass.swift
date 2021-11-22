@@ -123,6 +123,50 @@ class ValidationClass: NSObject {
         let isValidateName = validateName.evaluate(with: trimmedString)
         return isValidateName
      }
+    
+//    func ValidationChangePasswordForm(_ changePasswordObj: ChangePasswordViewController) -> {
+//        if isBlank(changePasswordObj.newpassTxt){
+//            changePasswordObj.fullname.layer.borderColor = correctColor
+//            changePasswordObj.emailview.layer.borderColor = correctColor
+//            changePasswordObj.mobileview.layer.borderColor = correctColor
+//
+//            let titleTxt = "Please enter password."
+//
+//            changePasswordObj.view.endEditing(true)
+//
+//            changePasswordObj.passwordview.layer.borderColor = UIColor.red.cgColor
+//            changePasswordObj.view.makeToast(titleTxt)
+//            return false
+//        }
+//        else if changePasswordObj.PasswordTxt.text?.count ?? 0 < 7{
+//            changePasswordObj.fullname.layer.borderColor = correctColor
+//            changePasswordObj.emailview.layer.borderColor = correctColor
+//            changePasswordObj.mobileview.layer.borderColor = correctColor
+//            changePasswordObj.passwordview.layer.borderColor = correctColor
+//
+//            let titleTxt = "Password must contain at least 7 characters."
+//
+//            changePasswordObj.view.endEditing(true)
+//            changePasswordObj.passwordview.layer.borderColor  = UIColor.red.cgColor
+//            changePasswordObj.view.makeToast(titleTxt)
+//            return false
+//        }
+//        else if isBlank(changePasswordObj.ConfirmPasswordTxt) {
+//            changePasswordObj.fullname.layer.borderColor = correctColor
+//            changePasswordObj.emailview.layer.borderColor = correctColor
+//            changePasswordObj.mobileview.layer.borderColor = correctColor
+//            changePasswordObj.passwordview.layer.borderColor = correctColor
+//
+//            let titleTxt = "Please enter confirm password."
+//
+//            changePasswordObj.view.endEditing(true)
+//
+//            changePasswordObj.confirmpasswordview.layer.borderColor  = UIColor.red.cgColor
+//            changePasswordObj.view.makeToast(titleTxt)
+//
+//            return false
+//        }
+//    }
 
     
     func ValidateSignUpForm(_ signupVCValidateObj:SignUpViewController) -> Bool {

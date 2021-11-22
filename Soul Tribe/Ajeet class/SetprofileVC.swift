@@ -310,7 +310,7 @@ class SetprofileVC: UIViewController {
     
     @IBAction func btnnext(_ sender: Any) {
  
-        genderVal = arr_gender.componentsJoined(by: ",")
+        genderVal = arr_gender.componentsJoined(by: ", ")
         
         self.view.endEditing(true)
 

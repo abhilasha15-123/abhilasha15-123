@@ -31,7 +31,7 @@ class KolView: UIView,UIScrollViewDelegate, UICollectionViewDelegate, UICollecti
     @IBOutlet weak var hobbiesCollectionView: UICollectionView!
     @IBOutlet weak var menuOptionReportBtn: UIButton!
     @IBOutlet weak var menuOptionBlockUserBtn: UIButton!
-    @IBOutlet weak var menuOptionViewProfileBtn: UIButton!
+    @IBOutlet weak var menuOptionViewProfileBtn: UIButton!
     @IBOutlet weak var ClickonOptionViewBtn: UIButton!
     @IBOutlet weak var bottomViewProfileBtn: UIButton!
     @IBOutlet weak var BtnLeftSwipe: UIButton!
@@ -59,11 +59,12 @@ class KolView: UIView,UIScrollViewDelegate, UICollectionViewDelegate, UICollecti
         commonInit()
     }
     private func commonInit() {
+        
         Bundle.main.loadNibNamed("KolView", owner: self, options: nil)
         addSubview(contentView)
         menuoptionView.isHidden = true
         menuoptionView.layer.cornerRadius = 8
-        
+        userImg.layer.cornerRadius = userImg.frame.height/2
         contentView.frame = self.bounds
         contentView.layer.cornerRadius = 8
         mainView.layer.cornerRadius = 8
@@ -79,7 +80,7 @@ class KolView: UIView,UIScrollViewDelegate, UICollectionViewDelegate, UICollecti
         
         let Questnib = UINib(nibName: "HeaderCollectionCell", bundle: nil)
         self.imageCollectionView.register(Questnib, forCellWithReuseIdentifier: "HeaderCollectionCell")
-        self.imageCollectionView.collectionViewLayout = QuesAnsoLayOut
+//        self.imageCollectionView.collectionViewLayout = QuesAnsoLayOut
         self.imageCollectionView.delegate = self
         imageCollectionView.clipsToBounds = true
         self.imageCollectionView.dataSource = self
@@ -95,12 +96,12 @@ class KolView: UIView,UIScrollViewDelegate, UICollectionViewDelegate, UICollecti
         
         let hobbiesNib = UINib(nibName: "HobbiesCollectionCell", bundle: nil)
         self.hobbiesCollectionView.register(hobbiesNib, forCellWithReuseIdentifier: "HobbiesCollectionCell")
-        self.hobbiesCollectionView.collectionViewLayout = hobbiesLayOut
+//        self.hobbiesCollectionView.collectionViewLayout = hobbiesLayOut
         self.hobbiesCollectionView.delegate = self
         hobbiesCollectionView.clipsToBounds = true
         self.hobbiesCollectionView.dataSource = self
         self.hobbiesCollectionView.isPagingEnabled = true
-    
+        imagePageControl.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 2))
     }
     @IBAction func leftSwipeAction(_ sender: Any) {
     }
@@ -108,9 +109,10 @@ class KolView: UIView,UIScrollViewDelegate, UICollectionViewDelegate, UICollecti
     }
     @IBAction func viewProfileAction(_ sender: Any) {
     }
-
+    
     
     @IBAction func menuOptionAction(_ sender: Any) {
+        self.menuoptionView.isHidden = !self.menuoptionView.isHidden
     }
     @IBAction func menuOptionreport(_ sender: Any) {
     }
@@ -185,7 +187,7 @@ class KolView: UIView,UIScrollViewDelegate, UICollectionViewDelegate, UICollecti
              imagePageControl.isHidden = !(self.picturesArray.count > 1)
              return picturesArray.count
         }else{
-            return 5
+            return self.hobbiesArray.count
         }
     }
     
@@ -201,6 +203,7 @@ class KolView: UIView,UIScrollViewDelegate, UICollectionViewDelegate, UICollecti
             cell.hob_Img.image = UIImage(named: self.hobbiesArray[indexPath.row])
             cell.layer.cornerRadius = 8
             cell.clipsToBounds = true
+            
     //        Config().setimage(name: DataManager.getVal(self.picturesArray[indexPath.row]) as? String ?? "", image: cell.imgView)
             
             return cell
@@ -208,21 +211,19 @@ class KolView: UIView,UIScrollViewDelegate, UICollectionViewDelegate, UICollecti
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HeaderCollectionCell", for: indexPath) as! HeaderCollectionCell
             cell.tag = indexPath.row
             cell.clipsToBounds = true
-            
+            cell.imgView.sd_setImage(with: URL(string: Config().baseImageUrl + self.picturesArray[indexPath.row]), completed: nil)
     //        Config().setimage(name: DataManager.getVal(self.picturesArray[indexPath.row]) as? String ?? "", image: cell.imgView)
-            cell.imgView.layer.cornerRadius = 8
             return cell
         }
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
          if collectionView == self.imageCollectionView{
-            return CGSize(width: screenWidth-60, height: 350)
+            return CGSize(width: screenWidth-40, height: screenHeight/2 - 70)
         }else if collectionView == self.hobbiesCollectionView{
             return CGSize(width: screenWidth/3-50, height: 30)
         }else{
             return CGSize(width: screenWidth-60, height: 190)
         }
     }
-
 }
 

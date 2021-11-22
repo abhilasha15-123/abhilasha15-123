@@ -84,20 +84,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //            UIApplication.shared.windows.first?.makeKeyAndVisible()
        }
         
-        
-        
-        
-        
-        
   
 
-        let nav1 = UINavigationController()
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let navigate = storyboard.instantiateViewController(withIdentifier: "WalkPageVC") as! WalkPageVC
-        nav1.navigationBar.isHidden = true
-        nav1.viewControllers = [navigate]
-        UIApplication.shared.windows.first?.rootViewController = nav1
-        UIApplication.shared.windows.first?.makeKeyAndVisible()
+//        let nav1 = UINavigationController()
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let navigate = storyboard.instantiateViewController(withIdentifier: "WalkPageVC") as! WalkPageVC
+//        nav1.navigationBar.isHidden = true
+//        nav1.viewControllers = [navigate]
+//        UIApplication.shared.windows.first?.rootViewController = nav1
+//        UIApplication.shared.windows.first?.makeKeyAndVisible()
 
     }
     

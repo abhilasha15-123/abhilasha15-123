@@ -28,19 +28,20 @@ class HomeTabVC: UIViewController, SlideMenuControllerDelegate{
   @IBOutlet weak var HomeVibeBtn: UIButton!
   @IBOutlet weak var confirmBlockView: UIView!
   
+    var hobbiesArray = [String]()
+    var getproductImages = [NSDictionary]()
+  var picturesArray = [String]()
   var receiverName = String()
   var receiverAddress = String()
   var ageInt = Int()
   var CategorySelect = String()
   var profileDict = [NSDictionary]()
-  var hobbiesArray = [[String:Any]]()
   var leftDrawerTransition:DrawerTransition!
   var left = LeftMenuViewController()
   var swipeUserID = Int()
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tabBarController?.navigationController?.navigationBar.isHidden = true
         topOptionMenuView.isHidden = true
         topOptionMenuView.layer.cornerRadius = 8
         cardView.countOfVisibleCards = 1
@@ -56,16 +57,13 @@ class HomeTabVC: UIViewController, SlideMenuControllerDelegate{
         self.confirmBlockView.isHidden = true
         //innerpopupvc.frame = CGRect(x: 0, y: 0, width: view.frame.width * 1.2, height: view.frame.height * 1.2
     }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         cardView.reloadData()
     }
-    
     @IBAction func HometopMenuAction(_ sender: Any) {
         self.topOptionMenuView.isHidden = !self.topOptionMenuView.isHidden
     }
-    
     @IBAction func HometopMenuSoulTribeAction(_ sender: Any) {
         self.topOptionMenuView.isHidden = true
         popupview.isHidden = true
@@ -73,7 +71,6 @@ class HomeTabVC: UIViewController, SlideMenuControllerDelegate{
         self.HomeVibeBtn.setTitle("Soul Love", for: .normal)
         self.getData(vibeType: self.CategorySelect)
     }
-    
     @IBAction func HometopMenuTribeAction(_ sender: Any) {
         self.topOptionMenuView.isHidden = true
         popupview.isHidden = true
@@ -110,6 +107,7 @@ class HomeTabVC: UIViewController, SlideMenuControllerDelegate{
 
             if status == "1" {
                 self.cardView.reloadData()
+                self.getData(vibeType: self.CategorySelect)
                 print("rr")
             }
             else {
@@ -133,6 +131,7 @@ class HomeTabVC: UIViewController, SlideMenuControllerDelegate{
         self.CategorySelect = "Soul Love"
         self.HomeVibeBtn.setTitle("Soul Love", for: .normal)
         self.getData(vibeType: self.CategorySelect)
+//        self.slideMenuController()?.toggleLeft()
     }
     
     @IBAction func btntribe(_ sender: Any) {
@@ -229,6 +228,7 @@ class HomeTabVC: UIViewController, SlideMenuControllerDelegate{
              let message  = DataManager.getVal(responseData?["message"]) as? String ?? ""
 
              if status == "1" {
+                 self.cardView.reloadData()
                  self.profileDict = DataManager.getVal(responseData?["data"]) as! [NSDictionary]
                  print(self.profileDict.count)
                  self.cardView.reloadData()
@@ -266,7 +266,12 @@ class HomeTabVC: UIViewController, SlideMenuControllerDelegate{
      }
     @objc func ShowMenuOptionView(){
         let tempVw = KolView()
-        tempVw.menuoptionView.isHidden = !tempVw.menuoptionView.isHidden
+        if tempVw.menuoptionView.isHidden {
+            tempVw.menuoptionView.isHidden = false
+        }else{
+            tempVw.menuoptionView.isHidden = true
+        }
+        
     }
     @objc func menuOptionReportBtnAction(){
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "ReportPopUpVC") as! ReportPopUpVC
@@ -305,7 +310,11 @@ extension HomeTabVC: KolodaViewDataSource {
     }
     func koloda(_ koloda: KolodaView, viewForCardAt index: Int) -> UIView {
         
+        self.picturesArray.removeAll()
+        self.hobbiesArray.removeAll()
         let tempVw = KolView()
+        tempVw.picturesArray.removeAll()
+        tempVw.hobbiesArray.removeAll()
 //        tempVw.dropShadow()
 //        self.cardView.dropShadow()
         tempVw.layer.cornerRadius = 20
@@ -352,49 +361,43 @@ extension HomeTabVC: KolodaViewDataSource {
         let profileImg = dict.value(forKey: "profile_image") as? String
         let firstImpresssion = dict.value(forKey: "first_impression") as? String
         let hobbiesStr = dict.value(forKey: "hobbies") as? String
-        let result = hobbiesStr!.filter { !$0.isWhitespace }
-        let hobbies = result.components(separatedBy: ",")
-        let urlString = Config().API_URL + profileImg!
-        tempVw.userImg.sd_setImage(with: URL(string: urlString), completed: nil)
+//        let result = hobbiesStr!.filter { !$0.isWhitespace }
+        self.hobbiesArray = hobbiesStr!.components(separatedBy: ", ")
+        
+        if self.hobbiesArray.count == 1 {
+            self.hobbiesArray = hobbiesStr!.components(separatedBy: ",")
+        }else{
+            self.hobbiesArray = hobbiesStr!.components(separatedBy: ", ")
+        }
+        
+        tempVw.userImg.sd_setImage(with: URL(string: Config().baseImageUrl + profileImg!), completed: nil)
         self.ageInt = dict.value(forKey: "age") as! Int
         tempVw.ageLbl.text = String(self.ageInt)
         tempVw.userName.text = self.receiverName
         tempVw.cityBtn.setTitle(" \(self.receiverAddress)", for: .normal)
         tempVw.firstImpressionLbl.text = firstImpresssion
-        
-//        print(hobbies[0])
-//        print(hobbies[1])
-//        print(hobbies[2])
-//        print(hobbies[3])
-//        print(hobbies[4])
-//        print(hobbies[5])
-        
-        
-        tempVw.hobbyLbl1.text = hobbies[0]
-        tempVw.hobbyLbl2.text = hobbies[1]
-        tempVw.hobbyLbl3.text = hobbies[2]
-        tempVw.hobbyLbl4.text = hobbies[3]
-        tempVw.hobbyLbl5.text = hobbies[4]
-        tempVw.hobbyLbl6.text = hobbies[5]
-
-        tempVw.hobbyImg1.image = UIImage(named: hobbies[0])
-        tempVw.hobbyImg2.image = UIImage(named: hobbies[1])
-        tempVw.hobbyImg3.image = UIImage(named: hobbies[2])
-        tempVw.hobbyImg4.image = UIImage(named: hobbies[3])
-        tempVw.hobbyImg5.image = UIImage(named: hobbies[4])
-        tempVw.hobbyImg6.image = UIImage(named: hobbies[5])
+        self.getproductImages = dict.value(forKey: "getProductImages") as! [NSDictionary]
+        print(self.getproductImages)
+        for i in 0..<self.getproductImages.count{
+            let dict1 = getproductImages[i]
+            let images = dict1.value(forKey: "images") as? String
+            self.picturesArray.append(images!)
+        }
+        print(self.picturesArray)
+        tempVw.picturesArray = self.picturesArray
+        tempVw.hobbiesArray = self.hobbiesArray
      //   ["Fitness","Music","Shopping","Aliens","Art","Sport","Fitness","Music","Shopping","Aliens"]
-        self.hobbiesArray = [
-                        ["key": hobbies[0],"image": "Aliens"],
-            ]
         
         tempVw.menuOptionReportBtn.addTarget(self, action: #selector(menuOptionReportBtnAction), for: .touchUpInside)
         tempVw.menuOptionBlockUserBtn.addTarget(self, action: #selector(menuOptionBlockUserBtnAction), for: .touchUpInside)
         tempVw.menuOptionViewProfileBtn.addTarget(self, action: #selector(menuOptionViewProfileBtnAction), for: .touchUpInside)
-        tempVw.ClickonOptionViewBtn.addTarget(self, action: #selector(ShowMenuOptionView), for: .touchUpInside)
+//        tempVw.ClickonOptionViewBtn.addTarget(self, action: #selector(ShowMenuOptionView), for: .touchUpInside)
         tempVw.bottomViewProfileBtn.addTarget(self, action: #selector(menuOptionViewProfileBtnAction), for: .touchUpInside)
         tempVw.BtnLeftSwipe.addTarget(self, action: #selector(BtnLeftSwipeAction), for: .touchUpInside)
         tempVw.BtnRightSwipe.addTarget(self, action: #selector(BtnRightSwipeAction), for: .touchUpInside)
+        
+        tempVw.imageCollectionView.reloadData()
+        tempVw.hobbiesCollectionView.reloadData()
         return tempVw
     }
     
@@ -442,8 +445,6 @@ extension HomeTabVC: KolodaViewDelegate {
         }else if direction == .up {
             return true
         }else if direction == .right || direction == .topRight || direction == .bottomRight {
-            
-            
             return true
         }
         else{
@@ -534,4 +535,5 @@ extension HomeTabVC: KolodaViewDelegate {
         }
     }
 }
+
 

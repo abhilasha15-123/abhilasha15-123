@@ -107,7 +107,7 @@ class ProfileTabVC: UIViewController,UICollectionViewDelegate,UICollectionViewDa
 
                 self.imgprofile.sd_setImage(with: URL(string: self.imgBase_url), placeholderImage: #imageLiteral(resourceName: "Group 26614"), options: .refreshCached) { (image, error, cachesType, url) in
                         }
-                self.vibe.text = DataManager.getVal(data?["vibe"]) as? String ?? ""
+                self.vibe.text = data?.value(forKey: "vibe") as? String
                 self.first_impression.text = DataManager.getVal(data?["first_impression"]) as? String ?? ""
                 
                 self.Name_Age.text = self.nameAge

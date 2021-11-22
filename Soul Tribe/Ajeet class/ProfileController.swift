@@ -157,8 +157,8 @@ class ProfileController: UIViewController {
                 let profileImg = self.profileDict.value(forKey: "profile_image") as? String
                 self.firstImpressionLbl.text = self.profileDict.value(forKey: "first_impression") as? String
                 let hobbiesStr = self.profileDict.value(forKey: "hobbies") as? String
-                let result = hobbiesStr!.filter { !$0.isWhitespace }
-                self.hobbiesArray = result.components(separatedBy: ",")
+//                let result = hobbiesStr!.filter { !$0.isWhitespace }
+                self.hobbiesArray = hobbiesStr!.components(separatedBy: ", ")
                 self.vibeStatusSoulLbl.text = self.profileDict.value(forKey: "vibe") as? String
                 self.SexualityLbl.text = self.profileDict.value(forKey: "tribe_sexuality") as? String
                 self.GenderLbl.text = self.profileDict.value(forKey: "gender") as? String

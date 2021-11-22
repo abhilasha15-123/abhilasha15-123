@@ -3,21 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>1007346423739-02mca1s0migojeladn87itb2gffe3m0d.apps.googleusercontent.com</string>
+	<string>1028601810997-bcib2shnipavhphd9el8t5pnpaqljgf9.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1007346423739-02mca1s0migojeladn87itb2gffe3m0d</string>
+	<string>com.googleusercontent.apps.1028601810997-bcib2shnipavhphd9el8t5pnpaqljgf9</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>1028601810997-hii1dd5eof4r60js21iqfkhfkjanu049.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyArXp7wRSwYbtojdeo-src4Y4TgjvNr3aI</string>
+	<string>AIzaSyC3hP5ZaS45H3g_IjhF_vT5UjHZ4a9SXgY</string>
 	<key>GCM_SENDER_ID</key>
-	<string>1007346423739</string>
+	<string>1028601810997</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>app.soultribe.com</string>
+	<string>soultribe.com</string>
 	<key>PROJECT_ID</key>
-	<string>soultribe-4a6b1</string>
+	<string>soul-tribe-b60c6</string>
 	<key>STORAGE_BUCKET</key>
-	<string>soultribe-4a6b1.appspot.com</string>
+	<string>soul-tribe-b60c6.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1007346423739:ios:681fec14d716078f84569e</string>
+	<string>1:1028601810997:ios:bd6e7b3bacb7354449a17c</string>
 </dict>
 </plist>

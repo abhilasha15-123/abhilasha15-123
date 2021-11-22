@@ -36,24 +36,41 @@ class ChangePasswordViewController: UIViewController {
         headerview.layer.shadowOffset = .zero
         headerview.layer.shadowRadius = 7
 
-
-        // Do any additional setup after loading the view.
     }
+    
+    func changePasswordAPI(){
+         self.view.endEditing(true)
+
+         let parameterDictionary = NSMutableDictionary()
+      
+        parameterDictionary.setValue("tribe123", forKey: "api_key")
+        parameterDictionary.setValue("14", forKey: "user_id")
+        parameterDictionary.setValue(self.oldPassTxt.text, forKey: "old_password")
+        parameterDictionary.setValue(self.newpassTxt.text, forKey: "new_password")
+
+        print(parameterDictionary)
+         let methodName = "change_password"
+
+         DataManager.getAPIResponse(parameterDictionary , methodName: methodName, methodType: "POST"){(responseData,error)-> Void in
+             let status  = DataManager.getVal(responseData?["status"]) as? String ?? ""
+             let message  = DataManager.getVal(responseData?["message"]) as? String ?? ""
+
+             if status == "1" {
+                 
+             }
+             else {
+                 self.view.makeToast(message)
+             }
+         }
+     }
     
     @IBAction func backBtnAction(_ sender: Any) {
         navigationController?.popViewController(animated: true)
     }
     @IBAction func submitBtnAction(_ sender: Any) {
+        
+         
+        
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+   
 }
