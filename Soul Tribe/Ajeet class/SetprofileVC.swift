@@ -17,6 +17,14 @@ class uploadimgcollcell: UICollectionViewCell{
 
 class SetprofileVC: UIViewController {
     
+    @IBOutlet weak var btn_gender5: UIButton!
+    @IBOutlet weak var btn_gender4: UIButton!
+    @IBOutlet weak var btn_gender6: UIButton!
+    @IBOutlet weak var btn_gender3: UIButton!
+    @IBOutlet weak var btn_gender2: UIButton!
+    
+    
+    
     @IBAction func btn_profilePicChangeAction(_ sender: UIButton) {
         addingPicssDp = "dp"
         let picker = AssetsPickerViewController()
@@ -128,6 +136,11 @@ class SetprofileVC: UIViewController {
     
     var comesFrom = ""
     
+    
+    var arr_editAsset = [[String:Any]] ()
+    var editAssetCount = 0
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -231,9 +244,9 @@ class SetprofileVC: UIViewController {
         txt_dob.isUserInteractionEnabled = false
         
         if comesFrom == "Edit"{
+            showAgePopup = false
             api_getData()
         }
-        
     }
     
     func api_getData(){
@@ -252,7 +265,6 @@ class SetprofileVC: UIViewController {
             let message  = DataManager.getVal(responseData?["message"]) as! String
 
             if status == "1" {
-                self.view.makeToast(message)
                 self.userData = DataManager.getVal(responseData?["data"]) as? [String:Any] ?? [:]
                 self.setData()
             }
@@ -266,6 +278,88 @@ class SetprofileVC: UIViewController {
     
     
     func setData(){
+        
+        let urlStr = "\(Config().baseImageUrl)\(DataManager.getVal(userData["profile_image"]) as? String ?? "")"
+        img_profilePic.sd_setImage(with: URL(string: urlStr), completed: nil)
+    
+        profilePicAdded = true
+        
+        
+        txtname.text = "\(DataManager.getVal(userData["name"]) as? String ?? "")"
+        txtsurname.text = DataManager.getVal(userData["nick_name"]) as? String ?? ""
+        
+        txt_firstImpression.text = DataManager.getVal(userData["first_impression"]) as? String ?? ""
+        
+        if txt_firstImpression.text != ""{
+            txt_firstImpression.textColor = UIColor.black
+        }
+        
+        let dis = Float(DataManager.getVal(userData["search_distance"]) as? String ?? "") ?? 0
+        slider.value = dis
+        txtkm.text = "\(dis)"
+        txtage.text = DataManager.getVal(userData["age"]) as? String ?? ""
+        txt_dob.text = DataManager.getVal(userData["dob"]) as? String ?? ""
+        selectedDate = txt_dob.text ?? ""
+        selectedDistanceFormat = DataManager.getVal(userData["distance_type"]) as? String ?? ""
+        self.lbl_distanceFormat.text = self.selectedDistanceFormat
+          
+        genderVal = DataManager.getVal(userData["gender"]) as? String ?? ""
+        let arr = genderVal.components(separatedBy: ", ")
+        
+        for str in arr{
+            if str == "Female" {
+                genderview1.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                genderview1.layer.borderWidth = 1
+                btnchk1.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_gender.add("Female")
+                btngender1.isSelected = true
+                
+            }else if str == "Male"{
+                genderview2.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                genderview2.layer.borderWidth = 1
+                btnchk2.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_gender.add("Male")
+                btn_gender2.isSelected = true
+            }else if str == "Transgender"{
+                genderview3.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                genderview3.layer.borderWidth = 1
+                btnchk3.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_gender.add("Transgender")
+                btn_gender3.isSelected = true
+            }else if str == "Gender Fluid"{
+                genderview4.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                genderview4.layer.borderWidth = 1
+                btnchk4.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_gender.add("Gender Fluid")
+                btn_gender4.isSelected = true
+            }else if str == "Prefer not to say"{
+                genderview5.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                genderview5.layer.borderWidth = 1
+                btnchk5.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_gender.add("Prefer not to say")
+                btn_gender5.isSelected = true
+            }else if str == "Other"{
+                genderview6.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                genderview6.layer.borderWidth = 1
+                btnchk6.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_gender.add("Other")
+                btn_gender6.isSelected = true
+            }
+        }
+        
+        self.arr_editAsset = DataManager.getVal(userData["get_product_images"]) as? [[String:Any]] ?? []
+        self.editAssetCount = self.arr_editAsset.count
+        
+        if arr_editAsset.count + 1 > 4{
+            constraint_height_collectionVw.constant = (collectionView.frame.width/2.1 * 3) + 20
+        }
+        else if arr_editAsset.count + 1 > 2{
+            constraint_height_collectionVw.constant = (collectionView.frame.width/2.1 * 2) + 20
+        }else{
+            constraint_height_collectionVw.constant = (collectionView.frame.width/2.1 * 1) + 20
+        }
+        
+        collectionView.reloadData()
         
     }
     
@@ -330,8 +424,53 @@ class SetprofileVC: UIViewController {
             parameterDictionary.setValue(txtage.text ?? "", forKey: "age")
             parameterDictionary.setValue(txtkm.text ?? "", forKey: "search_distance")
             parameterDictionary.setValue(txt_firstImpression.text ?? "", forKey: "first_impression")
-            parameterDictionary.setValue("add", forKey: "type")
             parameterDictionary.setValue(selectedDistanceFormat, forKey: "distance_type")
+            
+            if comesFrom == "Edit"{
+                parameterDictionary.setValue("edit", forKey: "type")
+            }else{
+                parameterDictionary.setValue("add", forKey: "type")
+            }
+            
+            let arr_images = NSMutableArray()
+            
+            if comesFrom == "Edit"{
+                for index in 0..<self.arr_editAsset.count{
+                    let dict = arr_editAsset[index]
+                    let id = DataManager.getVal(dict["gallery_id"]) as? String ?? ""
+                   
+                    if id == "abc_abhilasha"{
+                        let str = DataManager.getVal(dict["name"]) as? String ?? ""
+                        do {
+                            
+                            let d = try Data(contentsOf: URL(string: str)!)
+                            let img = UIImage(data: d)
+                      
+                            let dataDict = NSMutableDictionary()
+                            
+                            dataDict.setObject("photos", forKey: "keyName" as NSCopying)
+                            dataDict.setObject(img?.pngData() ?? Data(), forKey: "MyData" as NSCopying)
+                            dataDict.setObject("png", forKey: "ext" as NSCopying)
+                            arr_images.add(dataDict)
+                        }catch{
+                            print(error)
+                        }
+                    }
+                }
+            }else{
+                
+                for index in 0..<self.arr_assets.count {
+                    let asset = arr_assets[index]
+                    let img = basicFunctions.getAssetThumbnail(asset: asset)
+                        
+                    let dataDict = NSMutableDictionary()
+                        
+                    dataDict.setObject("photos", forKey: "keyName" as NSCopying)
+                    dataDict.setObject(img.pngData() ?? Data(), forKey: "MyData" as NSCopying)
+                    dataDict.setObject("png", forKey: "ext" as NSCopying)
+                    arr_images.add(dataDict)
+                }
+            }
             
             //For upload image
             let dataArr = NSMutableArray()
@@ -341,22 +480,8 @@ class SetprofileVC: UIViewController {
             dataDict.setObject("png", forKey: "imagetype" as NSCopying)
             dataArr.add(dataDict)
             
-            let arr_images = NSMutableArray()
-            
-            for index in 0..<self.arr_assets.count {
-                let asset = arr_assets[index]
-                let img = basicFunctions.getAssetThumbnail(asset: asset)
-                    
-                let dataDict = NSMutableDictionary()
-                    
-                dataDict.setObject("photos", forKey: "keyName" as NSCopying)
-                dataDict.setObject(img.pngData() ?? Data(), forKey: "MyData" as NSCopying)
-                dataDict.setObject("png", forKey: "ext" as NSCopying)
-                arr_images.add(dataDict)
-            }
-            
             print(parameterDictionary)
-
+           
             let methodName = "update_form_one"
             
             DataManager.MultipleImageArrayAndSingleImage(parameterDictionary: parameterDictionary, methodName: methodName, dataArray: arr_images, CertificateArray: dataArr, success: {
@@ -369,7 +494,8 @@ class SetprofileVC: UIViewController {
                         self.view.makeToast(message)
                         DispatchQueue.main.asyncAfter(deadline: .now()+1.5, execute: {
                             let vc = self.storyboard?.instantiateViewController(identifier: "SetProfilestep2VC") as! SetProfilestep2VC
-                            vc.userId = Config().AppUserDefaults.value(forKey:"user_id") as? String ?? ""
+                            vc.comesFrom = self.comesFrom
+                            vc.userData = self.userData
                             self.navigationController?.pushViewController(vc, animated: true)
                         })
                     }
@@ -482,8 +608,11 @@ class SetprofileVC: UIViewController {
 }
 extension SetprofileVC: UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return arr_assets.count + 1
-        
+        if comesFrom == "Edit" {
+            return arr_editAsset.count + 1
+        }else{
+            return arr_assets.count + 1
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -491,16 +620,41 @@ extension SetprofileVC: UICollectionViewDelegate,UICollectionViewDataSource,UICo
 
         cell.userimg.layer.cornerRadius = 8
         
-        if indexPath.row == arr_assets.count {
-            cell.userimg.image = UIImage(named: "Group 27152")
-            cell.brncross.isHidden = true
+        if comesFrom == "Edit" {
+            if indexPath.row == arr_editAsset.count {
+                cell.userimg.image = UIImage(named: "Group 27152")
+                cell.brncross.isHidden = true
+            }else{
+                let dict = arr_editAsset[indexPath.row]
+                
+                let addUrl = DataManager.getVal(dict["images"]) as? String ?? ""
+                var strUrl = ""
+                
+                if addUrl != "" {
+                    strUrl = "\(Config().baseImageUrl)\(addUrl)"
+                }else{
+                    strUrl = DataManager.getVal(dict["name"]) as? String ?? ""
+                }
+             
+                do {
+                    let d = try Data(contentsOf: URL(string: strUrl)!)
+                        cell.userimg.image = UIImage(data: d)
+                }catch{
+                    print(error)
+                }
+                cell.brncross.isHidden = false
+            }
         }else{
-            let asset = arr_assets[indexPath.row]
-            let img = basicFunctions.getAssetThumbnail(asset: asset)
-            cell.userimg.image = img
-            cell.brncross.isHidden = false
+            if indexPath.row == arr_assets.count {
+                cell.userimg.image = UIImage(named: "Group 27152")
+                cell.brncross.isHidden = true
+            }else{
+                let asset = arr_assets[indexPath.row]
+                let img = basicFunctions.getAssetThumbnail(asset: asset)
+                cell.userimg.image = img
+                cell.brncross.isHidden = false
+            }
         }
-       
         cell.brncross.tag = indexPath.row
         cell.brncross.addTarget(self, action: #selector(deleteAsset(_:)), for: .touchUpInside)
         
@@ -520,45 +674,150 @@ extension SetprofileVC: UICollectionViewDelegate,UICollectionViewDataSource,UICo
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.row == arr_assets.count {
-            
-            addingPicssDp = "pics"
-            
-            let picker = AssetsPickerViewController()
-            let config = AssetsPickerConfig()
-            config.albumIsShowEmptyAlbum = false
+        
+        if comesFrom == "Edit"{
+            if indexPath.row == arr_editAsset.count {
+                addingPicssDp = "pics"
+                
+                let picker = AssetsPickerViewController()
+                let config = AssetsPickerConfig()
+                config.albumIsShowEmptyAlbum = false
+                if comesFrom != "Edit"{
+                    config.selectedAssets = self.arr_assets
+                }else{
+                    
+                }
 
-            let options = PHFetchOptions()
-            options.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
-            options.sortDescriptors = [NSSortDescriptor(key: "duration", ascending: true)]
+                let options = PHFetchOptions()
+                options.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
+                options.sortDescriptors = [NSSortDescriptor(key: "duration", ascending: true)]
 
-            config.assetFetchOptions = [
-                .smartAlbum: options,
-                .album: options
-            ]
+                config.assetFetchOptions = [
+                    .smartAlbum: options,
+                    .album: options
+                ]
 
-            picker.pickerConfig = config
-            picker.pickerDelegate = self
-            present(picker, animated: true, completion: nil)
+                picker.pickerConfig = config
+                picker.pickerDelegate = self
+                present(picker, animated: true, completion: nil)
+            }
+        }else{
+            if indexPath.row == arr_assets.count {
+                addingPicssDp = "pics"
+                
+                let picker = AssetsPickerViewController()
+                let config = AssetsPickerConfig()
+                config.albumIsShowEmptyAlbum = false
+                if comesFrom != "Edit"{
+                    config.selectedAssets = self.arr_assets
+                }else{
+                }
+
+                let options = PHFetchOptions()
+                options.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
+                options.sortDescriptors = [NSSortDescriptor(key: "duration", ascending: true)]
+
+                config.assetFetchOptions = [
+                    .smartAlbum: options,
+                    .album: options
+                ]
+
+                picker.pickerConfig = config
+                picker.pickerDelegate = self
+                present(picker, animated: true, completion: nil)
+            }
         }
     }
     
     
     @objc func deleteAsset(_ sender : UIButton){
        
-        self.arr_assets.remove(at: sender.tag)
-        if arr_assets.count + 1 > 4{
-            constraint_height_collectionVw.constant = (collectionView.frame.width/2.1 * 3) + 20
-        }
-        else if arr_assets.count + 1 > 2{
-            constraint_height_collectionVw.constant = (collectionView.frame.width/2.1 * 2) + 20
+        if comesFrom == "Edit" {
+            if sender.tag < editAssetCount{
+                let deleteAlert = UIAlertController(title: "Delete", message: "Are you sure you want to delete the image permanently?", preferredStyle: UIAlertController.Style.alert)
+
+                deleteAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
+                    let dict = self.arr_editAsset[sender.tag]
+                    let id = DataManager.getVal(dict["id"]) as? String ?? ""
+                    self.api_deleteImage(val: id, indexForArray: sender.tag)
+                    print("deleteFromWeb")
+                }))
+
+                deleteAlert.addAction(UIAlertAction(title: Bundle.main.localizedString(forKey: "Cancel", value: nil, table: "Localizable"), style: .cancel, handler: { (action: UIAlertAction!) in
+                }))
+                self.present(deleteAlert, animated: true, completion: nil)
+                
+            }else{
+                self.arr_editAsset.remove(at: sender.tag)
+                
+                if arr_editAsset.count + 1 > 4{
+                    constraint_height_collectionVw.constant = (collectionView.frame.width/2.1 * 3) + 20
+                }
+                else if arr_editAsset.count + 1 > 2{
+                    constraint_height_collectionVw.constant = (collectionView.frame.width/2.1 * 2) + 20
+                }else{
+                    constraint_height_collectionVw.constant = (collectionView.frame.width/2.1 * 1) + 20
+                }
+                
+                self.collectionView.reloadData()
+                print("deleteFromAssetsGallery")
+            }
         }else{
-            constraint_height_collectionVw.constant = (collectionView.frame.width/2.1 * 1) + 20
+            self.arr_assets.remove(at: sender.tag)
+            if arr_assets.count + 1 > 4{
+                constraint_height_collectionVw.constant = (collectionView.frame.width/2.1 * 3) + 20
+            }
+            else if arr_assets.count + 1 > 2{
+                constraint_height_collectionVw.constant = (collectionView.frame.width/2.1 * 2) + 20
+            }else{
+                constraint_height_collectionVw.constant = (collectionView.frame.width/2.1 * 1) + 20
+            }
+            self.collectionView.reloadData()
         }
-        self.collectionView.reloadData()
-       
+        
     }
     
+    @objc func api_deleteImage(val: String, indexForArray : Int){
+        self.view.endEditing(true)
+            
+        basicFunctions.presentLoader()
+
+         
+        
+        let parameterDictionary = NSMutableDictionary()
+        parameterDictionary.setValue(Config().AppUserDefaults.value(forKey:"user_id") as? String ?? "", forKey: "user_id")
+        parameterDictionary.setValue(Config().api_key, forKey: "api_key")
+        parameterDictionary.setValue(val, forKey: "image_id")
+        
+        print(parameterDictionary)
+
+        let methodName = "delete_image"
+        
+        DataManager.getAPIResponse(parameterDictionary , methodName: methodName, methodType: "POST"){(responseData,error)-> Void in
+            let status  = DataManager.getVal(responseData?["status"]) as? String ?? ""
+            let message  = DataManager.getVal(responseData?["message"]) as? String ?? ""
+
+            if status == "1" {
+                self.arr_editAsset.remove(at: indexForArray)
+                self.editAssetCount -= 1
+                self.view.makeToast(message)
+                
+                if self.arr_editAsset.count + 1 > 4{
+                    self.constraint_height_collectionVw.constant = (self.collectionView.frame.width/2.1 * 3) + 20
+                }
+                else if self.arr_editAsset.count + 1 > 2{
+                    self.constraint_height_collectionVw.constant = (self.collectionView.frame.width/2.1 * 2) + 20
+                }else{
+                    self.constraint_height_collectionVw.constant = (self.collectionView.frame.width/2.1 * 1) + 20
+                }
+                self.collectionView.reloadData()
+            }
+            else {
+                self.view.makeToast(message)
+            }
+            basicFunctions.stopLoading()
+        }
+    }
 }
 
 
@@ -602,13 +861,22 @@ extension SetprofileVC: AssetsPickerViewControllerDelegate {
             }
             return true
         }else{
-            if controller.selectedAssets.count >= 5 {
-                return false
-            }else{
-                return true
-            }
+            
+             if comesFrom == "Edit"{
+                 let totalAssets = self.arr_editAsset.count + controller.selectedAssets.count
+                 if totalAssets >= 5 {
+                     return false
+                 }else{
+                     return true
+                 }
+             }else{
+                if controller.selectedAssets.count >= 5 {
+                    return false
+                }else{
+                    return true
+                }
+             }
         }
-       
     }
     
     func assetsPicker(controller: AssetsPickerViewController, selected assets: [PHAsset]) {
@@ -618,15 +886,44 @@ extension SetprofileVC: AssetsPickerViewControllerDelegate {
             let img = basicFunctions.getAssetThumbnail(asset: assets[0])
             self.img_profilePic.image = img
         }else{
-            arr_assets = assets
-            if arr_assets.count + 1 > 4{
-                constraint_height_collectionVw.constant = (collectionView.frame.width/2.1 * 3) + 20
-            }
-            else if arr_assets.count + 1 > 2{
-                constraint_height_collectionVw.constant = (collectionView.frame.width/2.1 * 2) + 20
-            }
-            else {
-                constraint_height_collectionVw.constant = (collectionView.frame.width/2.1 * 1) + 20
+            
+            if comesFrom == "Edit"{
+                for i in 0..<assets.count {
+                    
+                    let options: PHContentEditingInputRequestOptions = PHContentEditingInputRequestOptions()
+                        options.canHandleAdjustmentData = {(adjustmeta: PHAdjustmentData) -> Bool in
+                            return true
+                        }
+                    assets[i].requestContentEditingInput(with: options, completionHandler: { (contentEditingInput, info) in
+                       
+                        let urlStr = contentEditingInput!.fullSizeImageURL?.absoluteString
+                        let dict = ["name" :"\(urlStr ?? "")","gallery_id":"abc_abhilasha"]
+                        self.arr_editAsset.append(dict)
+                        
+                        if self.arr_editAsset.count + 1 > 4 {
+                            self.constraint_height_collectionVw.constant = (self.collectionView.frame.width/2.1 * 3) + 20
+                        }
+                        else if self.arr_editAsset.count + 1 > 2 {
+                            self.constraint_height_collectionVw.constant = (self.collectionView.frame.width/2.1 * 2) + 20
+                        }
+                        else {
+                            self.constraint_height_collectionVw.constant = (self.collectionView.frame.width/2.1 * 1) + 20
+                        }
+                        
+                        self.collectionView.reloadData()
+                    })
+                }
+            }else{
+                arr_assets = assets
+                if arr_assets.count + 1 > 4{
+                    constraint_height_collectionVw.constant = (collectionView.frame.width/2.1 * 3) + 20
+                }
+                else if arr_assets.count + 1 > 2{
+                    constraint_height_collectionVw.constant = (collectionView.frame.width/2.1 * 2) + 20
+                }
+                else {
+                    constraint_height_collectionVw.constant = (collectionView.frame.width/2.1 * 1) + 20
+                }
             }
             collectionView.reloadData()
         }

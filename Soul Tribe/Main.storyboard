@@ -551,7 +551,7 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alison Morrison" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WTF-QF-KoX">
-                                                            <rect key="frame" x="70" y="14" width="97.5" height="16.5"/>
+                                                            <rect key="frame" x="70" y="14" width="107" height="19.5"/>
                                                             <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="14"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -563,7 +563,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hey, how are you? I heard you were textin..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NUO-LK-J3z">
-                                                            <rect key="frame" x="70" y="35.5" width="234.5" height="15"/>
+                                                            <rect key="frame" x="70" y="38.5" width="253" height="15"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="15" id="WEY-LT-oPk"/>
                                                             </constraints>
@@ -1260,6 +1260,9 @@
                                                 <state key="normal" title="  Edit Profile" image="Icon material-edit">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="btn_editProfileAction:" destination="7sh-M4-GwO" eventType="touchUpInside" id="9sB-4a-Gfs"/>
+                                                </connections>
                                             </button>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Group 26614" translatesAutoresizingMaskIntoConstraints="NO" id="Lio-3L-B3u">
                                                 <rect key="frame" x="142" y="57" width="130" height="130"/>
@@ -11784,6 +11787,11 @@
                     <connections>
                         <outlet property="btn_cancel_Calendar" destination="nRa-vc-HxR" id="jrW-61-oyw"/>
                         <outlet property="btn_continue_Calendar" destination="n3Y-yN-jHa" id="haO-V4-c06"/>
+                        <outlet property="btn_gender2" destination="Cvl-SS-k9y" id="kTj-kv-qUX"/>
+                        <outlet property="btn_gender3" destination="a3f-GQ-5KD" id="s5i-ni-RaB"/>
+                        <outlet property="btn_gender4" destination="xro-0d-lDY" id="8wo-U0-osO"/>
+                        <outlet property="btn_gender5" destination="0Pe-Ab-Omw" id="yyU-od-7HL"/>
+                        <outlet property="btn_gender6" destination="Xx8-1M-Az2" id="3Dn-qQ-e0f"/>
                         <outlet property="btnchk1" destination="Atc-Tg-exc" id="8sL-JN-EQa"/>
                         <outlet property="btnchk2" destination="QUy-yI-jXe" id="OOl-9X-6ZV"/>
                         <outlet property="btnchk3" destination="fou-YF-Qev" id="QgK-oH-Zl2"/>
@@ -11866,7 +11874,7 @@
                                 <rect key="frame" x="0.0" y="77" width="375" height="1223"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q0L-6M-7kJ">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1231"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1531"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Step 2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WLX-Cc-sBe">
                                                 <rect key="frame" x="15" y="18" width="345" height="22"/>
@@ -12040,10 +12048,10 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="2ff-to-g0T">
-                                                <rect key="frame" x="15" y="234" width="345" height="300"/>
+                                                <rect key="frame" x="15" y="234" width="345" height="600"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="300" id="nc7-rZ-8qQ"/>
+                                                    <constraint firstAttribute="height" constant="600" id="nc7-rZ-8qQ"/>
                                                 </constraints>
                                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Cm7-Yh-xEj">
                                                     <size key="itemSize" width="162" height="48"/>
@@ -12107,7 +12115,7 @@
                                                 </connections>
                                             </collectionView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Religious Views" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bFc-Iz-ii0">
-                                                <rect key="frame" x="15" y="534" width="345" height="18"/>
+                                                <rect key="frame" x="15" y="834" width="345" height="18"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="18" id="MKK-Xx-wPd"/>
                                                 </constraints>
@@ -12116,7 +12124,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YEa-Lj-wyW">
-                                                <rect key="frame" x="15" y="562" width="345" height="42"/>
+                                                <rect key="frame" x="15" y="862" width="345" height="42"/>
                                                 <subviews>
                                                     <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DfD-Jh-SDz">
                                                         <rect key="frame" x="10" y="0.0" width="275" height="42"/>
@@ -12144,7 +12152,7 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What inspires you to wake up every day?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tzS-Lm-AHS">
-                                                <rect key="frame" x="15" y="616" width="345" height="18"/>
+                                                <rect key="frame" x="15" y="916" width="345" height="18"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="18" id="S3x-tP-efK"/>
                                                 </constraints>
@@ -12153,7 +12161,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Vh-eY-Ttr">
-                                                <rect key="frame" x="15" y="642" width="345" height="86"/>
+                                                <rect key="frame" x="15" y="942" width="345" height="86"/>
                                                 <subviews>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text=" Write your answer here (Optional)" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ojp-oh-JCe">
                                                         <rect key="frame" x="0.0" y="0.0" width="345" height="86"/>
@@ -12173,7 +12181,7 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What is your favorite childhood memory that still lights you up when you think about it?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KRx-6p-nht">
-                                                <rect key="frame" x="15" y="740" width="345" height="40"/>
+                                                <rect key="frame" x="15" y="1040" width="345" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="5qO-lh-Pvk"/>
                                                 </constraints>
@@ -12182,7 +12190,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5vT-vc-x5e">
-                                                <rect key="frame" x="15" y="788" width="345" height="86"/>
+                                                <rect key="frame" x="15" y="1088" width="345" height="86"/>
                                                 <subviews>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text=" Write your answer here (Optional)" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="n5P-tK-3cg">
                                                         <rect key="frame" x="0.0" y="0.0" width="345" height="86"/>
@@ -12202,7 +12210,7 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If you can be, do, and have anything in this very moment what would it be? (Do not hold back!)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uof-q1-txJ">
-                                                <rect key="frame" x="15" y="886" width="345" height="40"/>
+                                                <rect key="frame" x="15" y="1186" width="345" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="Zd7-VV-hgY"/>
                                                 </constraints>
@@ -12211,7 +12219,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LZu-gw-wyM">
-                                                <rect key="frame" x="15" y="934" width="345" height="86"/>
+                                                <rect key="frame" x="15" y="1234" width="345" height="86"/>
                                                 <subviews>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text=" Write your answer here (Optional)" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="N6s-3B-yhm">
                                                         <rect key="frame" x="0.0" y="0.0" width="345" height="86"/>
@@ -12231,7 +12239,7 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What led to your spiritual awakening/awareness?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qH0-vy-Pa0">
-                                                <rect key="frame" x="15" y="1032" width="345" height="18"/>
+                                                <rect key="frame" x="15" y="1332" width="345" height="18"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="18" id="ocY-a8-b4D"/>
                                                 </constraints>
@@ -12240,7 +12248,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nw6-Ty-Zh0">
-                                                <rect key="frame" x="15" y="1058" width="345" height="86"/>
+                                                <rect key="frame" x="15" y="1358" width="345" height="86"/>
                                                 <subviews>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text=" Write your answer here (Optional)" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="vza-t3-Zv5">
                                                         <rect key="frame" x="0.0" y="0.0" width="345" height="86"/>
@@ -12260,7 +12268,7 @@
                                                 </constraints>
                                             </view>
                                             <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Hes-Df-k3g">
-                                                <rect key="frame" x="15" y="609" width="345" height="200"/>
+                                                <rect key="frame" x="15" y="909" width="345" height="200"/>
                                                 <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="200" id="h5J-SP-1XU"/>
@@ -12304,7 +12312,7 @@
                                                 </connections>
                                             </tableView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Asa-tv-R8y">
-                                                <rect key="frame" x="15" y="1169" width="345" height="42"/>
+                                                <rect key="frame" x="15" y="1469" width="345" height="42"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YNp-O3-oMX">
                                                         <rect key="frame" x="0.0" y="0.0" width="162.5" height="42"/>
@@ -12312,6 +12320,9 @@
                                                         <state key="normal" title="Back">
                                                             <color key="titleColor" red="0.086274509799999996" green="0.78039215689999997" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="btn_backBottomAction:" destination="ddz-R2-xNy" eventType="touchUpInside" id="j0M-ya-T7Z"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i98-HF-3Gj">
                                                         <rect key="frame" x="182.5" y="0.0" width="162.5" height="42"/>
@@ -12410,11 +12421,15 @@
                     </view>
                     <size key="freeformSize" width="375" height="1300"/>
                     <connections>
+                        <outlet property="btn_miniTribes" destination="dyO-sx-Rfi" id="egy-n0-UUE"/>
+                        <outlet property="btn_soulLove" destination="En6-zo-P9g" id="3be-jI-dCn"/>
+                        <outlet property="btn_tribe" destination="yDZ-T5-crt" id="537-7J-BXQ"/>
                         <outlet property="btnback" destination="YNp-O3-oMX" id="IAi-0h-sjq"/>
                         <outlet property="btnimg" destination="Auf-vT-T7b" id="qoX-AZ-3QM"/>
                         <outlet property="btnimg2" destination="ngl-oh-Yoj" id="euj-rs-g2b"/>
                         <outlet property="btnimg3" destination="XfI-ya-Pj8" id="5zL-a0-0j2"/>
                         <outlet property="btnnext" destination="i98-HF-3Gj" id="eee-Zc-nCN"/>
+                        <outlet property="constraint_height_interestColView" destination="nc7-rZ-8qQ" id="9ZD-pq-Pdj"/>
                         <outlet property="firstview" destination="3Vh-eY-Ttr" id="m5D-nj-HIZ"/>
                         <outlet property="forthview" destination="Nw6-Ty-Zh0" id="EJ6-nP-Fp9"/>
                         <outlet property="headerview" destination="kAA-Ck-Dfm" id="7Wu-CF-S6b"/>
@@ -13800,7 +13815,7 @@
                                                                 <state key="normal" image="black circle"/>
                                                                 <state key="selected" image="Icon awesome-check-circle"/>
                                                             </button>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Long term" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xdL-aX-Jdp">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Long Term" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xdL-aX-Jdp">
                                                                 <rect key="frame" x="45" y="8" width="127" height="26"/>
                                                                 <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="14"/>
                                                                 <nil key="textColor"/>
@@ -13903,7 +13918,7 @@
                                                 </constraints>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xsh-FX-JW9">
-                                                <rect key="frame" x="15" y="863" width="384" height="322"/>
+                                                <rect key="frame" x="15" y="1097" width="384" height="88"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qvo-MV-dKH">
@@ -14864,6 +14879,49 @@
                         <outlet property="Tribegender5" destination="a9X-iy-fdB" id="4J1-T8-9Wy"/>
                         <outlet property="Tribegender6" destination="nhk-5F-CVt" id="tM1-eC-zw9"/>
                         <outlet property="Tribegender7" destination="cbb-bM-06k" id="k2w-Gq-sag"/>
+                        <outlet property="btn_myrelationStatus1" destination="5wN-qY-Rpj" id="gjp-wh-YA6"/>
+                        <outlet property="btn_myrelationStatus2" destination="Iiq-ex-crS" id="ShB-NK-lt0"/>
+                        <outlet property="btn_myrelationStatus3" destination="7Fm-FX-La6" id="SkZ-Cr-YIz"/>
+                        <outlet property="btn_myrelationStatus4" destination="mfp-z1-iXe" id="WM1-k2-Aci"/>
+                        <outlet property="btn_mysexuality1" destination="A4d-Kl-WuM" id="BEh-tf-JVL"/>
+                        <outlet property="btn_mysexuality2" destination="DAo-45-SSD" id="J10-YE-N95"/>
+                        <outlet property="btn_mysexuality3" destination="18c-AD-4Vz" id="ara-Je-d5Y"/>
+                        <outlet property="btn_mysexuality4" destination="i0N-cZ-ymS" id="dOt-Bf-N8h"/>
+                        <outlet property="btn_mysexuality5" destination="B0n-O9-mxN" id="ZUG-hQ-RQQ"/>
+                        <outlet property="btn_mysexuality6" destination="rMk-O9-oe0" id="udE-gU-YMW"/>
+                        <outlet property="btn_mysexuality7" destination="vHG-Os-bAD" id="hHR-Ot-Mgl"/>
+                        <outlet property="btn_soulGender1" destination="zL2-Iv-Bfr" id="TPJ-80-vAk"/>
+                        <outlet property="btn_soulGender2" destination="Fzg-7E-vFY" id="TDa-kz-jyS"/>
+                        <outlet property="btn_soulGender3" destination="Zp3-RP-6eG" id="Ge7-fl-fN8"/>
+                        <outlet property="btn_soulGender4" destination="IpN-Q4-8ig" id="sfg-b1-av9"/>
+                        <outlet property="btn_soulGender5" destination="aTo-N4-9Tc" id="m5F-z6-2yx"/>
+                        <outlet property="btn_soulGender6" destination="cNl-fr-6PQ" id="hgs-gg-Nae"/>
+                        <outlet property="btn_soulGender7" destination="pc5-M3-E0l" id="Vel-yr-9Ag"/>
+                        <outlet property="btn_soulGoal1" destination="IR1-D3-3TO" id="2Sk-hu-Qds"/>
+                        <outlet property="btn_soulGoal2" destination="vxn-7s-XKu" id="o9w-HP-SUE"/>
+                        <outlet property="btn_soulSexuality1" destination="hzN-10-Jlk" id="v3T-lL-Z9c"/>
+                        <outlet property="btn_soulSexuality2" destination="sLl-kd-6a2" id="I7e-47-jgb"/>
+                        <outlet property="btn_soulSexuality3" destination="ta4-tp-ljZ" id="SCm-dk-1KV"/>
+                        <outlet property="btn_soulSexuality4" destination="UCN-C0-95X" id="nHK-9k-ZOL"/>
+                        <outlet property="btn_soulSexuality5" destination="qlm-nc-afG" id="BOF-WL-E5A"/>
+                        <outlet property="btn_soulSexuality6" destination="c0z-Fj-fSE" id="0XT-JO-dR8"/>
+                        <outlet property="btn_soulSexuality7" destination="JVR-Zf-c3V" id="cOD-4K-m03"/>
+                        <outlet property="btn_soulSexuality8" destination="m4J-eQ-nHd" id="8ZD-hI-w2c"/>
+                        <outlet property="btn_tribeGender1" destination="Hrv-ky-3Qi" id="mvQ-Ew-Las"/>
+                        <outlet property="btn_tribeGender2" destination="TeA-Lp-HIq" id="Y1J-NZ-wFA"/>
+                        <outlet property="btn_tribeGender3" destination="kBW-O6-yK3" id="nvX-ke-b8z"/>
+                        <outlet property="btn_tribeGender4" destination="Nsx-Fr-W9s" id="dJO-ls-g0H"/>
+                        <outlet property="btn_tribeGender5" destination="wdt-Kl-MWk" id="jKa-Up-a4H"/>
+                        <outlet property="btn_tribeGender6" destination="8Ly-oU-rtC" id="KEF-rU-4Mp"/>
+                        <outlet property="btn_tribeGender7" destination="dyM-wS-mGs" id="zQc-Rz-PHr"/>
+                        <outlet property="btn_tribeSexuality1" destination="889-4g-mct" id="MFr-vU-bxh"/>
+                        <outlet property="btn_tribeSexuality2" destination="VcE-xi-tOS" id="ZrG-Lt-Vz1"/>
+                        <outlet property="btn_tribeSexuality3" destination="kvg-6i-WlI" id="E0F-CF-hfc"/>
+                        <outlet property="btn_tribeSexuality4" destination="BeY-72-PFt" id="Phc-Ne-wsm"/>
+                        <outlet property="btn_tribeSexuality5" destination="Tyk-Es-d3V" id="oCT-Ch-12F"/>
+                        <outlet property="btn_tribeSexuality6" destination="DFl-kK-ss0" id="4Tq-Vo-ug6"/>
+                        <outlet property="btn_tribeSexuality7" destination="F45-fw-Dhb" id="L57-ek-5Jc"/>
+                        <outlet property="btn_tribeSexuality8" destination="tWq-lQ-bKy" id="csb-7u-BxU"/>
                         <outlet property="btncheck1" destination="ia3-vf-O7Q" id="oDh-0k-Z9G"/>
                         <outlet property="btncheck10" destination="fdT-iD-EaJ" id="VCi-pj-ieS"/>
                         <outlet property="btncheck11" destination="tfu-i6-K6L" id="wRP-y6-cqm"/>
@@ -15621,6 +15679,16 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btn_relationship1" destination="7k8-qi-XWw" id="8tG-3Z-DYa"/>
+                        <outlet property="btn_relationship2" destination="NLj-Ta-LS3" id="nmo-yr-PzD"/>
+                        <outlet property="btn_relationship3" destination="DH3-li-Chw" id="xap-Eb-sxh"/>
+                        <outlet property="btn_sexuality1" destination="zvC-gj-ER4" id="hto-wg-CxQ"/>
+                        <outlet property="btn_sexuality2" destination="PqA-Ts-UmV" id="oga-V9-IBH"/>
+                        <outlet property="btn_sexuality3" destination="ihU-gY-fHW" id="DtH-q1-lWi"/>
+                        <outlet property="btn_sexuality4" destination="kxP-WV-BAm" id="ZZi-mg-XRa"/>
+                        <outlet property="btn_sexuality5" destination="OeW-sr-YTY" id="ZtD-om-qMg"/>
+                        <outlet property="btn_sexuality6" destination="FrA-cO-ebd" id="5na-cD-knq"/>
+                        <outlet property="btn_sexuality7" destination="tPE-AY-NIn" id="QZb-PP-OZJ"/>
                         <outlet property="btnchk1" destination="f2b-Zd-VDg" id="r7T-7C-6qu"/>
                         <outlet property="btnchk10" destination="HYG-sk-F6h" id="Q7p-v3-FxW"/>
                         <outlet property="btnchk2" destination="FP2-h3-1bi" id="1mJ-md-JMh"/>

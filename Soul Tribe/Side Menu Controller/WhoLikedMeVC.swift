@@ -37,8 +37,8 @@ class WhoLikedMecollcell2: UICollectionViewCell{
 }
 
 class WhoLikedMeVC: UIViewController {
-    var interestImage = ["Fitness","Music","Shopping","Aliens","Art","Sport"]
-    var interestTxt = ["Fitness","Music","Shopping","Aliens","Art","Sport"]
+    var interestImage = ["Aliens","Art","Cooking","Dancing","Fitness","Gaming","Hiking","Law of Attraction","Meditation","Music","Outdoors","Plant Medicine","Quantam Physics","Reading","Shopping","Social Events","Spirituality","Sports","Travel","Yoga"]
+    var interestTxt = ["Aliens","Art","Cooking","Dancing","Fitness","Gaming","Hiking","Law of Attraction","Meditation","Music","Outdoors","Plant Medicine","Quantam Physics","Reading","Shopping","Social Events","Spirituality","Sports","Travel","Yoga"]
    
     var leftDrawerTransition:DrawerTransition!
     var left = LeftMenuViewController()
@@ -97,8 +97,8 @@ extension WhoLikedMeVC: UITableViewDelegate,UITableViewDataSource{
         {
             let cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "WhoLikedMecollcell2", for: indexPath) as! WhoLikedMecollcell2
             cell1.cornorview.layer.cornerRadius = 5
-            var interestImage = ["Fitness","Music","Shopping","Aliens","Art","Sport"]
-            var interestTxt = ["Fitness","Music","Shopping","Aliens","Art","Sport"]
+            var interestImage = ["Aliens","Art","Cooking","Dancing","Fitness","Gaming","Hiking","Law of Attraction","Meditation","Music","Outdoors","Plant Medicine","Quantam Physics","Reading","Shopping","Social Events","Spirituality","Sports","Travel","Yoga"]
+            var interestTxt = ["Aliens","Art","Cooking","Dancing","Fitness","Gaming","Hiking","Law of Attraction","Meditation","Music","Outdoors","Plant Medicine","Quantam Physics","Reading","Shopping","Social Events","Spirituality","Sports","Travel","Yoga"]
             
             cell1.interestImage.image = UIImage(named: interestImage[indexPath.item])
             cell1.interstedLbl.text = interestTxt[indexPath.item]

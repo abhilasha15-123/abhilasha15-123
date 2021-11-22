@@ -13,6 +13,16 @@ class SetProfilestep2cell: UICollectionViewCell{
 
 }
 class SetProfilestep2VC: UIViewController {
+    
+    @IBAction func btn_backBottomAction(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBOutlet weak var constraint_height_interestColView: NSLayoutConstraint!
+    @IBOutlet weak var btn_miniTribes: UIButton!
+    @IBOutlet weak var btn_soulLove: UIButton!
+    @IBOutlet weak var btn_tribe: UIButton!
+    
     @IBOutlet weak var soulview: UIView!
     @IBOutlet weak var tribeview: UIView!
     @IBOutlet weak var minitribeview: UIView!
@@ -39,8 +49,14 @@ class SetProfilestep2VC: UIViewController {
     
     
     var selectedIndex = Int()
-    var interestImage = ["Fitness","Music","Shopping","Aliens","Art","Sport","Fitness","Music","Shopping","Aliens"]
-    var interestTxt = ["Fitness","Music","Shopping","Aliens","Art","Sport","Fitness","Music","Shopping","Aliens"]
+//    var interestImage = ["Fitness","Music","Shopping","Aliens","Art","Sport","Fitness","Music","Shopping","Aliens"]
+//    var interestTxt = ["Fitness","Music","Shopping","Aliens","Art","Sport","Fitness","Music","Shopping","Aliens"]
+    
+    var interestImage = ["Aliens","Art","Cooking","Dancing","Fitness","Gaming","Hiking","Law of Attraction","Meditation","Music","Outdoors","Plant Medicine","Quantam Physics","Reading","Shopping","Social Events","Spirituality","Sports","Travel","Yoga"]
+    
+    var interestTxt = ["Aliens","Art","Cooking","Dancing","Fitness","Gaming","Hiking","Law of Attraction","Meditation","Music","Outdoors","Plant Medicine","Quantam Physics","Reading","Shopping","Social Events","Spirituality","Sports","Travel","Yoga"]
+    
+    
     var arr_religions = [ "Spiritual",
                           "Catholic",
                           "Christian",
@@ -57,7 +73,8 @@ class SetProfilestep2VC: UIViewController {
     var arr_selectedInterests : NSMutableArray = []
     var selectedReligion = ""
     
-    var userId = ""
+    var comesFrom = ""
+    var userData = [String:Any]()
     
     
     override func viewDidLoad() {
@@ -134,9 +151,77 @@ class SetProfilestep2VC: UIViewController {
         txt_q2.textColor = UIColor.lightGray
         txt_q1.textColor = UIColor.lightGray
         
+        constraint_height_interestColView.constant = CGFloat(30*interestImage.count) - 40
+        
+        if comesFrom == "Edit"{
+            setupData()
+        }
         // Do any additional setup after loading the view.
     }
     
+    func setupData(){
+        
+        let tempVibe = DataManager.getVal(userData["vibe"]) as? String ?? ""
+        let arrTemp = tempVibe.components(separatedBy: ", ")
+        let arrTempInterest = (DataManager.getVal(userData["hobbies"]) as? String ?? "").components(separatedBy: ", ")
+        
+        for str in arrTempInterest {
+            for i in 0..<interestImage.count{
+                if str == interestImage[i]{
+                    arr_selectedInterests.add(interestTxt[i])
+                    break
+                }
+            }
+        }
+        
+        interestcollection.reloadData()
+        
+        for str in arrTemp{
+            if str == "Soul Love" {
+                soulview.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                soulview.layer.borderWidth = 1
+                btnimg.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_selectedVibes.add("Soul Love")
+                btn_soulLove.isSelected = true
+                
+            }else if str == "Tribe"{
+                tribeview.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                tribeview.layer.borderWidth = 1
+                btnimg2.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_selectedVibes.add("Tribe")
+                btn_tribe.isSelected = true
+            }else if str == "Mini Tribes"{
+                minitribeview.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                minitribeview.layer.borderWidth = 1
+                btnimg3.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_selectedVibes.add("Mini Tribes")
+                btn_miniTribes.isSelected = true
+            }
+        }
+        arr_selectedVibes =  NSMutableArray(array: arrTemp)
+        
+        txt_religion.text = DataManager.getVal(userData["religious"]) as? String ?? ""
+        selectedReligion = txt_religion.text ?? ""
+        
+        txt_q1.text = DataManager.getVal(userData["QA_1"]) as? String ?? ""
+        txt_q2.text = DataManager.getVal(userData["QA_2"]) as? String ?? ""
+        txt_q3.text = DataManager.getVal(userData["QA_3"]) as? String ?? ""
+        txt_q4.text = DataManager.getVal(userData["QA_4"]) as? String ?? ""
+     
+        if txt_q4.text != "" {
+            txt_q4.textColor = UIColor.black
+        }
+        if txt_q3.text != "" {
+            txt_q3.textColor = UIColor.black
+        }
+        if txt_q2.text != "" {
+            txt_q2.textColor = UIColor.black
+        }
+        if txt_q1.text != "" {
+            txt_q1.textColor = UIColor.black
+        }
+    }
+   
     @objc func displayList(){
         tableview_relegion.isHidden = !tableview_relegion.isHidden
     }
@@ -151,15 +236,20 @@ class SetProfilestep2VC: UIViewController {
             parameterDictionary.setValue(Config().AppUserDefaults.value(forKey:"user_id") as? String ?? "", forKey: "user_id")
             parameterDictionary.setValue(Config().api_key, forKey: "api_key")
             
-            parameterDictionary.setValue(arr_selectedVibes.componentsJoined(by:","), forKey: "vibe")
-            parameterDictionary.setValue(arr_selectedInterests.componentsJoined(by:","), forKey: "hobbies")
+            parameterDictionary.setValue(arr_selectedVibes.componentsJoined(by:", "), forKey: "vibe")
+            parameterDictionary.setValue(arr_selectedInterests.componentsJoined(by:", "), forKey: "hobbies")
             parameterDictionary.setValue(selectedReligion, forKey: "religious")
-            parameterDictionary.setValue(txt_q1.textColor == UIColor.lightGray ? txt_q1.text ?? "" : "", forKey: "QA_1")
-            parameterDictionary.setValue(txt_q2.textColor == UIColor.lightGray ? txt_q2.text ?? "" : "", forKey: "QA_2")
-            parameterDictionary.setValue(txt_q3.textColor == UIColor.lightGray ? txt_q3.text ?? "" : "", forKey: "QA_3")
-            parameterDictionary.setValue(txt_q4.textColor == UIColor.lightGray ? txt_q4.text ?? "" : "", forKey: "QA_4")
-            parameterDictionary.setValue("add", forKey: "type")
+            parameterDictionary.setValue(txt_q1.textColor == UIColor.black ? txt_q1.text ?? "" : "", forKey: "QA_1")
+            parameterDictionary.setValue(txt_q2.textColor == UIColor.black ? txt_q2.text ?? "" : "", forKey: "QA_2")
+            parameterDictionary.setValue(txt_q3.textColor == UIColor.black ? txt_q3.text ?? "" : "", forKey: "QA_3")
+            parameterDictionary.setValue(txt_q4.textColor == UIColor.black ? txt_q4.text ?? "" : "", forKey: "QA_4")
             
+            if comesFrom == "Edit"{
+                parameterDictionary.setValue("edit", forKey: "type")
+            }else{
+                parameterDictionary.setValue("add", forKey: "type")
+            }
+           
             print(parameterDictionary)
 
             let methodName = "update_form_two"
@@ -174,21 +264,24 @@ class SetProfilestep2VC: UIViewController {
                     let data = DataManager.getVal(responseData?["data"]) as? [String:Any] ?? [:]
                     
                     let str = DataManager.getVal(data["vibe"]) as? String ?? ""
-                    let arr = str.components(separatedBy: ",")
+                    let arr = str.components(separatedBy: ", ")
                     
                     DispatchQueue.main.asyncAfter(deadline: .now()+1.5, execute: {
                         
                         if arr.contains("Soul Love") || arr.contains("Tribe"){
                             let vc = self.storyboard?.instantiateViewController(identifier: "SetProfilestep3VC") as! SetProfilestep3VC
                             vc.vibe = str
+                            vc.comesFrom = self.comesFrom
+                            vc.userData = self.userData
                             self.navigationController?.pushViewController(vc, animated: true)
                         }else{
                             let vc = self.storyboard?.instantiateViewController(identifier: "SetProfilefinalVC") as! SetProfilefinalVC
                             vc.vibe = str
+                            vc.comesFrom = self.comesFrom
+                            vc.userData = self.userData
                             self.navigationController?.pushViewController(vc, animated: true)
                         }
                         
-                       
                     })
                 }
                 else {
@@ -260,9 +353,9 @@ extension SetProfilestep2VC: UICollectionViewDelegate,UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-   let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SetProfilestep2cell", for: indexPath) as! SetProfilestep2cell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SetProfilestep2cell", for: indexPath) as! SetProfilestep2cell
         
-        if arr_selectedInterests.contains(indexPath.row)
+        if arr_selectedInterests.contains(interestTxt[indexPath.row])
             {
             cell.backgroundColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 0.3977995614)
             cell.layer.borderWidth = 1
@@ -285,13 +378,13 @@ extension SetProfilestep2VC: UICollectionViewDelegate,UICollectionViewDataSource
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
-        if arr_selectedInterests.contains(indexPath.row){
-            arr_selectedInterests.remove(indexPath.row)
+        if arr_selectedInterests.contains(interestTxt[indexPath.row]){
+            arr_selectedInterests.remove(interestTxt[indexPath.row])
 
         }
         else{
             if arr_selectedInterests.count <= 5{
-                arr_selectedInterests.add(indexPath.row)
+                arr_selectedInterests.add(interestTxt[indexPath.row])
             }else{
                 self.view.makeToast("Maximum 6 interests can be selected.")
             }
@@ -310,9 +403,9 @@ extension SetProfilestep2VC: UICollectionViewDelegate,UICollectionViewDataSource
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        return CGSize(width: collectionView.frame.width/2.1 , height: collectionView.frame.height/7);
-
-       }
+        return CGSize(width: collectionView.frame.width/2.1 , height: 40);
+        
+    }
    
 }
 

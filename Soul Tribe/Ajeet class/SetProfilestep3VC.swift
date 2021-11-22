@@ -9,6 +9,58 @@ import UIKit
 
 class SetProfilestep3VC: UIViewController {
     
+    @IBOutlet weak var btn_mysexuality1: UIButton!
+    @IBOutlet weak var btn_mysexuality2: UIButton!
+    @IBOutlet weak var btn_mysexuality3: UIButton!
+    @IBOutlet weak var btn_mysexuality7: UIButton!
+    @IBOutlet weak var btn_mysexuality6: UIButton!
+    @IBOutlet weak var btn_mysexuality4: UIButton!
+    @IBOutlet weak var btn_mysexuality5: UIButton!
+    
+    @IBOutlet weak var btn_myrelationStatus2: UIButton!
+    @IBOutlet weak var btn_myrelationStatus1: UIButton!
+    @IBOutlet weak var btn_myrelationStatus3: UIButton!
+    @IBOutlet weak var btn_myrelationStatus4: UIButton!
+    
+    @IBOutlet weak var btn_soulGender1: UIButton!
+    @IBOutlet weak var btn_soulGender2: UIButton!
+    @IBOutlet weak var btn_soulGender3: UIButton!
+    @IBOutlet weak var btn_soulGender4: UIButton!
+    @IBOutlet weak var btn_soulGender5: UIButton!
+    @IBOutlet weak var btn_soulGender6: UIButton!
+    @IBOutlet weak var btn_soulGender7: UIButton!
+    
+    
+    @IBOutlet weak var btn_soulSexuality1: UIButton!
+    @IBOutlet weak var btn_soulSexuality2: UIButton!
+    @IBOutlet weak var btn_soulSexuality3: UIButton!
+    @IBOutlet weak var btn_soulSexuality4: UIButton!
+    @IBOutlet weak var btn_soulSexuality5: UIButton!
+    @IBOutlet weak var btn_soulSexuality6: UIButton!
+    @IBOutlet weak var btn_soulSexuality7: UIButton!
+    @IBOutlet weak var btn_soulSexuality8: UIButton!
+    
+    @IBOutlet weak var btn_soulGoal1: UIButton!
+    @IBOutlet weak var btn_soulGoal2: UIButton!
+    
+    
+    @IBOutlet weak var btn_tribeGender1: UIButton!
+    @IBOutlet weak var btn_tribeGender2: UIButton!
+    @IBOutlet weak var btn_tribeGender3: UIButton!
+    @IBOutlet weak var btn_tribeGender4: UIButton!
+    @IBOutlet weak var btn_tribeGender5: UIButton!
+    @IBOutlet weak var btn_tribeGender6: UIButton!
+    @IBOutlet weak var btn_tribeGender7: UIButton!
+    
+    @IBOutlet weak var btn_tribeSexuality1: UIButton!
+    @IBOutlet weak var btn_tribeSexuality2: UIButton!
+    @IBOutlet weak var btn_tribeSexuality3: UIButton!
+    @IBOutlet weak var btn_tribeSexuality4: UIButton!
+    @IBOutlet weak var btn_tribeSexuality5: UIButton!
+    @IBOutlet weak var btn_tribeSexuality6: UIButton!
+    @IBOutlet weak var btn_tribeSexuality7: UIButton!
+    @IBOutlet weak var btn_tribeSexuality8: UIButton!
+
     
     @IBOutlet weak var constraint_height_vwTribe: NSLayoutConstraint! //709
     
@@ -134,12 +186,14 @@ class SetProfilestep3VC: UIViewController {
     var arr_tribe_gender : NSMutableArray = []
     var arr_tribe_sexuality : NSMutableArray = []
    
-
+    var comesFrom = ""
+    var userData = [String:Any]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         vw_hideShow.isHidden = true
-        arr_vibes = vibe.components(separatedBy: ",")
+        arr_vibes = vibe.components(separatedBy: ", ")
         
         if arr_vibes.contains("Soul Love"){
             constraint_top_vwTribe.constant = 15
@@ -163,7 +217,6 @@ class SetProfilestep3VC: UIViewController {
         }else{
             api_call_here = true
         }
-        
         
         headerview.layer.shadowColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         headerview.layer.shadowOpacity = 0.5
@@ -361,8 +414,324 @@ class SetProfilestep3VC: UIViewController {
         txt_q1Tribe.text = "Write your answer here (Optional)"
         txt_q1Tribe.textColor = UIColor.lightGray
         
+        if comesFrom == "Edit"{
+            setupData()
+        }
+        
         // Do any additional setup after loading the view.
     }
+    
+    
+    func setupData(){
+        let temp_myRelationshipStatus = (DataManager.getVal(userData["soul_love_my_relationship_status"]) as? String ?? "").components(separatedBy: ", ")
+        let temp_mySexuality = (DataManager.getVal(userData["soul_love_my_sexuality"]) as? String ?? "").components(separatedBy: ", ")
+        let temp_soulGender = (DataManager.getVal(userData["soul_love_my_prefer_gender"]) as? String ?? "").components(separatedBy: ", ")
+        let temp_soulSexuality = (DataManager.getVal(userData["soul_love_my_prefer_sexuality"]) as? String ?? "").components(separatedBy: ", ")
+        let temp_soulRelationshipGoal = (DataManager.getVal(userData["relationship_looking_for_soul_love"]) as? String ?? "").components(separatedBy: ", ")
+        
+        
+        txt_q1.text = DataManager.getVal(userData["soul_love_QA"]) as? String ?? ""
+        if txt_q1.text != "" {
+            txt_q1.textColor = UIColor.black
+        }
+        
+        let temp_tribeGender = (DataManager.getVal(userData["tribe_gender"]) as? String ?? "").components(separatedBy: ", ")
+        let temp_tribeSexuality = (DataManager.getVal(userData["tribe_sexuality"]) as? String ?? "").components(separatedBy: ", ")
+            
+        txt_q1Tribe.text = DataManager.getVal(userData["tribe_QA"]) as? String ?? ""
+        
+        if txt_q1Tribe.text != "" {
+            txt_q1Tribe.textColor = UIColor.black
+        }
+          
+        for str in temp_mySexuality{
+            if str == "Straight"{
+                sexview1.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                sexview1.layer.borderWidth = 1
+                btncheck1.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_my_sexuality.add("Straight")
+                btn_mysexuality1.isSelected = true
+            }else if str == "Gay"{
+                sexview2.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                sexview2.layer.borderWidth = 1
+                btncheck2.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_my_sexuality.add("Gay")
+                btn_mysexuality2.isSelected = true
+            }else if str == "Bisexual"{
+                sexview3.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                sexview3.layer.borderWidth = 1
+                btncheck3.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_my_sexuality.add("Bisexual")
+                btn_mysexuality3.isSelected = true
+            }else if str == "Queer"{
+                sexview4.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                sexview4.layer.borderWidth = 1
+                btncheck4.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_my_sexuality.add("Queer")
+                btn_myrelationStatus4.isSelected = true
+            }else if str == "Questioning"{
+                sexview5.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                sexview5.layer.borderWidth = 1
+                btncheck5.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_my_sexuality.add("Questioning")
+                btn_mysexuality5.isSelected = true
+            }else if str == "Asexual"{
+                sexview6.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                sexview6.layer.borderWidth = 1
+                btncheck6.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_my_sexuality.add("Asexual")
+                btn_mysexuality6.isSelected = true
+            }else if str == "Other"{
+                sexview7.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                sexview7.layer.borderWidth = 1
+                btncheck7.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_my_sexuality.add("Other")
+                btn_mysexuality7.isSelected = true
+            }
+        }
+        
+        for str in temp_myRelationshipStatus{
+            if str == "Single"{
+                relationstaus1.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                relationstaus1.layer.borderWidth = 1
+                btncheck8.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_my_relationshipStatus.add("Single")
+                btn_myrelationStatus1.isSelected = true
+            }else if str == "Married"{
+                relationstaus2.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                relationstaus2.layer.borderWidth = 1
+                btncheck9.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_my_relationshipStatus.add("Married")
+                btn_myrelationStatus2.isSelected = true
+            }else if str == "It's complicated"{
+                relationstaus3.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                relationstaus3.layer.borderWidth = 1
+                btncheck10.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_my_relationshipStatus.add("It's complicated")
+                btn_myrelationStatus3.isSelected = true
+            }else if str == "In Relationship"{
+                relationstaus4.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                relationstaus4.layer.borderWidth = 1
+                btncheck11.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_my_relationshipStatus.add("In Relationship")
+                btn_myrelationStatus4.isSelected = true
+            }
+        }
+        
+        for str in temp_soulGender{
+            if str == "Female"{
+                mysoullovegender1.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                mysoullovegender1.layer.borderWidth = 1
+                btncheck12.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_soul_gender.add("Female")
+                btn_soulGender1.isSelected = true
+            }else if str == "Male"{
+                mysoullovegender2.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                mysoullovegender2.layer.borderWidth = 1
+                btncheck13.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_soul_gender.add("Male")
+                btn_soulGender2.isSelected = true
+            }else if str == "Transgender"{
+                mysoullovegender3.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                mysoullovegender3.layer.borderWidth = 1
+                btncheck14.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_soul_gender.add("Transgender")
+                btn_soulGender3.isSelected = true
+            }else if str == "Gender Fluid"{
+                mysoullovegender4.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                mysoullovegender4.layer.borderWidth = 1
+                btncheck15.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_soul_gender.add("Gender Fluid")
+                btn_soulGender4.isSelected = true
+            }else if str == "Prefer not to say"{
+                mysoullovegender5.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                mysoullovegender5.layer.borderWidth = 1
+                btncheck16.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_soul_gender.add("Prefer not to say")
+                btn_soulGender5.isSelected = true
+            }else if str == "Other"{
+                mysoullovegender6.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                mysoullovegender6.layer.borderWidth = 1
+                btncheck17.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_soul_gender.add("Other")
+                btn_soulGender6.isSelected = true
+            }else if str == "No Preference"{
+                mysoullovegender7.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                mysoullovegender7.layer.borderWidth = 1
+                btncheck18.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_soul_gender.add("No Preference")
+                btn_soulGender7.isSelected = true
+            }
+        }
+        
+        for str in temp_soulSexuality{
+            if str == "Straight"{
+                 soulSexualityview1.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                 soulSexualityview1.layer.borderWidth = 1
+                 btncheck19.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                 arr_soul_sexuality.add("Straight")
+                 btn_soulSexuality1.isSelected = true
+            }else if str == "Gay"{
+                 soulSexualityview2.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                 soulSexualityview2.layer.borderWidth = 1
+                 btncheck20.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                 arr_soul_sexuality.add("Gay")
+                 btn_soulSexuality2.isSelected = true
+            }else if str == "Bisexual"{
+                 soulSexualityview3.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                 soulSexualityview3.layer.borderWidth = 1
+                 btncheck21.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                 arr_soul_sexuality.add("Bisexual")
+                 btn_soulSexuality3.isSelected = true
+            }else if str == "Queer"{
+                 soulSexualityview4.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                 soulSexualityview4.layer.borderWidth = 1
+                 btncheck22.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                 arr_soul_sexuality.add("Queer")
+                 btn_soulSexuality4.isSelected = true
+            }else if str == "Questioning"{
+                 soulSexualityview5.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                 soulSexualityview5.layer.borderWidth = 1
+                 btncheck23.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                 arr_soul_sexuality.add("Questioning")
+                 btn_soulSexuality5.isSelected = true
+            }else if str == "Asexual"{
+                 soulSexualityview6.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                 soulSexualityview6.layer.borderWidth = 1
+                 btncheck24.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                 arr_soul_sexuality.add("Asexual")
+                 btn_soulSexuality6.isSelected = true
+            }else if str == "Other"{
+                 soulSexualityview7.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                 soulSexualityview7.layer.borderWidth = 1
+                 btncheck25.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                 arr_soul_sexuality.add("Other")
+                 btn_soulSexuality7.isSelected = true
+            }else if str == "No Preference"{
+                 soulSexualityview8.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                 soulSexualityview8.layer.borderWidth = 1
+                 btncheck26.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                 arr_soul_sexuality.add("No Preference")
+                 btn_soulSexuality8.isSelected = true
+            }
+        }
+        
+        for str in temp_soulRelationshipGoal{
+            if str == "Long Term"{
+                soultermview1.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                soultermview1.layer.borderWidth = 1
+                btncheck27.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_soul_relationshipGoal.add("Long Term")
+                btn_soulGoal1.isSelected = true
+            }else if str == "Casual"{
+                soultermview2.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                soultermview2.layer.borderWidth = 1
+                btncheck28.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_soul_relationshipGoal.add("Casual")
+                btn_soulGoal2.isSelected = true
+            }
+        }
+        
+        for str in temp_tribeGender{
+            if str == "Female"{
+                Tribegender1.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                Tribegender1.layer.borderWidth = 1
+                btntribechk1.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_tribe_gender.add("Female")
+                btn_tribeGender1.isSelected = true
+            }else if str == "Male"{
+                Tribegender2.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                Tribegender2.layer.borderWidth = 1
+                btntribechk2.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_tribe_gender.add("Male")
+                btn_tribeGender2.isSelected = true
+            }else if str == "Transgender"{
+                Tribegender3.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                Tribegender3.layer.borderWidth = 1
+                btntribechk3.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_tribe_gender.add("Transgender")
+                btn_tribeGender3.isSelected = true
+            }else if str == "Gender Fluid"{
+                Tribegender4.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                Tribegender4.layer.borderWidth = 1
+                btntribechk4.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_tribe_gender.add("Gender Fluid")
+                btn_tribeGender4.isSelected = true
+            }else if str == "Prefer not to say"{
+                Tribegender5.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                Tribegender5.layer.borderWidth = 1
+                btntribechk5.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_tribe_gender.add("Prefer not to say")
+                btn_tribeGender5.isSelected = true
+            }else if str == "Other"{
+                Tribegender6.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                Tribegender6.layer.borderWidth = 1
+                btntribechk6.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_tribe_gender.add("Other")
+                btn_tribeGender6.isSelected = true
+            }else if str == "No Preference"{
+                Tribegender7.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                Tribegender7.layer.borderWidth = 1
+                btntribechk7.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_tribe_gender.add("No Preference")
+                btn_tribeGender7.isSelected = true
+            }
+        }
+        
+        for str in temp_tribeSexuality{
+            if str == "Straight"{
+                TribeSexuality1.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                TribeSexuality1.layer.borderWidth = 1
+                btntribechk8.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_tribe_sexuality.add("Straight")
+                btn_tribeSexuality1.isSelected = true
+            }else if str == "Gay"{
+                TribeSexuality2.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                TribeSexuality2.layer.borderWidth = 1
+                btntribechk9.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_tribe_sexuality.add("Gay")
+                btn_tribeSexuality2.isSelected = true
+            }else if str == "Bisexual"{
+                TribeSexuality3.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                TribeSexuality3.layer.borderWidth = 1
+                btntribechk10.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_tribe_sexuality.add("Bisexual")
+                btn_tribeSexuality3.isSelected = true
+            }else if str == "Queer"{
+                TribeSexuality4.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                TribeSexuality4.layer.borderWidth = 1
+                btntribechk11.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_tribe_sexuality.add("Queer")
+                btn_tribeSexuality4.isSelected = true
+            }else if str == "Questioning"{
+                TribeSexuality5.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                TribeSexuality5.layer.borderWidth = 1
+                btntribechk12.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_tribe_sexuality.add("Questioning")
+                btn_tribeSexuality5.isSelected = true
+            }else if str == "Asexual"{
+                TribeSexuality6.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                TribeSexuality6.layer.borderWidth = 1
+                btntribechk13.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_tribe_sexuality.add("Asexual")
+                btn_tribeSexuality6.isSelected = true
+            }else if str == "Other"{
+                TribeSexuality7.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                TribeSexuality7.layer.borderWidth = 1
+                btntribechk14.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_tribe_sexuality.add("Other")
+                btn_tribeSexuality7.isSelected = true
+            }else if str == "No Preference"{
+                TribeSexuality8.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
+                TribeSexuality8.layer.borderWidth = 1
+                btntribechk15.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
+                arr_tribe_sexuality.add("No Preference")
+                btn_tribeSexuality8.isSelected = true
+            }
+        }
+    }
+   
+    
     
  
     
@@ -378,20 +747,24 @@ class SetProfilestep3VC: UIViewController {
                 parameterDictionary.setValue(Config().AppUserDefaults.value(forKey:"user_id") as? String ?? "", forKey: "user_id")
                 parameterDictionary.setValue(Config().api_key, forKey: "api_key")
                 
-                parameterDictionary.setValue(arr_my_sexuality.componentsJoined(by:","), forKey: "soul_love_my_sexuality")
-                parameterDictionary.setValue(arr_my_relationshipStatus.componentsJoined(by:","), forKey: "soul_love_my_relationship_status")
-                parameterDictionary.setValue(arr_soul_gender.componentsJoined(by:","), forKey: "soul_love_my_prefer_gender")
-                parameterDictionary.setValue(arr_soul_sexuality.componentsJoined(by:","), forKey: "soul_love_my_prefer_sexuality")
-                parameterDictionary.setValue(arr_soul_relationshipGoal.componentsJoined(by:","), forKey: "relationship_looking_for_soul_love")
+                parameterDictionary.setValue(arr_my_sexuality.componentsJoined(by:", "), forKey: "soul_love_my_sexuality")
+                parameterDictionary.setValue(arr_my_relationshipStatus.componentsJoined(by:", "), forKey: "soul_love_my_relationship_status")
+                parameterDictionary.setValue(arr_soul_gender.componentsJoined(by:", "), forKey: "soul_love_my_prefer_gender")
+                parameterDictionary.setValue(arr_soul_sexuality.componentsJoined(by:", "), forKey: "soul_love_my_prefer_sexuality")
+                parameterDictionary.setValue(arr_soul_relationshipGoal.componentsJoined(by:", "), forKey: "relationship_looking_for_soul_love")
                 parameterDictionary.setValue(txt_q1.text ?? "", forKey: "soul_love_QA")
-                parameterDictionary.setValue(arr_tribe_gender.componentsJoined(by:","), forKey: "tribe_gender")
-                parameterDictionary.setValue(arr_tribe_sexuality.componentsJoined(by:","), forKey: "tribe_sexuality")
+                parameterDictionary.setValue(arr_tribe_gender.componentsJoined(by:", "), forKey: "tribe_gender")
+                parameterDictionary.setValue(arr_tribe_sexuality.componentsJoined(by:", "), forKey: "tribe_sexuality")
                 
                 parameterDictionary.setValue("", forKey: "tribe_QA")
                 parameterDictionary.setValue("", forKey: "mini_tribe_sexuality")
                 parameterDictionary.setValue("", forKey: "mini_tribe_relationship_status")
                 
-                parameterDictionary.setValue("add", forKey: "type")
+                if comesFrom == "Edit"{
+                    parameterDictionary.setValue("edit", forKey: "type")
+                }else{
+                    parameterDictionary.setValue("add", forKey: "type")
+                }
                 
                 print(parameterDictionary)
 
@@ -443,6 +816,8 @@ class SetProfilestep3VC: UIViewController {
                 vc.q1Soul = txt_q1.text == "Write your answer here (Optional)" ? "" : txt_q1.text
                 vc.q1Tribe = txt_q1Tribe.text == "Write your answer here (Optional)" ? "" : txt_q1Tribe.text
                 
+                vc.comesFrom = comesFrom
+                vc.userData = self.userData
                 navigationController?.pushViewController(vc, animated: true)
             }
         }
@@ -861,13 +1236,13 @@ class SetProfilestep3VC: UIViewController {
             soultermview1.layer.borderColor = #colorLiteral(red: 0.0862745098, green: 0.7803921569, blue: 0.6039215686, alpha: 1)
             soultermview1.layer.borderWidth = 1
             btncheck27.setImage(UIImage(named: "Icon awesome-check-circle"), for: .normal)
-            arr_soul_relationshipGoal.add("Long term")
+            arr_soul_relationshipGoal.add("Long Term")
         }
         else{
             soultermview1.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
             soultermview1.layer.borderWidth = 1
             btncheck27.setImage(UIImage(named: "black circle"), for: .normal)
-            arr_soul_relationshipGoal.remove("Long term")
+            arr_soul_relationshipGoal.remove("Long Term")
         }
     }
     @IBAction func btnsoulterm2(_ sender: UIButton) {

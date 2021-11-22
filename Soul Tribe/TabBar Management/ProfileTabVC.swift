@@ -9,10 +9,21 @@ import UIKit
 
 class ProfileTabVC: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SlideMenuControllerDelegate{
     
-
+    @IBAction func btn_editProfileAction(_ sender: UIButton) {
+        
+        let vc = self.storyboard?.instantiateViewController(identifier: "SetprofileVC") as! SetprofileVC
+        vc.comesFrom = "Edit"
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     @IBOutlet weak var galleryCollectionVIew: UICollectionView!
     @IBOutlet weak var interestCollectionView: UICollectionView!
     @IBOutlet weak var imgprofile: UIImageView!
+
+
+    var interestImage = ["Aliens","Art","Cooking","Dancing","Fitness","Gaming","Hiking","Law of Attraction","Meditation","Music","Outdoors","Plant Medicine","Quantam Physics","Reading","Shopping","Social Events","Spirituality","Sports","Travel","Yoga"]
+    var interestTxt = ["Aliens","Art","Cooking","Dancing","Fitness","Gaming","Hiking","Law of Attraction","Meditation","Music","Outdoors","Plant Medicine","Quantam Physics","Reading","Shopping","Social Events","Spirituality","Sports","Travel","Yoga"]
+
      @IBOutlet weak var Name_Age: UILabel!
     @IBOutlet weak var first_impression: UILabel!
     @IBOutlet weak var nick_name: UILabel!
@@ -25,6 +36,7 @@ class ProfileTabVC: UIViewController,UICollectionViewDelegate,UICollectionViewDa
     
     var interestImage = ["Fitness","Music","Shopping","Aliens","Art","Sport"]
     var interestTxt = ["Fitness","Music","Shopping","Aliens","Art","Sport"]
+
     let screenWidth = UIScreen.main.bounds.size.width
     let screenHeight = UIScreen.main.bounds.size.height
     var leftDrawerTransition:DrawerTransition!
@@ -59,9 +71,10 @@ class ProfileTabVC: UIViewController,UICollectionViewDelegate,UICollectionViewDa
         LiberaryLayOut.minimumLineSpacing = 10
         LiberaryLayOut.scrollDirection = .vertical
         interestCollectionView.collectionViewLayout = LiberaryLayOut
+
         
         
-//        let LiberaryLayOut1 = UICollectionViewFlowLayout()
+        //        let LiberaryLayOut1 = UICollectionViewFlowLayout()
 //        LiberaryLayOut1.itemSize = CGSize(width: screenWidth, height: 120)
 //        LiberaryLayOut1.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 ////        LiberaryLayOut1.minimumInteritemSpacing = 0
@@ -143,8 +156,6 @@ class ProfileTabVC: UIViewController,UICollectionViewDelegate,UICollectionViewDa
     }
     @IBAction func btnsidemenu(_ sender: Any) {
         self.slideMenuController()?.toggleLeft()
-
-
     }
     
     

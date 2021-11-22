@@ -21,8 +21,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let _ = (scene as? UIWindowScene) else { return }
 
         
-        
-        
         let LoginVal = Config().AppUserDefaults.object(forKey: "Login") as? String ?? ""
         let walkthroughValue = Config().AppUserDefaults.value(forKey: "WalkthroughCompleted") as? String ?? ""
 
@@ -83,9 +81,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //            UIApplication.shared.windows.first?.rootViewController = vc
 //            UIApplication.shared.windows.first?.makeKeyAndVisible()
        }
+   
         
-  
-
+//
+//
+//
 //        let nav1 = UINavigationController()
 //        let storyboard = UIStoryboard(name: "Main", bundle: nil)
 //        let navigate = storyboard.instantiateViewController(withIdentifier: "WalkPageVC") as! WalkPageVC

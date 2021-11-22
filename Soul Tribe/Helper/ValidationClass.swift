@@ -416,7 +416,7 @@ class ValidationClass: NSObject {
             return false
         }
         
-        else if SetprofileVCValidateObj.arr_assets.count == 0 {
+        else if SetprofileVCValidateObj.arr_assets.count == 0 && SetprofileVCValidateObj.comesFrom != "Edit"{
             SetprofileVCValidateObj.txtname.layer.borderColor = correctColor
             SetprofileVCValidateObj.viewdob.layer.borderColor = correctColor
             
@@ -427,6 +427,18 @@ class ValidationClass: NSObject {
 
             return false
         }
+        else if SetprofileVCValidateObj.arr_editAsset.count == 0 && SetprofileVCValidateObj.comesFrom == "Edit"{
+            SetprofileVCValidateObj.txtname.layer.borderColor = correctColor
+            SetprofileVCValidateObj.viewdob.layer.borderColor = correctColor
+            
+            let titleTxt = "Please upload minimum 1 picture to the collection."
+            
+            SetprofileVCValidateObj.view.endEditing(true)
+            SetprofileVCValidateObj.view.makeToast(titleTxt)
+
+            return false
+        }
+        
         else if SetprofileVCValidateObj.genderVal == "" {
 
             let titleTxt = "Please select your gender."
