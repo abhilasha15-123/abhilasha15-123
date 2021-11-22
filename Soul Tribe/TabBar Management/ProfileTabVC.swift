@@ -20,12 +20,35 @@ class ProfileTabVC: UIViewController,UICollectionViewDelegate,UICollectionViewDa
     @IBOutlet weak var interestCollectionView: UICollectionView!
     @IBOutlet weak var imgprofile: UIImageView!
 
+
     var interestImage = ["Aliens","Art","Cooking","Dancing","Fitness","Gaming","Hiking","Law of Attraction","Meditation","Music","Outdoors","Plant Medicine","Quantam Physics","Reading","Shopping","Social Events","Spirituality","Sports","Travel","Yoga"]
     var interestTxt = ["Aliens","Art","Cooking","Dancing","Fitness","Gaming","Hiking","Law of Attraction","Meditation","Music","Outdoors","Plant Medicine","Quantam Physics","Reading","Shopping","Social Events","Spirituality","Sports","Travel","Yoga"]
+
+     @IBOutlet weak var Name_Age: UILabel!
+    @IBOutlet weak var first_impression: UILabel!
+    @IBOutlet weak var nick_name: UILabel!
+    @IBOutlet weak var gender: UILabel!
+    @IBOutlet weak var vibe: UILabel!
+    @IBOutlet weak var address: UILabel!
+    @IBOutlet weak var status: UILabel!
+    @IBOutlet weak var religious: UILabel!
+    @IBOutlet weak var sexuality: UILabel!
+    
+    var interestImage = ["Fitness","Music","Shopping","Aliens","Art","Sport"]
+    var interestTxt = ["Fitness","Music","Shopping","Aliens","Art","Sport"]
+
     let screenWidth = UIScreen.main.bounds.size.width
     let screenHeight = UIScreen.main.bounds.size.height
     var leftDrawerTransition:DrawerTransition!
     var left = LeftMenuViewController()
+    var imgBase_url = ""
+    var nameAge = ""
+    var hobbiesStr = ""
+    var hobbiesArray = [String]()
+    var product_imagesArray = [[String:Any]]()
+//    var gallery_image_url = ""
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 //        imgprofile.layer.shadowColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
@@ -60,8 +83,71 @@ class ProfileTabVC: UIViewController,UICollectionViewDelegate,UICollectionViewDa
 //        galleryCollectionVIew.collectionViewLayout = LiberaryLayOut1
 
         setupLeftDrawer(self)
+//        get_profileAPI()
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        get_profileAPI()
+    }
+    
+    
+    func get_profileAPI()  {
+        
+        let parameterDictionary = NSMutableDictionary()
+     
+       parameterDictionary.setValue("tribe123", forKey: "api_key")
+       parameterDictionary.setValue("14", forKey: "user_id")
+      
+       print(parameterDictionary)
+        let methodName = "get_profile"
+        
+
+        DataManager.getAPIResponse(parameterDictionary , methodName: methodName, methodType: "POST"){ [self](responseData,error)-> Void in
+            let status  = DataManager.getVal(responseData?["status"]) as? String ?? ""
+            let message  = DataManager.getVal(responseData?["message"]) as? String ?? ""
+            let data = DataManager.getVal(responseData?["data"]) as? NSDictionary
+            
+            let profile_image  = DataManager.getVal(data?["profile_image"]) as? String ?? ""
+            self.imgBase_url = Config().baseImageUrl + profile_image
+             
+            let name = DataManager.getVal(data?["name"]) as? String ?? ""
+            let age = DataManager.getVal(data?["age"]) as? String ?? ""
+            
+            self.nameAge = name + " | " + age
+            
+            if status == "1" {
+
+                self.imgprofile.sd_setImage(with: URL(string: self.imgBase_url), placeholderImage: #imageLiteral(resourceName: "Group 26614"), options: .refreshCached) { (image, error, cachesType, url) in
+                        }
+                self.vibe.text = DataManager.getVal(data?["vibe"]) as? String ?? ""
+                self.first_impression.text = DataManager.getVal(data?["first_impression"]) as? String ?? ""
+                
+                self.Name_Age.text = self.nameAge
+                self.nick_name.text = DataManager.getVal(data?["nick_name"]) as? String ?? ""
+                self.gender.text = DataManager.getVal(data?["gender"]) as? String ?? ""
+                self.address.text = DataManager.getVal(data?["address"]) as? String ?? ""
+                self.religious.text = DataManager.getVal(data?["religious"]) as? String ?? ""
+                self.sexuality.text = DataManager.getVal(data?["soul_love_my_sexuality"]) as? String ?? ""
+                
+                self.hobbiesStr = DataManager.getVal(data?["hobbies"]) as? String ?? ""
+                self.hobbiesArray = self.hobbiesStr.components(separatedBy: ", ")
+    
+                let product_images = DataManager.getVal(data?["get_product_images"]) as? NSArray ?? []
+
+                self.product_imagesArray = product_images as! [[String : Any]]
+//                let gallery_image  = DataManager.getVal(product_images?["images"]) as? String ?? ""
+                
+                self.galleryCollectionVIew.reloadData()
+                self.interestCollectionView.reloadData()
+                
+            } else {
+//                 self.view.makeToast(message)
+            }
+        }
+    }
+    
+    
     
     @IBAction func btngotonext(_ sender: Any) {
 //        let vc = self.storyboard?.instantiateViewController(identifier: "IntentionListVC") as! IntentionListVC
@@ -76,9 +162,9 @@ class ProfileTabVC: UIViewController,UICollectionViewDelegate,UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == interestCollectionView {
-            return interestTxt.count
+            return hobbiesArray.count
         }else{
-            return 4
+            return product_imagesArray.count
         }
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -109,11 +195,23 @@ class ProfileTabVC: UIViewController,UICollectionViewDelegate,UICollectionViewDa
             cell.interestViee.layer.cornerRadius = 5
             cell.interestViee.layer.borderWidth = 0.5
             cell.interestViee.layer.borderColor = UIColor.lightGray.cgColor
-            cell.interestImage.image = UIImage(named: interestImage[indexPath.item])
-            cell.interstedLbl.text = interestTxt[indexPath.item]
+            cell.interestImage.image = UIImage(named: hobbiesArray[indexPath.item])
+            cell.interstedLbl.text = hobbiesArray[indexPath.item]
             return cell
         }else{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! GalleryCell
+            
+            let dict = self.product_imagesArray[indexPath.row] as? [String:Any] ?? [:]
+            
+            let profile_image  = DataManager.getVal(dict["images"]) as? String ?? ""
+            self.imgBase_url = Config().baseImageUrl + profile_image
+            
+            
+            cell.img.sd_setImage(with: URL(string: self.imgBase_url), placeholderImage: #imageLiteral(resourceName: "Group 26614"), options: .refreshCached) { (image, error, cachesType, url) in
+            }
+            
+            print(DataManager.getVal(dict["images"]) as? String ?? "")
+           
             return cell
         }
     }
