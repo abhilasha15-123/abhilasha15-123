@@ -41,10 +41,11 @@ class BlockListVC: UIViewController {
     func getBlockedList(){
          self.view.endEditing(true)
 
+        
          let parameterDictionary = NSMutableDictionary()
-      
+        let userID = Config().AppUserDefaults.value(forKey:"user_id") as? String ?? ""
         parameterDictionary.setValue("tribe123", forKey: "api_key")
-        parameterDictionary.setValue("14", forKey: "user_id")
+        parameterDictionary.setValue(userID, forKey: "user_id")
 //        parameterDictionary.setValue("Tribe", forKey: "vibe")
 //        parameterDictionary.setValue(SwipeUserId, forKey: "swipe_user_id")
 //        parameterDictionary.setValue(type, forKey: "type")

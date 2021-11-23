@@ -14,6 +14,8 @@ class FAQ_sVC: UIViewController {
     @IBOutlet weak var searchview: UIView!
     @IBOutlet weak var headerview: UIView!
 
+
+    @IBOutlet weak var web_View: WKWebView!
     var leftDrawerTransition:DrawerTransition!
     var left = LeftMenuViewController()
     override func viewDidLoad() {
@@ -30,6 +32,11 @@ class FAQ_sVC: UIViewController {
         headerview.layer.shadowOffset = .zero
         headerview.layer.shadowRadius = 5
         //@IBOutlet weak var searchview: UIView!
+        
+        let url = URL(string: "https://soultribenow.com/faq")
+        let request = URLRequest(url: url!)
+        
+        web_View.load(request)
 
     }
     

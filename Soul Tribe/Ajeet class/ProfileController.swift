@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import SDWebImage
+
 class interestcollcell: UICollectionViewCell{
     @IBOutlet weak var  cellview: UIView!
     @IBOutlet weak var interestImage: UIImageView!
@@ -26,6 +28,9 @@ class ProfileController: UIViewController {
 
     @IBOutlet weak var intrestCollectionView: UICollectionView!
     
+    @IBOutlet weak var matchView: UIView!
+    @IBOutlet weak var matchCornerRadius: UIView!
+    
     @IBOutlet weak var optionMenuView: UIView!
     @IBOutlet weak var vibeStatusTribeLbl: UILabel!
     @IBOutlet weak var vibeStatusSoulLbl: UILabel!
@@ -44,7 +49,9 @@ class ProfileController: UIViewController {
     @IBOutlet weak var RelationShipStatusLbl: UILabel!
     @IBOutlet weak var ReligiousViewsLbl: UILabel!
     @IBOutlet weak var CurrentLocationLbl: UILabel!
+    @IBOutlet weak var topImage: UIImageView!
     
+    var picturesArray = [String]()
     var hobbiesArray = [String]()
     var AgeInt = Int()
     var profileDict = NSDictionary()
@@ -54,12 +61,13 @@ class ProfileController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        matchCornerRadius.layer.cornerRadius = 6
         optionMenuView.layer.cornerRadius = 6
         optionMenuView.layer.borderColor = UIColor.lightGray.cgColor
         optionMenuView.layer.borderWidth = 0.6
         self.optionMenuView.isHidden = true
         viewcorner.layer.cornerRadius = 10
-        imgprofile.layer.cornerRadius = 27.5
+        imgprofile.layer.cornerRadius = self.imgprofile.frame.width/2
         btnback.layer.cornerRadius = 5
 
         borderview.layer.cornerRadius = 10
@@ -67,20 +75,24 @@ class ProfileController: UIViewController {
         borderview.layer.borderColor = #colorLiteral(red: 0.4235294118, green: 0.3882352941, blue: 1, alpha: 1)
         
         getProfiledata()
+        self.topImage.sd_setImage(with: URL(string: Config().baseImageUrl + self.picturesArray[0]), completed: nil)
         // Do any additional setup after loading the view.
     }
-  //
+    
     @IBAction func readMoreAction(_ sender: Any) {
         
+    }
+    @IBAction func matchPopUpCrossBtnAction(_ sender: Any) {
+        self.matchView.removeFromSuperview()
     }
     
     @IBAction func Report(_ sender: Any) {
         self.optionMenuView.isHidden = true
         self.view.endEditing(true)
         let parameterDictionary = NSMutableDictionary()
-     
+        let userID = Config().AppUserDefaults.value(forKey:"user_id") as? String ?? ""
        parameterDictionary.setValue("tribe123", forKey: "api_key")
-       parameterDictionary.setValue("14", forKey: "user_id")
+       parameterDictionary.setValue(userID, forKey: "user_id")
        parameterDictionary.setValue("Tribe", forKey: "vibe")
        parameterDictionary.setValue(self.swipeUserID, forKey: "report_reason_id")
        parameterDictionary.setValue("", forKey: "comment")
@@ -89,7 +101,7 @@ class ProfileController: UIViewController {
 
         DataManager.getAPIResponse(parameterDictionary , methodName: methodName, methodType: "POST"){(responseData,error)-> Void in
             let status  = DataManager.getVal(responseData?["status"]) as? String ?? ""
-            let message  = DataManager.getVal(responseData?["message"]) as? String ?? ""
+//            let message  = DataManager.getVal(responseData?["message"]) as? String ?? ""
 
             if status == "1" {
                 print("rr")
@@ -103,9 +115,9 @@ class ProfileController: UIViewController {
         self.optionMenuView.isHidden = true
         self.view.endEditing(true)
         let parameterDictionary = NSMutableDictionary()
-     
+        let userID = Config().AppUserDefaults.value(forKey:"user_id") as? String ?? ""
        parameterDictionary.setValue("tribe123", forKey: "api_key")
-       parameterDictionary.setValue("14", forKey: "user_id")
+       parameterDictionary.setValue(userID, forKey: "user_id")
        parameterDictionary.setValue("Tribe", forKey: "vibe")
         parameterDictionary.setValue(self.swipeUserID, forKey: "block_user_id")
        print(parameterDictionary)
@@ -113,7 +125,7 @@ class ProfileController: UIViewController {
 
         DataManager.getAPIResponse(parameterDictionary , methodName: methodName, methodType: "POST"){(responseData,error)-> Void in
             let status  = DataManager.getVal(responseData?["status"]) as? String ?? ""
-            let message  = DataManager.getVal(responseData?["message"]) as? String ?? ""
+//            let message  = DataManager.getVal(responseData?["message"]) as? String ?? ""
 
             if status == "1" {
                 print("rr")
@@ -137,34 +149,60 @@ class ProfileController: UIViewController {
     func getProfiledata(){
         self.view.endEditing(true)
         let parameterDictionary = NSMutableDictionary()
-     
+        let userID = Config().AppUserDefaults.value(forKey:"user_id") as? String ?? ""
        parameterDictionary.setValue("tribe123", forKey: "api_key")
-       parameterDictionary.setValue("14", forKey: "user_id")
+       parameterDictionary.setValue(self.swipeUserID, forKey: "user_id")
        parameterDictionary.setValue("Tribe", forKey: "vibe")
-        parameterDictionary.setValue(self.swipeUserID, forKey: "login_id")
+        parameterDictionary.setValue(userID, forKey: "login_id")
        print(parameterDictionary)
         let methodName = "get_user_details"
 
         DataManager.getAPIResponse(parameterDictionary , methodName: methodName, methodType: "POST"){(responseData,error)-> Void in
             let status  = DataManager.getVal(responseData?["status"]) as? String ?? ""
-            let message  = DataManager.getVal(responseData?["message"]) as? String ?? ""
+//            let message  = DataManager.getVal(responseData?["message"]) as? String ?? ""
 
             if status == "1" {
                 self.profileDict = DataManager.getVal(responseData?["data"]) as! NSDictionary
-                
-                self.CurrentLocationLbl.text = self.profileDict.value(forKey: "address") as! String
+                self.CurrentLocationLbl.text = "\(self.profileDict.value(forKey: "city") as! String)" + ", " + "\(self.profileDict.value(forKey: "state") as! String)"
                 self.userName.text = self.profileDict.value(forKey: "name") as? String
                 let profileImg = self.profileDict.value(forKey: "profile_image") as? String
+                self.imgprofile.sd_setImage(with: URL(string: Config().baseImageUrl + profileImg!), completed: nil)
                 self.firstImpressionLbl.text = self.profileDict.value(forKey: "first_impression") as? String
                 let hobbiesStr = self.profileDict.value(forKey: "hobbies") as? String
 //                let result = hobbiesStr!.filter { !$0.isWhitespace }
                 self.hobbiesArray = hobbiesStr!.components(separatedBy: ", ")
-                self.vibeStatusSoulLbl.text = self.profileDict.value(forKey: "vibe") as? String
-                self.SexualityLbl.text = self.profileDict.value(forKey: "tribe_sexuality") as? String
+                let vibes = self.profileDict.value(forKey: "vibe") as? String ?? ""
+                let vibesArr = vibes.components(separatedBy: ", ")
+                print(vibesArr)
+                let searchToSearch = "Soul Tribe"
+                let worlds = vibesArr.flatMap { $0.components(separatedBy: " ")}
+                let match = worlds.filter { searchToSearch.range(of:$0) != nil }.count != 0
+                if match == true {
+                    self.vibeStatusSoulLbl.text = "Soul Tribe"
+                }else{
+                    self.vibeStatusSoulLbl.text = ""
+                }
+                let searchToSearch1 = "Tribe"
+                let worlds1 = vibesArr.flatMap { $0.components(separatedBy: " ")}
+                let match1 = worlds1.filter { searchToSearch1.range(of:$0) != nil }.count != 0
+                print(match1)
+                if match == true {
+                    self.vibeStatusTribeLbl.text = "Tribe"
+                }else{
+                    self.vibeStatusTribeLbl.text = ""
+                }
+                if match == true && match1 == true {
+                    self.matchView.frame = self.view.frame
+                    self.matchView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+                    self.view.addSubview(self.matchView)
+                }else{
+                }
+                self.SexualityLbl.text = self.profileDict.value(forKey: "soul_love_my_sexuality") as? String
                 self.GenderLbl.text = self.profileDict.value(forKey: "gender") as? String
                 let distance = self.profileDict.value(forKey: "search_distance") as? String
-                self.distanceLbl.text = "\(distance!)" + " KM"
-                self.RelationShipStatusLbl.text = self.profileDict.value(forKey: "mini_tribe_relationship_status") as? String
+                let distanceType = self.profileDict.value(forKey: "distance_type") as? String
+                self.distanceLbl.text = "\(distance!)" + " " + "\(distanceType!)"
+                self.RelationShipStatusLbl.text = self.profileDict.value(forKey: "soul_love_my_relationship_status") as? String
                 self.ReligiousViewsLbl.text = self.profileDict.value(forKey: "religious") as? String
                 self.AgeInt = self.profileDict.value(forKey: "age") as! Int
                 self.userAge.text = String(self.AgeInt)

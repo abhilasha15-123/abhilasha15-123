@@ -103,8 +103,8 @@ class ReportPopUpVC: UIViewController,UIPickerViewDelegate,UIPickerViewDataSourc
     }
 
     func reportApi() {
-        let tempVw = KolView()
-        tempVw.menuoptionView.isHidden = true
+        
+        let userID = Config().AppUserDefaults.value(forKey:"user_id") as? String ?? ""
         let parameterDictionary = NSMutableDictionary()
         
         if self.commentTxtview.textColor == UIColor.lightGray {
@@ -113,7 +113,7 @@ class ReportPopUpVC: UIViewController,UIPickerViewDelegate,UIPickerViewDataSourc
             parameterDictionary.setValue(self.commentTxtview.text, forKey: "comment")
         }
        parameterDictionary.setValue("tribe123", forKey: "api_key")
-       parameterDictionary.setValue("14", forKey: "user_id")
+       parameterDictionary.setValue(userID, forKey: "user_id")
        parameterDictionary.setValue("Tribe", forKey: "vibe")
        parameterDictionary.setValue(self.reportReasonId, forKey: "report_reason_id")
         

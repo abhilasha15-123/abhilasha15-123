@@ -86,11 +86,14 @@ class LoginViewController: UIViewController {
                     let data = DataManager.getVal(responseData?["data"]) as? [String:Any] ?? [:]
                     let screen_val = DataManager.getVal(data["app_screen"]) as? String ?? ""
                         
-                        
+                        print(data)
                     self.view.makeToast(message)
                         
                     Config().AppUserDefaults.setValue(DataManager.getVal(data["id"]) as? String ?? "", forKey: "user_id")
-                        
+                    Config().AppUserDefaults.setValue(DataManager.getVal(data["name"]) as? String ?? "", forKey: "user_name")
+                    Config().AppUserDefaults.setValue(DataManager.getVal(data["email"]) as? String ?? "", forKey: "user_email")
+                    Config().AppUserDefaults.setValue(DataManager.getVal(data["profile_image"]) as? String ?? "", forKey: "user_image")
+                    
                     if self.checkBtn.isSelected == true {
                         self.keychain.set(self.passwordTxt.text ?? "", forKey: "password_A")
                         self.keychain.set(self.emailTxt.text ?? "", forKey: "email_A")
@@ -423,10 +426,11 @@ extension LoginViewController{
                
                 let data = DataManager.getVal(responseData?["data"]) as? [String:Any] ?? [:]
                 let screen_val = DataManager.getVal(data["app_screen"]) as? String ?? ""
-                 
+                 print(data)
                 self.view.makeToast(message)
                  
                 Config().AppUserDefaults.setValue(DataManager.getVal(data["id"]) as? String ?? "", forKey: "user_id")
+                
                  
                 if screen_val == "0"{
                     let vc = self.storyboard?.instantiateViewController(identifier: "LocationAccessVC") as! LocationAccessVC

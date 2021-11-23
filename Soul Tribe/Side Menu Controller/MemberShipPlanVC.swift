@@ -36,11 +36,9 @@ class MemberShipPlanVC: UIViewController {
     }
     @IBAction func backbtnaction(_ sender:UIButton) {
         self.slideMenuController()?.toggleLeft()
-
-
-
     }
-
-    
-
+    @IBAction func buyFreeAction(_ sender:UIButton) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "membership_PlanWebVC") as! membership_PlanWebVC
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }

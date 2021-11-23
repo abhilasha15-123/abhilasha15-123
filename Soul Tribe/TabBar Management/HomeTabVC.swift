@@ -93,9 +93,9 @@ class HomeTabVC: UIViewController, SlideMenuControllerDelegate{
         tempVw.menuoptionView.isHidden = true
         self.view.endEditing(true)
         let parameterDictionary = NSMutableDictionary()
-     
+        let userID = Config().AppUserDefaults.value(forKey:"user_id") as? String ?? ""
        parameterDictionary.setValue("tribe123", forKey: "api_key")
-       parameterDictionary.setValue("14", forKey: "user_id")
+       parameterDictionary.setValue(userID, forKey: "user_id")
        parameterDictionary.setValue("Tribe", forKey: "vibe")
         parameterDictionary.setValue(self.swipeUserID, forKey: "block_user_id")
        print(parameterDictionary)
@@ -207,6 +207,8 @@ class HomeTabVC: UIViewController, SlideMenuControllerDelegate{
     
     @IBAction func btngotonxt(_ sender: Any) {
         let vc = self.storyboard?.instantiateViewController(identifier: "ProfileController") as! ProfileController
+        vc.swipeUserID = self.swipeUserID
+        vc.picturesArray = self.picturesArray
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -214,9 +216,9 @@ class HomeTabVC: UIViewController, SlideMenuControllerDelegate{
          self.view.endEditing(true)
 
          let parameterDictionary = NSMutableDictionary()
-      
+        let userID = Config().AppUserDefaults.value(forKey:"user_id") as? String ?? ""
         parameterDictionary.setValue("tribe123", forKey: "api_key")
-        parameterDictionary.setValue("14", forKey: "user_id")
+        parameterDictionary.setValue(userID, forKey: "user_id")
         parameterDictionary.setValue(vibeType, forKey: "vibe")
         parameterDictionary.setValue("", forKey: "latitude")
         parameterDictionary.setValue("", forKey: "longitude")
@@ -242,9 +244,9 @@ class HomeTabVC: UIViewController, SlideMenuControllerDelegate{
          self.view.endEditing(true)
 
          let parameterDictionary = NSMutableDictionary()
-      
+        let userID = Config().AppUserDefaults.value(forKey:"user_id") as? String ?? ""
         parameterDictionary.setValue("tribe123", forKey: "api_key")
-        parameterDictionary.setValue("14", forKey: "user_id")
+        parameterDictionary.setValue(userID, forKey: "user_id")
         parameterDictionary.setValue("Tribe", forKey: "vibe")
         parameterDictionary.setValue(SwipeUserId, forKey: "swipe_user_id")
         parameterDictionary.setValue(type, forKey: "type")
@@ -288,6 +290,7 @@ class HomeTabVC: UIViewController, SlideMenuControllerDelegate{
         tempVw.menuoptionView.isHidden = true
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProfileController") as! ProfileController
         vc.swipeUserID = self.swipeUserID
+        vc.picturesArray = self.picturesArray
         self.navigationController?.pushViewController(vc, animated: true)
     }
     @objc func BtnLeftSwipeAction(){
@@ -362,6 +365,7 @@ extension HomeTabVC: KolodaViewDataSource {
         let firstImpresssion = dict.value(forKey: "first_impression") as? String
         let hobbiesStr = dict.value(forKey: "hobbies") as? String
 //        let result = hobbiesStr!.filter { !$0.isWhitespace }
+        self.swipeUserID = dict.value(forKey: "id") as! Int
         self.hobbiesArray = hobbiesStr!.components(separatedBy: ", ")
         
         if self.hobbiesArray.count == 1 {

@@ -63,10 +63,11 @@ class NotificationSettingVC: UIViewController {
     }
     func SendNotification(type: String, status: String) {
         self.view.endEditing(true)
+        let userID = Config().AppUserDefaults.value(forKey:"user_id") as? String ?? ""
         let parameterDictionary = NSMutableDictionary()
      //   in_app_notification email_notification
        parameterDictionary.setValue("tribe123", forKey: "api_key")
-       parameterDictionary.setValue("14", forKey: "user_id")
+       parameterDictionary.setValue(userID, forKey: "user_id")
         parameterDictionary.setValue(type, forKey: "type")
         parameterDictionary.setValue(status, forKey: "status")
        print(parameterDictionary)

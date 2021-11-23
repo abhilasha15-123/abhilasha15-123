@@ -42,9 +42,9 @@ class ChangePasswordViewController: UIViewController {
          self.view.endEditing(true)
 
          let parameterDictionary = NSMutableDictionary()
-      
+        let userID = Config().AppUserDefaults.value(forKey:"user_id") as? String ?? ""
         parameterDictionary.setValue("tribe123", forKey: "api_key")
-        parameterDictionary.setValue("14", forKey: "user_id")
+        parameterDictionary.setValue(userID, forKey: "user_id")
         parameterDictionary.setValue(self.oldPassTxt.text, forKey: "old_password")
         parameterDictionary.setValue(self.newpassTxt.text, forKey: "new_password")
 
@@ -56,6 +56,10 @@ class ChangePasswordViewController: UIViewController {
              let message  = DataManager.getVal(responseData?["message"]) as? String ?? ""
 
              if status == "1" {
+                 self.view.makeToast(message)
+                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                     self.navigationController?.popViewController(animated: true)
+                 }
                  
              }
              else {
@@ -69,8 +73,9 @@ class ChangePasswordViewController: UIViewController {
     }
     @IBAction func submitBtnAction(_ sender: Any) {
         
-         
-        
+        if ValidationClass().ValidationChangePasswordForm(self) {
+            changePasswordAPI()
+        }
     }
    
 }

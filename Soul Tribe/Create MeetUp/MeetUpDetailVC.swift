@@ -59,9 +59,10 @@ class MeetUpDetailVC: UIViewController {
     //MARK:- ApiManager
 
     func getdata(){
+        let userID = Config().AppUserDefaults.value(forKey:"user_id") as? String ?? ""
         let paraDict = NSMutableDictionary()
         paraDict.setValue(Config().api_key, forKey: "api_key")
-        paraDict.setValue("36", forKey: "user_id")
+        paraDict.setValue(userID, forKey: "user_id")
         paraDict.setValue("3", forKey: "mini_tribe_id")
         paraDict.setValue("1", forKey: "mini_tribe_meetup_id")
         

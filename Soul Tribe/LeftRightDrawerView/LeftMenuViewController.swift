@@ -47,14 +47,16 @@ class LeftMenuViewController: UIViewController {
     var navController : UINavigationController!
     var window: UIWindow?
     
-    
-    
-    
     var data = false
     var nameArray = ["Home","Who Liked Me","Block List","Membership Plans","Advertise on Soul Tribe","Settings","Invite Friends","Rate Soul Tribe","T&C","FAQ’s","Logout"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        self.imgProfile.layer.cornerRadius = 30
+//        self.lblName.text = Config().AppUserDefaults.value(forKey:"user_name") as? String ?? ""
+//        self.lblEmail.text = Config().AppUserDefaults.value(forKey:"user_email") as? String ?? ""
+//        let profileImg = Config().AppUserDefaults.value(forKey:"user_image") as? String ?? ""
+//        self.imgProfile.sd_setImage(with: URL(string: Config().baseImageUrl + profileImg), completed: nil)
        // doSetupUI()
        // viewTopHeader.roundCorners([.topLeft, .bottomRight], radius: 10)
         //viewTopround.layer.cornerRadius = 8

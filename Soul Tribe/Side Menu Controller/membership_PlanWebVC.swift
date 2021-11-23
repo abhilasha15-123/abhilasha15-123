@@ -1,13 +1,14 @@
 //
-//  AdvertiseOnSoulTribeVC.swift
+//  FAQ'sVC.swift
 //  Soul Tribe
 //
-//  Created by Ashish Soni on 11/0
+//  Created by Ashish Soni on 11/06/21.
+//
 
 import UIKit
 import WebKit
 
-class AdvertiseOnSoulTribeVC: UIViewController {
+class membership_PlanWebVC: UIViewController {
 //    @IBOutlet weak var searchview: UIView!
     @IBOutlet weak var headerview: UIView!
 

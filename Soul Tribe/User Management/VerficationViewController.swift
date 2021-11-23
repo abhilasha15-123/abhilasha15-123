@@ -9,6 +9,9 @@ import UIKit
 
 class VerficationViewController: UIViewController,VPMOTPViewDelegate {
 
+    var comeFromSetting = String()
+    var comeFromSettingEmail_Phone = String()
+    
     @IBOutlet weak var otpView: VPMOTPView!
     var GetotpString = ""
     var GetComeOtp = String()
@@ -65,13 +68,26 @@ class VerficationViewController: UIViewController,VPMOTPViewDelegate {
 
                 parameterDictionary.setValue(userId, forKey: "user_id")
                 parameterDictionary.setValue(GetotpString, forKey: "otp")
+            if self.comeFromSetting == "1" {
+                if self.comeFromSettingEmail_Phone.contains("@") {
+                    parameterDictionary.setValue(datatype, forKey: "email")
+                }else{
+                    parameterDictionary.setValue(datatype, forKey: "mobile")
+                }
+            }else{
                 parameterDictionary.setValue(datatype, forKey: "type")
+            }
                 parameterDictionary.setValue(Config().api_key, forKey: "api_key")
             
                 print(parameterDictionary)
 
-                let methodName = "otp_verification"
-                       
+            var methodName = ""
+            if self.comeFromSetting == "1" {
+                 methodName = "email_verify"
+            }else{
+                methodName = "otp_verification"
+            }
+                            
                 DataManager.getAPIResponse(parameterDictionary , methodName: methodName, methodType: "POST"){(responseData,error)-> Void in
                         let status  = DataManager.getVal(responseData?["status"]) as? String ?? ""
                         let message  = DataManager.getVal(responseData?["message"]) as? String ?? ""
@@ -80,19 +96,19 @@ class VerficationViewController: UIViewController,VPMOTPViewDelegate {
                            
                             self.view.makeToast(message)
                                     
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5){
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0){
 
                                 if self.datatype == "1"{
                                     let vc = self.storyboard?.instantiateViewController(identifier: "LocationAccessVC") as! LocationAccessVC
                                     self.navigationController?.pushViewController(vc, animated: true)
+                                }else if self.comeFromSetting == "1" {
+                                    self.navigationController?.popViewController(animated: true)
                                 }else{
                                     let vc = self.storyboard?.instantiateViewController(identifier: "ResetPasswordViewController") as! ResetPasswordViewController
                                     vc.userId = self.userId
                                     self.navigationController?.pushViewController(vc, animated: true)
                                 }
-                                
-                              
-                                
+                        
         //                        let vc = self.storyboard?.instantiateViewController(identifier: "VerificationViewController") as! VerificationViewController
         //                        vc.viewComesFrom = "SignUp"
         //                        vc.email = userEmail
@@ -102,9 +118,7 @@ class VerficationViewController: UIViewController,VPMOTPViewDelegate {
                         }else{
                             self.view.makeToast(message)
                         }
-                           
                         basicFunctions.stopLoading()
-                     
                     }
              
         }else{
@@ -123,12 +137,25 @@ class VerficationViewController: UIViewController,VPMOTPViewDelegate {
 
               parameterDictionary.setValue(userId, forKey: "user_id")
               parameterDictionary.setValue(GetotpString, forKey: "otp")
-              parameterDictionary.setValue(datatype, forKey: "type")
+        if self.comeFromSetting == "1" {
+            if self.comeFromSettingEmail_Phone.contains("@") {
+                parameterDictionary.setValue(datatype, forKey: "email")
+            }else{
+                parameterDictionary.setValue(datatype, forKey: "mobile")
+            }
+        }else{
+            parameterDictionary.setValue(datatype, forKey: "type")
+        }
               parameterDictionary.setValue(Config().api_key, forKey: "api_key")
           
               print(parameterDictionary)
-
-              let methodName = "resend_otp"
+        
+        var methodName = ""
+        if self.comeFromSetting == "1" {
+             methodName = "email_verify"
+        }else{
+            methodName = "resend_otp"
+        }
                      
               DataManager.getAPIResponse(parameterDictionary , methodName: methodName, methodType: "POST"){(responseData,error)-> Void in
                       let status  = DataManager.getVal(responseData?["status"]) as? String ?? ""
