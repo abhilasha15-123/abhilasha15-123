@@ -20,11 +20,10 @@ class ProfileTabVC: UIViewController,UICollectionViewDelegate,UICollectionViewDa
     @IBOutlet weak var interestCollectionView: UICollectionView!
     @IBOutlet weak var imgprofile: UIImageView!
 
-
     var interestImage = ["Aliens","Art","Cooking","Dancing","Fitness","Gaming","Hiking","Law of Attraction","Meditation","Music","Outdoors","Plant Medicine","Quantam Physics","Reading","Shopping","Social Events","Spirituality","Sports","Travel","Yoga"]
     var interestTxt = ["Aliens","Art","Cooking","Dancing","Fitness","Gaming","Hiking","Law of Attraction","Meditation","Music","Outdoors","Plant Medicine","Quantam Physics","Reading","Shopping","Social Events","Spirituality","Sports","Travel","Yoga"]
 
-     @IBOutlet weak var Name_Age: UILabel!
+    @IBOutlet weak var Name_Age: UILabel!
     @IBOutlet weak var first_impression: UILabel!
     @IBOutlet weak var nick_name: UILabel!
     @IBOutlet weak var gender: UILabel!
@@ -33,9 +32,7 @@ class ProfileTabVC: UIViewController,UICollectionViewDelegate,UICollectionViewDa
     @IBOutlet weak var status: UILabel!
     @IBOutlet weak var religious: UILabel!
     @IBOutlet weak var sexuality: UILabel!
-    
-    var interestImage = ["Fitness","Music","Shopping","Aliens","Art","Sport"]
-    var interestTxt = ["Fitness","Music","Shopping","Aliens","Art","Sport"]
+
 
     let screenWidth = UIScreen.main.bounds.size.width
     let screenHeight = UIScreen.main.bounds.size.height
@@ -51,18 +48,18 @@ class ProfileTabVC: UIViewController,UICollectionViewDelegate,UICollectionViewDa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        imgprofile.layer.shadowColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-//        imgprofile.layer.shadowOpacity = 0.8
-//        imgprofile.layer.shadowOffset = .zero
-//        imgprofile.layer.shadowRadius = 8
-//        imgprofile.layer.cornerRadius = 65
-//        imgprofile.layer.borderWidth = 2.5
-//        imgprofile.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        imgprofile.layer.shadowColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        imgprofile.layer.shadowOpacity = 0.8
+        imgprofile.layer.shadowOffset = .zero
+        imgprofile.layer.shadowRadius = 8
+        imgprofile.layer.cornerRadius = 65
+        imgprofile.layer.borderWidth = 2.5
+        imgprofile.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
 
-//        imgprofile.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-//        imgprofile.layer.borderWidth = 2.5
-//        imgprofile.layer.shadowRadius = 0.6
-//
+        imgprofile.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        imgprofile.layer.borderWidth = 2.5
+        imgprofile.layer.shadowRadius = 0.6
+
         
         let LiberaryLayOut = UICollectionViewFlowLayout()
         LiberaryLayOut.itemSize = CGSize(width: screenWidth/2.8, height: 30)

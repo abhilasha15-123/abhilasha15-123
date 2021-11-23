@@ -254,7 +254,9 @@ class SetProfilefinalVC: UIViewController {
 
                     DispatchQueue.main.asyncAfter(deadline: .now()+1.5, execute: {
                         if self.comesFrom == "Edit"{
-                           
+                            self.navigationController?.popToRootViewController(animated: true)
+                            self.tabBarController?.selectedIndex = 4
+
                         }else{
                             let storyboard = UIStoryboard(name: "Main", bundle: nil)
                             let navigate = storyboard.instantiateViewController(withIdentifier: "TTabBarViewController") as! TTabBarViewController
