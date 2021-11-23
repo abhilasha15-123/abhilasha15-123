@@ -8,10 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		004FB76DE5351974A988171F /* Pods_Soul_Tribe_Soul_TribeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E19E1EFB84AAAA2A7670DF1 /* Pods_Soul_Tribe_Soul_TribeUITests.framework */; };
-		066A8335274CA7C8009C9972 /* HeaderCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 066A8331274CA7C8009C9972 /* HeaderCollectionCell.xib */; };
-		066A8336274CA7C8009C9972 /* HeaderCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066A8332274CA7C8009C9972 /* HeaderCollectionCell.swift */; };
-		066A8337274CA7C8009C9972 /* HobbiesCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066A8333274CA7C8009C9972 /* HobbiesCollectionCell.swift */; };
-		066A8338274CA7C8009C9972 /* HobbiesCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 066A8334274CA7C8009C9972 /* HobbiesCollectionCell.xib */; };
 		066A833F274CA92D009C9972 /* CreateMeetUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066A8339274CA92C009C9972 /* CreateMeetUpVC.swift */; };
 		066A8340274CA92D009C9972 /* AcceptedMeetUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066A833A274CA92C009C9972 /* AcceptedMeetUpVC.swift */; };
 		066A8341274CA92D009C9972 /* ExploreMeetUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066A833B274CA92C009C9972 /* ExploreMeetUpVC.swift */; };
@@ -69,6 +65,10 @@
 		6AEBA4A82695E3F200C61508 /* DrawerTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEBA4A62695E3F100C61508 /* DrawerTransition.swift */; };
 		6AEBA4A92695E3F200C61508 /* LeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEBA4A72695E3F200C61508 /* LeftMenuViewController.swift */; };
 		6AEBA4AF2695E81800C61508 /* SlideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEBA4AD2695E81700C61508 /* SlideMenuController.swift */; };
+		6E4BC38C274D294800B1CE01 /* HobbiesCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4BC388274D294700B1CE01 /* HobbiesCollectionCell.swift */; };
+		6E4BC38D274D294800B1CE01 /* HeaderCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E4BC389274D294700B1CE01 /* HeaderCollectionCell.xib */; };
+		6E4BC38E274D294800B1CE01 /* HobbiesCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E4BC38A274D294700B1CE01 /* HobbiesCollectionCell.xib */; };
+		6E4BC38F274D294800B1CE01 /* HeaderCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4BC38B274D294800B1CE01 /* HeaderCollectionCell.swift */; };
 		6E614C00274BA205009EF85E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6E614BFF274BA205009EF85E /* GoogleService-Info.plist */; };
 		70361BD026A0091100921FEB /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 70361BC526A0091100921FEB /* OpenSans-SemiBold.ttf */; };
 		70361BD126A0091100921FEB /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 70361BC626A0091100921FEB /* OpenSans-Light.ttf */; };
@@ -184,10 +184,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		066A8331274CA7C8009C9972 /* HeaderCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HeaderCollectionCell.xib; path = ../../../../Downloads/HeaderCollectionCell.xib; sourceTree = "<group>"; };
-		066A8332274CA7C8009C9972 /* HeaderCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeaderCollectionCell.swift; path = ../../../../Downloads/HeaderCollectionCell.swift; sourceTree = "<group>"; };
-		066A8333274CA7C8009C9972 /* HobbiesCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HobbiesCollectionCell.swift; path = ../../../../Downloads/HobbiesCollectionCell.swift; sourceTree = "<group>"; };
-		066A8334274CA7C8009C9972 /* HobbiesCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HobbiesCollectionCell.xib; path = ../../../../Downloads/HobbiesCollectionCell.xib; sourceTree = "<group>"; };
 		066A8339274CA92C009C9972 /* CreateMeetUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateMeetUpVC.swift; sourceTree = "<group>"; };
 		066A833A274CA92C009C9972 /* AcceptedMeetUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptedMeetUpVC.swift; sourceTree = "<group>"; };
 		066A833B274CA92C009C9972 /* ExploreMeetUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreMeetUpVC.swift; sourceTree = "<group>"; };
@@ -249,6 +245,10 @@
 		6AEBA4A72695E3F200C61508 /* LeftMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftMenuViewController.swift; sourceTree = "<group>"; };
 		6AEBA4AD2695E81700C61508 /* SlideMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideMenuController.swift; sourceTree = "<group>"; };
 		6AEBA4AE2695E81800C61508 /* SlideMenuControllerSwift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideMenuControllerSwift.h; sourceTree = "<group>"; };
+		6E4BC388274D294700B1CE01 /* HobbiesCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HobbiesCollectionCell.swift; path = "../../../Soul Tribe Latest Code 5/Soul Tribe/KolodaView/HobbiesCollectionCell.swift"; sourceTree = "<group>"; };
+		6E4BC389274D294700B1CE01 /* HeaderCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HeaderCollectionCell.xib; path = "../../../Soul Tribe Latest Code 5/Soul Tribe/KolodaView/HeaderCollectionCell.xib"; sourceTree = "<group>"; };
+		6E4BC38A274D294700B1CE01 /* HobbiesCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HobbiesCollectionCell.xib; path = "../../../Soul Tribe Latest Code 5/Soul Tribe/KolodaView/HobbiesCollectionCell.xib"; sourceTree = "<group>"; };
+		6E4BC38B274D294800B1CE01 /* HeaderCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeaderCollectionCell.swift; path = "../../../Soul Tribe Latest Code 5/Soul Tribe/KolodaView/HeaderCollectionCell.swift"; sourceTree = "<group>"; };
 		6E614BFF274BA205009EF85E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		70361BC526A0091100921FEB /* OpenSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiBold.ttf"; sourceTree = "<group>"; };
 		70361BC626A0091100921FEB /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Light.ttf"; sourceTree = "<group>"; };
@@ -408,10 +408,10 @@
 		06F935AD2744BDB00086CFA9 /* KolodaView */ = {
 			isa = PBXGroup;
 			children = (
-				066A8332274CA7C8009C9972 /* HeaderCollectionCell.swift */,
-				066A8331274CA7C8009C9972 /* HeaderCollectionCell.xib */,
-				066A8333274CA7C8009C9972 /* HobbiesCollectionCell.swift */,
-				066A8334274CA7C8009C9972 /* HobbiesCollectionCell.xib */,
+				6E4BC38B274D294800B1CE01 /* HeaderCollectionCell.swift */,
+				6E4BC389274D294700B1CE01 /* HeaderCollectionCell.xib */,
+				6E4BC388274D294700B1CE01 /* HobbiesCollectionCell.swift */,
+				6E4BC38A274D294700B1CE01 /* HobbiesCollectionCell.xib */,
 				06F935AE2744BDB00086CFA9 /* KolView.xib */,
 				06F935AF2744BDB00086CFA9 /* KolView.swift */,
 			);
@@ -954,7 +954,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				066A8335274CA7C8009C9972 /* HeaderCollectionCell.xib in Resources */,
+				6E4BC38D274D294800B1CE01 /* HeaderCollectionCell.xib in Resources */,
 				70361BD526A0091100921FEB /* OpenSans-Bold.ttf in Resources */,
 				70361BD026A0091100921FEB /* OpenSans-SemiBold.ttf in Resources */,
 				6A31B994269437D5005819AD /* Main.storyboard in Resources */,
@@ -968,7 +968,7 @@
 				70361BD126A0091100921FEB /* OpenSans-Light.ttf in Resources */,
 				6A31B9A926947E02005819AD /* CustomOverlayView.xib in Resources */,
 				70A16575269EFE680062156B /* CreateMeetuppopupVC.xib in Resources */,
-				066A8338274CA7C8009C9972 /* HobbiesCollectionCell.xib in Resources */,
+				6E4BC38E274D294800B1CE01 /* HobbiesCollectionCell.xib in Resources */,
 				70361BD226A0091100921FEB /* OpenSans-Italic.ttf in Resources */,
 				8D1322F72665167600DE2B87 /* LaunchScreen.storyboard in Resources */,
 				70A16579269EFF3E0062156B /* SoultribepopupVC.xib in Resources */,
@@ -1200,6 +1200,7 @@
 				8D702655266A1BA70045B05F /* LoginViewController.swift in Sources */,
 				704EE21026B564EF008B2366 /* ForthIntroVC.swift in Sources */,
 				8DB605582670DB42001BA160 /* GroupTribeCell.swift in Sources */,
+				6E4BC38C274D294800B1CE01 /* HobbiesCollectionCell.swift in Sources */,
 				704E48D1269D960D0067D4C0 /* TTabBarViewController.swift in Sources */,
 				70F4113026987ED40037C149 /* LogoutVC.swift in Sources */,
 				6A31B96B26942C88005819AD /* ReportCompleteVC.swift in Sources */,
@@ -1253,11 +1254,11 @@
 				8DB605562670DAA4001BA160 /* MatchListCell.swift in Sources */,
 				06F45A142743AFB600B3A3B2 /* Toast.swift in Sources */,
 				6A31B96826942C88005819AD /* ChatListVC.swift in Sources */,
-				066A8336274CA7C8009C9972 /* HeaderCollectionCell.swift in Sources */,
 				8DB605542670DA8D001BA160 /* MessageListCell.swift in Sources */,
 				06F45A0F2743AFB600B3A3B2 /* PaddingLabel.swift in Sources */,
 				704EE21426B5651B008B2366 /* SixIntroVC.swift in Sources */,
 				705017A1269FF5DF001E674C /* MessageRequestVC.swift in Sources */,
+				6E4BC38F274D294800B1CE01 /* HeaderCollectionCell.swift in Sources */,
 				6A82A83A269331DE003905AC /* SetProfilefinalVC.swift in Sources */,
 				8D1322F22665167300DE2B87 /* Soul_Tribe.xcdatamodeld in Sources */,
 				704C81B526A6AAF000CEC323 /* SlideCell.swift in Sources */,
@@ -1266,7 +1267,6 @@
 				06F935B12744BDB00086CFA9 /* KolView.swift in Sources */,
 				8D5A359F26805EAF00D3FFCF /* NotificationSettingVC.swift in Sources */,
 				70A16577269EFF310062156B /* SoultribepopupVC.swift in Sources */,
-				066A8337274CA7C8009C9972 /* HobbiesCollectionCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
