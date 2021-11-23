@@ -54,7 +54,7 @@ class AcceptedMeetUpVC: UIViewController {
     func getdata(){
         let paraDict = NSMutableDictionary()
         paraDict.setValue(Config().api_key, forKey: "api_key")
-        paraDict.setValue("36", forKey: "user_id")
+        paraDict.setValue("11", forKey: "user_id")
         paraDict.setValue("3", forKey: "mini_tribe_id")
         paraDict.setValue("1", forKey: "mini_tribe_meetup_id")
         

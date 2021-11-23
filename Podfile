@@ -23,6 +23,8 @@ pod 'Firebase/Core'
 pod 'Firebase/Auth'
 pod 'FirebaseMessaging'
 
+pod 'OnlyPictures'
+
 
   # Pods for Soul Tribe
 

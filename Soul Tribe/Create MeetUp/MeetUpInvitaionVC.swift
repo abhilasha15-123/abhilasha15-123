@@ -58,7 +58,7 @@ class MeetUpInvitaionVC: UIViewController {
     func getdata(){
         let paraDict = NSMutableDictionary()
         paraDict.setValue(Config().api_key, forKey: "api_key")
-        paraDict.setValue("31", forKey: "user_id")
+        paraDict.setValue("11", forKey: "user_id")
         
         let methodName = "get_mini_tribe_meetup_invitation_list"
         DataManager.getAPIResponse(paraDict , methodName: methodName, methodType: "POST"){(responseData,error)-> Void in
