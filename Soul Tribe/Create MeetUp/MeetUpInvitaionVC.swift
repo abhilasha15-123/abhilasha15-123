@@ -29,7 +29,6 @@ class MeetUpInvitaioncell: UITableViewCell{
 class MeetUpInvitaionVC: UIViewController {
     
     //MARK:- IBOutlet
-    
     @IBOutlet weak var btnback: UIView!
     @IBOutlet weak var headerview: UIView!
     @IBOutlet weak var meetUpInvitationTableView: UITableView!
@@ -38,6 +37,13 @@ class MeetUpInvitaionVC: UIViewController {
     
     var ApiDataArr = NSMutableArray()
     var ApiDict = NSMutableDictionary()
+    
+    
+    
+    
+    
+    
+    
     //MARK:-
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,9 +62,10 @@ class MeetUpInvitaionVC: UIViewController {
     //MARK:- apiManager
     
     func getdata(){
+        basicFunctions.presentLoader()
         let paraDict = NSMutableDictionary()
         paraDict.setValue(Config().api_key, forKey: "api_key")
-        paraDict.setValue("11", forKey: "user_id")
+        paraDict.setValue(Config().AppUserDefaults.value(forKey:"user_id") as? String ?? "", forKey: "user_id")
         
         let methodName = "get_mini_tribe_meetup_invitation_list"
         DataManager.getAPIResponse(paraDict , methodName: methodName, methodType: "POST"){(responseData,error)-> Void in
@@ -69,29 +76,69 @@ class MeetUpInvitaionVC: UIViewController {
              if status == "1" {
                 print(DataManager.getVal(responseData?["data"]) as? [String:Any] ?? [:])
                 self.ApiDataArr = DataManager.getVal(responseData?["data"]) as? NSMutableArray ?? []
-                self.meetUpInvitationTableView.reloadData()
-                
+              
              }
              else {
                 print(message)
              }
-    }
+            self.meetUpInvitationTableView.reloadData()
+            basicFunctions.stopLoading()
+        }
     }
     //MARK:- goingSelection
-    @objc func goingSelection(){
+    @objc func goingSelection(_ sender : UIButton){
         print("goingSelected")
+ 
+        let dict = ApiDataArr[sender.tag] as? NSMutableDictionary ?? [:]
+        api_updateStatus(id: "1", meetupId: DataManager.getVal(dict["mini_tribe_id"]) as? String ?? "", miniTribeId: DataManager.getVal(dict["mini_tribe_meetup_id"]) as? String ?? "")
     }
     //MARK:- NotSureSelection
     
-    @objc func NotSureSelection(){
+    @objc func NotSureSelection(_ sender : UIButton){
         print("NotSureSelected")
+        let dict = ApiDataArr[sender.tag] as? NSMutableDictionary ?? [:]
+        api_updateStatus(id: "3", meetupId: DataManager.getVal(dict["mini_tribe_id"]) as? String ?? "", miniTribeId: DataManager.getVal(dict["mini_tribe_meetup_id"]) as? String ?? "")
     }
     
     //MARK:- NotGoingSelection
     
-    @objc func NotGoingSelection(){
+    @objc func NotGoingSelection(_ sender : UIButton){
         print("NotGoingSelected")
+        let dict = ApiDataArr[sender.tag] as? NSMutableDictionary ?? [:]
+        api_updateStatus(id: "2", meetupId: DataManager.getVal(dict["mini_tribe_id"]) as? String ?? "", miniTribeId: DataManager.getVal(dict["mini_tribe_meetup_id"]) as? String ?? "")
     }
+    
+    
+    func api_updateStatus(id:String, meetupId: String, miniTribeId : String){
+        
+        basicFunctions.presentLoader()
+        self.view.endEditing(true)
+        
+        let paraDict = NSMutableDictionary()
+        paraDict.setValue(Config().api_key, forKey: "api_key")
+        paraDict.setValue(Config().AppUserDefaults.value(forKey:"user_id") as? String ?? "", forKey: "user_id")
+        paraDict.setValue(miniTribeId, forKey: "mini_tribe_id")
+        paraDict.setValue(meetupId, forKey: "mini_tribe_meetup_id")
+        paraDict.setValue(id, forKey: "status")
+        paraDict.setValue("meetup", forKey: "type")
+ 
+        let methodName = "meetup_status_change"
+        DataManager.getAPIResponse(paraDict , methodName: methodName, methodType: "POST"){(responseData,error)-> Void in
+             let status  = DataManager.getVal(responseData?["status"]) as? String ?? ""
+             let message  = DataManager.getVal(responseData?["message"]) as? String ?? ""
+                print(message)
+             if status == "1" {
+                self.getdata()
+             }
+             else {
+                print(message)
+             }
+            basicFunctions.stopLoading()
+        }
+    }
+    
+    
+    
 }
 extension MeetUpInvitaionVC: UITableViewDelegate,UITableViewDataSource{
     //MARK:- tableViewDataSourceMethods
@@ -119,22 +166,57 @@ extension MeetUpInvitaionVC: UITableViewDelegate,UITableViewDataSource{
         cell.btnnotgoing.layer.cornerRadius = 5
         cell.btnnotgoing.layer.borderWidth = 0.8
         cell.btnnotgoing.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+       
+        
         let apidata = ApiDataArr[indexPath.row]
         ApiDict = apidata as? NSMutableDictionary ?? [:]
+    
         cell.lbldate.text = self.ApiDict["meetup_date"] as? String ?? ""
         cell.lbltime.text = self.ApiDict["meetup_time"] as? String ?? ""
         cell.lbllocation.text = self.ApiDict["meetup_location"] as? String ?? ""
         cell.lblgoing.text = "\(self.ApiDict["meetup_going_members"] as? Int ?? 0) People Are Going"
         cell.lblnotgoing.text = "\(self.ApiDict["meetup_not_going_members"] as? Int ?? 0) People Are Not Going"
-        cell.lblmightgoing.text = "\(self.ApiDict["meetup_might_go_members"] as? Int ?? 0) Might Go"
+        cell.lblmightgoing.text = "\(self.ApiDict["meetup_might_go_members"] as? Int ?? 0) People Might Go"
         cell.lblcreate.text = "Created By \(self.ApiDict["user_name"] as? String ?? "")"
-        cell.btngoing.addTarget(self, action: #selector(goingSelection), for: .touchUpInside)
-        cell.btnnotsure.addTarget(self, action: #selector(NotSureSelection), for: .touchUpInside)
-        cell.btnnotgoing.addTarget(self, action: #selector(NotGoingSelection), for: .touchUpInside)
+        cell.lblname.text = self.ApiDict["meetup_topic"] as? String ?? ""
+        
+        let meetupStatus = DataManager.getVal(self.ApiDict["meetup_status"]) as? String ?? ""
+        
+        if meetupStatus == "1"{
+            cell.btngoing.backgroundColor = UIColor(red: 0.05, green: 0.23, blue: 0.66, alpha: 0.2)
+            cell.btnnotsure.backgroundColor = UIColor.white
+            cell.btnnotgoing.backgroundColor = UIColor.white
+        }else if meetupStatus == "2"{
+            cell.btngoing.backgroundColor = UIColor.white
+            cell.btnnotsure.backgroundColor = UIColor.white
+            cell.btnnotgoing.backgroundColor = UIColor(red: 0.05, green: 0.23, blue: 0.66, alpha: 0.2)
+        }else if meetupStatus == "3"{
+            cell.btngoing.backgroundColor = UIColor.white
+            cell.btnnotsure.backgroundColor = UIColor(red: 0.05, green: 0.23, blue: 0.66, alpha: 0.2)
+            cell.btnnotgoing.backgroundColor = UIColor.white
+        }else{
+            cell.btngoing.backgroundColor = UIColor.white
+            cell.btnnotsure.backgroundColor = UIColor.white
+            cell.btnnotgoing.backgroundColor = UIColor.white
+        }
+        
+        cell.btngoing.tag = indexPath.row
+        cell.btnnotgoing.tag = indexPath.row
+        cell.btnnotsure.tag = indexPath.row
+    
+        cell.btngoing.addTarget(self, action: #selector(goingSelection(_:)), for: .touchUpInside)
+        cell.btnnotsure.addTarget(self, action: #selector(NotSureSelection(_:)), for: .touchUpInside)
+        cell.btnnotgoing.addTarget(self, action: #selector(NotGoingSelection(_:)), for: .touchUpInside)
+        
+        cell.imguser.sd_setImage(with: URL(string: "\(Config().baseImageUrl)\(DataManager.getVal(ApiDict["meetup_image"]) as? String ?? "")"), completed: nil)
         
         return cell
     }
     //MARK:- tableViewDelegateMethods
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
     
     
 }

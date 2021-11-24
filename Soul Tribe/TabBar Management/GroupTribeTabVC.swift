@@ -7,13 +7,27 @@
 
 import UIKit
 
+
+class minitribeGroupOptions : UITableViewCell{
+    @IBOutlet weak var lbl_option: UILabel!
+}
+
 class GroupTribeTabVC: UIViewController,UITableViewDelegate,UITableViewDataSource,SlideMenuControllerDelegate {
     
+    @IBOutlet weak var txt_search: UITextField!
     @IBOutlet weak var tribeListTableview: UITableView!
     @IBOutlet weak var searchview: UIView!
-
+    
+    @IBOutlet weak var tableView_OptionsMiniTribe: UITableView!
+    
     var leftDrawerTransition:DrawerTransition!
     var left = LeftMenuViewController()
+    
+    var arr_data = [[String:Any]]()
+    var filteredArr = [[String:Any]]()
+    
+    var arr_tribeOptions = ["Create Mini Tribe","My Mini Tribes","Mini Tribes"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         searchview.layer.cornerRadius = 6
@@ -21,34 +35,140 @@ class GroupTribeTabVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
         searchview.layer.borderColor = #colorLiteral(red: 0.8941176471, green: 0.9019607843, blue: 0.9176470588, alpha: 1)
         
         setupLeftDrawer(self)
+        
+        tableView_OptionsMiniTribe.layer.cornerRadius = 6
+        
+        filteredArr = arr_data
+        txt_search.addTarget(self, action: #selector(searchRecordsAsPerText(_ :)), for: .editingChanged)
+
+        tableView_OptionsMiniTribe.delegate = self
+        tableView_OptionsMiniTribe.dataSource = self
+        tableView_OptionsMiniTribe.reloadData()
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tableView_OptionsMiniTribe.isHidden = true
+        api_call()
+    }
+    
+    @objc func searchRecordsAsPerText(_ textfield:UITextField) {
+        filteredArr.removeAll()
+        if txt_search.text?.count != 0 {
+            for anyObject in arr_data {
+                let dict = DataManager.getVal(anyObject) as? [String:Any] ?? [:]
+                let range = (DataManager.getVal(dict["name"]) as? String ?? "").lowercased().range(of: txt_search.text ?? "", options: .caseInsensitive, range: nil,   locale: nil)
+
+                if range != nil { filteredArr.append(dict) }
+            }
+        } else { filteredArr = arr_data }
+        tribeListTableview.reloadData()
+    }
+    
+    
+    
+    func api_call(){
+        
+        basicFunctions.presentLoader()
+       
+        let paraDict = NSMutableDictionary()
+        paraDict.setValue(Config().api_key, forKey: "api_key")
+        paraDict.setValue(Config().AppUserDefaults.value(forKey:"user_id") as? String ?? "", forKey: "user_id")
+            
+        print(paraDict)
+        
+        let methodName = "get_mini_tribe"
+        DataManager.getAPIResponse(paraDict , methodName: methodName, methodType: "POST"){(responseData,error)-> Void in
+            let status  = DataManager.getVal(responseData?["status"]) as? String ?? ""
+            let message  = DataManager.getVal(responseData?["message"]) as? String ?? ""
+            print(message)
+            if status == "1" {
+                self.arr_data = DataManager.getVal(responseData?["data"]) as? [[String:Any]] ?? []
+                self.filteredArr = self.arr_data
+            }
+            else {
+                print(message)
+            }
+            
+        self.tribeListTableview.reloadData()
+        basicFunctions.stopLoading()
+        }
+    }
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        if tableView == tableView_OptionsMiniTribe{
+            return arr_tribeOptions.count
+        }else{
+            return filteredArr.count
+        }
+       
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! GroupTribeCell
-        cell.mainview.layer.shadowColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-        cell.mainview.layer.shadowOpacity = 0.8
-        cell.mainview.layer.shadowOffset = .zero
-        cell.mainview.layer.shadowRadius = 8
-        cell.mainview.layer.cornerRadius = 10
-        return cell
+        
+        if tableView == tableView_OptionsMiniTribe{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! minitribeGroupOptions
+            cell.lbl_option.text = arr_tribeOptions[indexPath.row]
+            return cell
+        }else{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! GroupTribeCell
+            cell.mainview.layer.shadowColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+            cell.mainview.layer.shadowOpacity = 0.8
+            cell.mainview.layer.shadowOffset = .zero
+            cell.mainview.layer.shadowRadius = 8
+            cell.mainview.layer.cornerRadius = 10
+            
+            cell.img_disp.layer.cornerRadius = cell.img_disp.frame.size.width/2
+            cell.img_disp.contentMode = .scaleToFill
+            
+            let dict = filteredArr[indexPath.row]
+            
+            cell.img_disp.sd_setImage(with: URL(string: "\(Config().baseImageUrl)\(DataManager.getVal(dict["image"]) as? String ?? "")"), completed: nil)
+            
+            cell.lbl_name.text = DataManager.getVal(dict["name"]) as? String ?? ""
+            cell.lbl_description.text = DataManager.getVal(dict["about"]) as? String ?? ""
+            cell.btn_memberCount.setTitle("  \(DataManager.getVal(dict["members_count"]) as? String ?? "") Member", for: .normal)
+            
+            cell.btn_requestToJoin.tag = indexPath.row
+            cell.btn_requestToJoin.addTarget(self, action: #selector(requestToJoinClicked(_:)), for: .touchUpInside)
+            
+            return cell
+        }
+       
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView == tableView_OptionsMiniTribe{
+            if indexPath.row == 0{
+                let vc = self.storyboard?.instantiateViewController(identifier: "CreateMiniTribeVC") as! CreateMiniTribeVC
+                navigationController?.pushViewController(vc, animated: true)
+            }else if indexPath.row == 1 {
+            }else {
+            }
+        }else{
+            let dict = arr_data[indexPath.row]
+            if DataManager.getVal(dict["visibility_status"]) as? String ?? "" == "2" && (DataManager.getVal(dict["tribe_status"]) as? String ?? "" == "requested" || DataManager.getVal(dict["tribe_status"]) as? String ?? "" == "join"){
+                let vc = self.storyboard?.instantiateViewController(identifier: "MiniTribeRequetedVC") as! MiniTribeRequetedVC
+                vc.miniTribeId = DataManager.getVal(dict["id"]) as? String ?? ""
+                navigationController?.pushViewController(vc, animated: true)
+            }else {
+                let vc = self.storyboard?.instantiateViewController(identifier: "MiniTribeJoinVC") as! MiniTribeJoinVC
+                vc.miniTribeId = DataManager.getVal(dict["id"]) as? String ?? ""
+                navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+    }
+    
+    @objc func requestToJoinClicked (_ sender : UIButton){
+        
     }
     
     @IBAction func plusBtnAction(_ sender: Any) {
-        
-        let vc = self.storyboard?.instantiateViewController(identifier: "CreateMiniTribeVC") as! CreateMiniTribeVC
-        navigationController?.pushViewController(vc, animated: true)
-      
-
+        tableView_OptionsMiniTribe.isHidden = !tableView_OptionsMiniTribe.isHidden
     }
-    @IBAction func btngotodetails(_ sender: Any) {
-        let vc = self.storyboard?.instantiateViewController(identifier: "MiniTribeJoinVC") as! MiniTribeJoinVC
-        navigationController?.pushViewController(vc, animated: true)
-        
-    }
+    
     
     @IBAction func backBtnAction(_ sender: Any) {
         navigationController?.popViewController(animated: true)

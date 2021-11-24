@@ -87,17 +87,21 @@ class MeetUpDetailVC: UIViewController {
         
         self.img_userNew.layer.cornerRadius = self.img_userNew.frame.size.width/2
 
-        btngoing.layer.cornerRadius = 6
-//        btngoing.layer.borderWidth = 0.7
-//        btngoing.layer.borderColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
 
         btnmightgo.layer.cornerRadius = 6
         btnmightgo.layer.borderWidth = 0.7
-        btnmightgo.layer.borderColor = #colorLiteral(red: 0.8941176471, green: 0.9019607843, blue: 0.9176470588, alpha: 1)
-        
+        btnmightgo.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        btnmightgo.backgroundColor = UIColor.white
+
         btnnotgoing.layer.cornerRadius = 6
         btnnotgoing.layer.borderWidth = 0.7
-        btnnotgoing.layer.borderColor = #colorLiteral(red: 0.8941176471, green: 0.9019607843, blue: 0.9176470588, alpha: 1)
+        btnnotgoing.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        btnnotgoing.backgroundColor = UIColor.white
+        
+        btngoing.layer.cornerRadius = 6
+        btngoing.layer.borderWidth = 0.7
+        btngoing.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        btngoing.backgroundColor = UIColor.white
         // Do any additional setup after loading the view.
     }
     
@@ -187,11 +191,31 @@ class MeetUpDetailVC: UIViewController {
                 self.lblcreated.text = "Created By \(self.ApiDict["name"] as? String ?? "")"
                 self.lblGoing.text = "\(self.ApiDict["meetup_going_members"] as? Int ?? 0) People Are Going"
                 self.lblNotGoing.text = "\(self.ApiDict["meetup_not_going_members"] as? Int ?? 0) People Are Not Going"
-                self.lblMightGo.text = "\(self.ApiDict["meetup_might_go_members"] as? Int ?? 0) Might Go"
+                self.lblMightGo.text = "\(self.ApiDict["meetup_might_go_members"] as? Int ?? 0) People Might Go"
                 
                 self.arr_Going = DataManager.getVal(self.ApiDict["meetup_going_members_list"]) as? [[String:Any]] ?? []
                 self.arr_MightGo = DataManager.getVal(self.ApiDict["meetup_might_go_list"]) as? [[String:Any]] ?? []
                 self.arr_NotGoing = DataManager.getVal(self.ApiDict["meetup_not_going_members_list"]) as? [[String:Any]] ?? []
+                
+                let meetupStatus = DataManager.getVal(self.ApiDict["meetup_status"]) as? String ?? ""
+                
+                if meetupStatus == "1"{
+                    self.btngoing.backgroundColor = UIColor(red: 0.05, green: 0.23, blue: 0.66, alpha: 0.2)
+                    self.btnmightgo.backgroundColor = UIColor.white
+                    self.btnnotgoing.backgroundColor = UIColor.white
+                }else if meetupStatus == "2"{
+                    self.btngoing.backgroundColor = UIColor.white
+                    self.btnmightgo.backgroundColor = UIColor.white
+                    self.btnnotgoing.backgroundColor = UIColor(red: 0.05, green: 0.23, blue: 0.66, alpha: 0.2)
+                }else if meetupStatus == "3"{
+                    self.btngoing.backgroundColor = UIColor.white
+                    self.btnmightgo.backgroundColor = UIColor(red: 0.05, green: 0.23, blue: 0.66, alpha: 0.2)
+                    self.btnnotgoing.backgroundColor = UIColor.white
+                }else{
+                    self.btngoing.backgroundColor = UIColor.white
+                    self.btnmightgo.backgroundColor = UIColor.white
+                    self.btnnotgoing.backgroundColor = UIColor.white
+                }
                 
                 if self.arr_Going.count > 0 {
                     self.constraint_width_onlyImages1.constant = 100
@@ -204,7 +228,6 @@ class MeetUpDetailVC: UIViewController {
                 }else{
                     self.constraint_width_onlyImages2.constant = 0
                 }
-                
                 
                 if self.arr_MightGo.count > 0 {
                     self.constraint_width_onlyImages3.constant = 100

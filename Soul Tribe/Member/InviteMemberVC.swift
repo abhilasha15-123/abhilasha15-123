@@ -42,11 +42,16 @@ class InviteMemberVC: UIViewController {
         
         filteredData = arrData
         
-        api_getData()
+       
         
         
 
         // Do any additional setup after loading the view.
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        api_getData()
     }
     
     @objc func searchRecordsAsPerText(_ textfield:UITextField) {

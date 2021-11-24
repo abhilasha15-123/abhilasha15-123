@@ -9,6 +9,14 @@ import UIKit
 
 class AcceptedMeetUpCell: UITableViewCell {
 
+ 
+    @IBOutlet weak var lbl_meetupName: UILabel!
+    @IBOutlet weak var lbl_imgUser: UIImageView!
+    
+    @IBOutlet weak var lbl_location: UILabel!
+    @IBOutlet weak var lbl_time: UILabel!
+    @IBOutlet weak var lbl_date: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
