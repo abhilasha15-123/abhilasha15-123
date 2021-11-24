@@ -10,6 +10,12 @@ import Koloda
 import SDWebImage
 
 class HomeTabVC: UIViewController, SlideMenuControllerDelegate{
+    
+    @IBOutlet weak var optionView1: UIView!
+    @IBOutlet weak var optionView1CornerRadius: UIView!
+    @IBOutlet weak var alphaView_SoulBtn: UIButton!
+    @IBOutlet weak var alphaView_TribeBtn: UIButton!
+    
   @IBOutlet weak var btnnext: UIButton!
   @IBOutlet weak var fitnessview: UIView!
   @IBOutlet weak var artsview: UIView!
@@ -28,6 +34,7 @@ class HomeTabVC: UIViewController, SlideMenuControllerDelegate{
   @IBOutlet weak var HomeVibeBtn: UIButton!
   @IBOutlet weak var confirmBlockView: UIView!
   
+    var profileImageString = String()
     var hobbiesArray = [String]()
     var getproductImages = [NSDictionary]()
   var picturesArray = [String]()
@@ -41,6 +48,7 @@ class HomeTabVC: UIViewController, SlideMenuControllerDelegate{
   var swipeUserID = Int()
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.optionView1CornerRadius.layer.cornerRadius = 5
         self.tabBarController?.navigationController?.navigationBar.isHidden = true
         topOptionMenuView.isHidden = true
         topOptionMenuView.layer.cornerRadius = 8
@@ -56,15 +64,34 @@ class HomeTabVC: UIViewController, SlideMenuControllerDelegate{
         btntribe.layer.cornerRadius = 8
         self.confirmBlockView.isHidden = true
         //innerpopupvc.frame = CGRect(x: 0, y: 0, width: view.frame.width * 1.2, height: view.frame.height * 1.2
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.SwipeAction(_ :)), name: Notification.Name("swipe"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SwipeActionCross(_:)), name: Notification.Name("cross"), object: nil)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        cardView.reloadData()
+        getData(vibeType: self.CategorySelect)
     }
     @IBAction func HometopMenuAction(_ sender: Any) {
-        self.topOptionMenuView.isHidden = !self.topOptionMenuView.isHidden
+        if self.CategorySelect == "Soul Love" {
+            self.alphaView_SoulBtn.setTitleColor(UIColor.systemBlue, for: .normal)
+        }else{
+            self.alphaView_SoulBtn.setTitleColor(UIColor.black, for: .normal)
+        }
+        if self.CategorySelect == "Tribe" {
+            self.alphaView_TribeBtn.setTitleColor(UIColor.systemBlue, for: .normal)
+        }else{
+            self.alphaView_TribeBtn.setTitleColor(UIColor.black, for: .normal)
+        }
+        self.optionView1.frame = self.view.frame
+        self.optionView1.backgroundColor = UIColor.black.withAlphaComponent(0.1)
+        self.view.addSubview(self.optionView1)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "hide"), object: nil)
+//        self.topOptionMenuView.isHidden = !self.topOptionMenuView.isHidden
     }
     @IBAction func HometopMenuSoulTribeAction(_ sender: Any) {
+//        self.alphaView_SoulBtn.setTitleColor(UIColor.systemBlue, for: .normal)
+        self.optionView1.removeFromSuperview()
         self.topOptionMenuView.isHidden = true
         popupview.isHidden = true
         self.CategorySelect = "Soul Love"
@@ -72,6 +99,8 @@ class HomeTabVC: UIViewController, SlideMenuControllerDelegate{
         self.getData(vibeType: self.CategorySelect)
     }
     @IBAction func HometopMenuTribeAction(_ sender: Any) {
+//        self.alphaView_TribeBtn.setTitleColor(UIColor.systemBlue, for: .normal)
+        self.optionView1.removeFromSuperview()
         self.topOptionMenuView.isHidden = true
         popupview.isHidden = true
         innerpopupvc.isHidden = true
@@ -80,12 +109,18 @@ class HomeTabVC: UIViewController, SlideMenuControllerDelegate{
         self.getData(vibeType: self.CategorySelect)
     }
     @IBAction func btnnotification(_ sender: Any) {
+        
         let vc = self.storyboard?.instantiateViewController(identifier: "NotificationsVC") as! NotificationsVC
         navigationController?.pushViewController(vc, animated: true)
-       // NotificationsVC
     }
     @IBAction func ConfirmBlock_Cancel(_ sender: Any) {
         self.confirmBlockView.isHidden = true
+    }
+    @IBAction func cancel1(_ sender: Any) {
+        self.optionView1.removeFromSuperview()
+    }
+    @IBAction func show1(_ sender: Any) {
+        
     }
     @IBAction func ConfirmBlock_Accept(_ sender: Any) {
         self.confirmBlockView.isHidden = true
@@ -141,6 +176,24 @@ class HomeTabVC: UIViewController, SlideMenuControllerDelegate{
         self.HomeVibeBtn.setTitle("Tribe", for: .normal)
         self.getData(vibeType: self.CategorySelect)
     }
+    
+    @objc func SwipeAction(_ pNotification: Notification) {
+            
+            if let extractInfo = pNotification.userInfo {
+                let type = extractInfo["data"] as? String
+                RightSwipeAPI(SwipeUserId: self.swipeUserID, type: "like", vibe: type ?? "")
+                cardView.swipe(.right)
+            }
+            
+        }
+    @objc func SwipeActionCross(_ pNotification: Notification) {
+            
+            if let extractInfo = pNotification.userInfo {
+                let type = extractInfo["data"] as? String
+                RightSwipeAPI(SwipeUserId: self.swipeUserID, type: type ?? "", vibe: type ?? "")
+                cardView.swipe(.right)
+            }
+        }
     
     func setSideMenu() {
         self.leftDrawerTransition.presentDrawerViewController(animated: true)
@@ -209,6 +262,7 @@ class HomeTabVC: UIViewController, SlideMenuControllerDelegate{
         let vc = self.storyboard?.instantiateViewController(identifier: "ProfileController") as! ProfileController
         vc.swipeUserID = self.swipeUserID
         vc.picturesArray = self.picturesArray
+        vc.vibeType = self.CategorySelect
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -240,14 +294,14 @@ class HomeTabVC: UIViewController, SlideMenuControllerDelegate{
              }
          }
      }
-    func RightSwipeAPI(SwipeUserId: Int, type: String){
+    func RightSwipeAPI(SwipeUserId: Int, type: String,vibe: String){
          self.view.endEditing(true)
 
          let parameterDictionary = NSMutableDictionary()
         let userID = Config().AppUserDefaults.value(forKey:"user_id") as? String ?? ""
         parameterDictionary.setValue("tribe123", forKey: "api_key")
         parameterDictionary.setValue(userID, forKey: "user_id")
-        parameterDictionary.setValue("Tribe", forKey: "vibe")
+        parameterDictionary.setValue(self.CategorySelect, forKey: "vibe")
         parameterDictionary.setValue(SwipeUserId, forKey: "swipe_user_id")
         parameterDictionary.setValue(type, forKey: "type")
         print(parameterDictionary)
@@ -258,6 +312,7 @@ class HomeTabVC: UIViewController, SlideMenuControllerDelegate{
              let message  = DataManager.getVal(responseData?["message"]) as? String ?? ""
 
              if status == "1" {
+                 self.getData(vibeType: self.CategorySelect)
                  self.cardView.reloadData()
                  print("rr")
              }
@@ -280,6 +335,7 @@ class HomeTabVC: UIViewController, SlideMenuControllerDelegate{
         vc.GetSwipeUserID = self.swipeUserID
         vc.getUserName = self.receiverName
         vc.GetAddress = self.receiverAddress
+        vc.GetImageStr = self.profileImageString
         self.navigationController?.pushViewController(vc, animated: true)
     }
     @objc func menuOptionBlockUserBtnAction(){
@@ -291,15 +347,16 @@ class HomeTabVC: UIViewController, SlideMenuControllerDelegate{
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProfileController") as! ProfileController
         vc.swipeUserID = self.swipeUserID
         vc.picturesArray = self.picturesArray
+        vc.vibeType = self.CategorySelect
         self.navigationController?.pushViewController(vc, animated: true)
     }
     @objc func BtnLeftSwipeAction(){
         self.cardView.swipe(.left)
-        self.RightSwipeAPI(SwipeUserId: self.swipeUserID, type: "reject")
+        self.RightSwipeAPI(SwipeUserId: self.swipeUserID, type: "reject", vibe: self.CategorySelect)
     }
     @objc func BtnRightSwipeAction(){
         self.cardView.swipe(.right)
-        self.RightSwipeAPI(SwipeUserId: self.swipeUserID, type: "like")
+        self.RightSwipeAPI(SwipeUserId: self.swipeUserID, type: "like", vibe: self.CategorySelect)
     }
 }
 @available(iOS 13.0, *)
@@ -359,9 +416,10 @@ extension HomeTabVC: KolodaViewDataSource {
 //        }
         let dict = self.profileDict[index]
         print(dict)
-        self.receiverAddress = dict.value(forKey: "address") as! String
+        tempVw.distanceLbl.text = "\(dict.value(forKey: "search_distance") as! String)" + " " + "\(dict.value(forKey: "distance_type") as? String ?? "")"
+        self.receiverAddress = "\(dict.value(forKey: "city") as! String)" + ", " + "\(dict.value(forKey: "state") as! String)"
         self.receiverName = dict.value(forKey: "name") as! String
-        let profileImg = dict.value(forKey: "profile_image") as? String
+        self.profileImageString = dict.value(forKey: "profile_image") as? String ?? ""
         let firstImpresssion = dict.value(forKey: "first_impression") as? String
         let hobbiesStr = dict.value(forKey: "hobbies") as? String
 //        let result = hobbiesStr!.filter { !$0.isWhitespace }
@@ -374,7 +432,7 @@ extension HomeTabVC: KolodaViewDataSource {
             self.hobbiesArray = hobbiesStr!.components(separatedBy: ", ")
         }
         
-        tempVw.userImg.sd_setImage(with: URL(string: Config().baseImageUrl + profileImg!), completed: nil)
+        tempVw.userImg.sd_setImage(with: URL(string: Config().baseImageUrl + self.profileImageString), completed: nil)
         self.ageInt = dict.value(forKey: "age") as! Int
         tempVw.ageLbl.text = String(self.ageInt)
         tempVw.userName.text = self.receiverName
@@ -447,7 +505,7 @@ extension HomeTabVC: KolodaViewDelegate {
             
             return true
         }else if direction == .up {
-            return true
+            return false
         }else if direction == .right || direction == .topRight || direction == .bottomRight {
             return true
         }
@@ -461,7 +519,7 @@ extension HomeTabVC: KolodaViewDelegate {
             
             let dict = self.profileDict[index]
             self.swipeUserID = dict.value(forKey: "id") as! Int
-            self.RightSwipeAPI(SwipeUserId: self.swipeUserID, type: "reject")
+            self.RightSwipeAPI(SwipeUserId: self.swipeUserID, type: "reject", vibe: self.CategorySelect)
 //            self.recieverId = DataManager.getVal(self.swipeUserId[0]) as? String ?? ""
 //            self.recieverName = DataManager.getVal(self.swipeUserName[0]) as? String ?? ""
 //            self.recieverImage = DataManager.getVal(self.swipeUserImage[0]) as? String ?? ""
@@ -479,7 +537,7 @@ extension HomeTabVC: KolodaViewDelegate {
             
             let dict = self.profileDict[index]
             self.swipeUserID = dict.value(forKey: "id") as! Int
-            self.RightSwipeAPI(SwipeUserId: self.swipeUserID, type: "like")
+            self.RightSwipeAPI(SwipeUserId: self.swipeUserID, type: "like", vibe: self.CategorySelect)
 //            self.recieverId = DataManager.getVal(self.swipeUserId[0]) as? String ?? ""
 //            self.recieverName = DataManager.getVal(self.swipeUserName[0]) as? String ?? ""
 //            print(self.swipeUserName)

@@ -14,7 +14,9 @@ import CoreLocation
 class KolView: UIView,UIScrollViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     
     
-
+    @IBOutlet var distanceView: UIView!
+    @IBOutlet var distanceLbl: UILabel!
+    
     @IBOutlet var contentView: UIView!
     @IBOutlet var menuoptionView: UIView!
     @IBOutlet weak var userImg: UIImageView!
@@ -59,9 +61,10 @@ class KolView: UIView,UIScrollViewDelegate, UICollectionViewDelegate, UICollecti
         commonInit()
     }
     private func commonInit() {
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(hidePopUpView(_:)), name: Notification.Name("hide"), object: nil)
         Bundle.main.loadNibNamed("KolView", owner: self, options: nil)
         addSubview(contentView)
+        distanceView.layer.cornerRadius = 8
         menuoptionView.isHidden = true
         menuoptionView.layer.cornerRadius = 8
         userImg.layer.cornerRadius = userImg.frame.height/2
@@ -175,6 +178,9 @@ class KolView: UIView,UIScrollViewDelegate, UICollectionViewDelegate, UICollecti
 //            })
 //
 //        }
+    @objc func hidePopUpView(_ pNotification: Notification) {
+          self.menuoptionView.isHidden = true
+        }
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if collectionView == self.imageCollectionView{
             self.imagePageControl.currentPage = indexPath.item

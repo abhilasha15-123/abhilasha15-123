@@ -187,7 +187,7 @@ class MeetUpDetailVC: UIViewController {
                 self.lblcreated.text = "Created By \(self.ApiDict["name"] as? String ?? "")"
                 self.lblGoing.text = "\(self.ApiDict["meetup_going_members"] as? Int ?? 0) People Are Going"
                 self.lblNotGoing.text = "\(self.ApiDict["meetup_not_going_members"] as? Int ?? 0) People Are Not Going"
-                self.lblMightGo.text = "\(self.ApiDict["meetup_might_go_members"] as? Int ?? 0) Might Go"
+                self.lblMightGo.text = "\(self.ApiDict["meetup_might_go_members"] as? Int ?? 0) People Might Go"
                 
                 self.arr_Going = DataManager.getVal(self.ApiDict["meetup_going_members_list"]) as? [[String:Any]] ?? []
                 self.arr_MightGo = DataManager.getVal(self.ApiDict["meetup_might_go_list"]) as? [[String:Any]] ?? []

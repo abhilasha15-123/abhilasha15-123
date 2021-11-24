@@ -29,7 +29,6 @@ class MeetUpInvitaioncell: UITableViewCell{
 class MeetUpInvitaionVC: UIViewController {
     
     //MARK:- IBOutlet
-    
     @IBOutlet weak var btnback: UIView!
     @IBOutlet weak var headerview: UIView!
     @IBOutlet weak var meetUpInvitationTableView: UITableView!
@@ -38,6 +37,7 @@ class MeetUpInvitaionVC: UIViewController {
     
     var ApiDataArr = NSMutableArray()
     var ApiDict = NSMutableDictionary()
+    
     //MARK:-
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,8 +58,7 @@ class MeetUpInvitaionVC: UIViewController {
     func getdata(){
         let paraDict = NSMutableDictionary()
         paraDict.setValue(Config().api_key, forKey: "api_key")
-        paraDict.setValue("11", forKey: "user_id")
-        
+        paraDict.setValue(Config().AppUserDefaults.value(forKey:"user_id") as? String ?? "", forKey: "user_id")
         let methodName = "get_mini_tribe_meetup_invitation_list"
         DataManager.getAPIResponse(paraDict , methodName: methodName, methodType: "POST"){(responseData,error)-> Void in
              let status  = DataManager.getVal(responseData?["status"]) as? String ?? ""

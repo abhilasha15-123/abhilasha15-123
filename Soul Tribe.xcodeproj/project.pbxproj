@@ -8,12 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		004FB76DE5351974A988171F /* Pods_Soul_Tribe_Soul_TribeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E19E1EFB84AAAA2A7670DF1 /* Pods_Soul_Tribe_Soul_TribeUITests.framework */; };
-		066A833F274CA92D009C9972 /* CreateMeetUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066A8339274CA92C009C9972 /* CreateMeetUpVC.swift */; };
-		066A8340274CA92D009C9972 /* AcceptedMeetUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066A833A274CA92C009C9972 /* AcceptedMeetUpVC.swift */; };
-		066A8341274CA92D009C9972 /* ExploreMeetUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066A833B274CA92C009C9972 /* ExploreMeetUpVC.swift */; };
-		066A8342274CA92D009C9972 /* MeetUpDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066A833C274CA92D009C9972 /* MeetUpDetailVC.swift */; };
-		066A8343274CA92D009C9972 /* MeetUpInvitaionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066A833D274CA92D009C9972 /* MeetUpInvitaionVC.swift */; };
-		066A8344274CA92D009C9972 /* AcceptedMeetUpCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066A833E274CA92D009C9972 /* AcceptedMeetUpCell.swift */; };
 		06A4DC31274509A100C34351 /* DistanceFormatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A4DC30274509A100C34351 /* DistanceFormatTableViewCell.swift */; };
 		06F45A072743AFB600B3A3B2 /* Extenisons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F459F92743AFB600B3A3B2 /* Extenisons.swift */; };
 		06F45A082743AFB600B3A3B2 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F459FA2743AFB600B3A3B2 /* DataManager.swift */; };
@@ -65,11 +59,19 @@
 		6AEBA4A82695E3F200C61508 /* DrawerTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEBA4A62695E3F100C61508 /* DrawerTransition.swift */; };
 		6AEBA4A92695E3F200C61508 /* LeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEBA4A72695E3F200C61508 /* LeftMenuViewController.swift */; };
 		6AEBA4AF2695E81800C61508 /* SlideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEBA4AD2695E81700C61508 /* SlideMenuController.swift */; };
+		6E2BBAFC274DFDC100EEB60C /* ProfileTabVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2BBAFB274DFDC100EEB60C /* ProfileTabVC.swift */; };
+		6E2BBB03274DFE0300EEB60C /* CreateMeetUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2BBAFD274DFDFF00EEB60C /* CreateMeetUpVC.swift */; };
+		6E2BBB04274DFE0300EEB60C /* ExploreMeetUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2BBAFE274DFE0000EEB60C /* ExploreMeetUpVC.swift */; };
+		6E2BBB05274DFE0300EEB60C /* AcceptedMeetUpCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2BBAFF274DFE0100EEB60C /* AcceptedMeetUpCell.swift */; };
+		6E2BBB06274DFE0300EEB60C /* AcceptedMeetUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2BBB00274DFE0100EEB60C /* AcceptedMeetUpVC.swift */; };
+		6E2BBB07274DFE0300EEB60C /* MeetUpDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2BBB01274DFE0200EEB60C /* MeetUpDetailVC.swift */; };
+		6E2BBB08274DFE0300EEB60C /* MeetUpInvitaionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2BBB02274DFE0200EEB60C /* MeetUpInvitaionVC.swift */; };
 		6E4BC38C274D294800B1CE01 /* HobbiesCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4BC388274D294700B1CE01 /* HobbiesCollectionCell.swift */; };
 		6E4BC38D274D294800B1CE01 /* HeaderCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E4BC389274D294700B1CE01 /* HeaderCollectionCell.xib */; };
 		6E4BC38E274D294800B1CE01 /* HobbiesCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E4BC38A274D294700B1CE01 /* HobbiesCollectionCell.xib */; };
 		6E4BC38F274D294800B1CE01 /* HeaderCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4BC38B274D294800B1CE01 /* HeaderCollectionCell.swift */; };
 		6E614C00274BA205009EF85E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6E614BFF274BA205009EF85E /* GoogleService-Info.plist */; };
+		6EB37140274CEAF400EAC322 /* membership_PlanWebVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB3713F274CEAF300EAC322 /* membership_PlanWebVC.swift */; };
 		70361BD026A0091100921FEB /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 70361BC526A0091100921FEB /* OpenSans-SemiBold.ttf */; };
 		70361BD126A0091100921FEB /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 70361BC626A0091100921FEB /* OpenSans-Light.ttf */; };
 		70361BD226A0091100921FEB /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 70361BC726A0091100921FEB /* OpenSans-Italic.ttf */; };
@@ -114,7 +116,6 @@
 		8D019C36266E38B800BF4BE5 /* MessageTabVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D019C35266E38B800BF4BE5 /* MessageTabVC.swift */; };
 		8D019C3B266E38D600BF4BE5 /* TribeTabVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D019C3A266E38D600BF4BE5 /* TribeTabVC.swift */; };
 		8D019C40266E391500BF4BE5 /* GroupTribeTabVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D019C3F266E391500BF4BE5 /* GroupTribeTabVC.swift */; };
-		8D019C45266E392C00BF4BE5 /* ProfileTabVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D019C44266E392C00BF4BE5 /* ProfileTabVC.swift */; };
 		8D1322E82665167300DE2B87 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1322E72665167300DE2B87 /* AppDelegate.swift */; };
 		8D1322EA2665167300DE2B87 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1322E92665167300DE2B87 /* SceneDelegate.swift */; };
 		8D1322EC2665167300DE2B87 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1322EB2665167300DE2B87 /* ViewController.swift */; };
@@ -184,12 +185,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		066A8339274CA92C009C9972 /* CreateMeetUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateMeetUpVC.swift; sourceTree = "<group>"; };
-		066A833A274CA92C009C9972 /* AcceptedMeetUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptedMeetUpVC.swift; sourceTree = "<group>"; };
-		066A833B274CA92C009C9972 /* ExploreMeetUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreMeetUpVC.swift; sourceTree = "<group>"; };
-		066A833C274CA92D009C9972 /* MeetUpDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetUpDetailVC.swift; sourceTree = "<group>"; };
-		066A833D274CA92D009C9972 /* MeetUpInvitaionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetUpInvitaionVC.swift; sourceTree = "<group>"; };
-		066A833E274CA92D009C9972 /* AcceptedMeetUpCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptedMeetUpCell.swift; sourceTree = "<group>"; };
 		06A4DC30274509A100C34351 /* DistanceFormatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceFormatTableViewCell.swift; sourceTree = "<group>"; };
 		06EE84B82747709D00A0B4F2 /* Soul Tribe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Soul Tribe.entitlements"; sourceTree = "<group>"; };
 		06F459F92743AFB600B3A3B2 /* Extenisons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extenisons.swift; sourceTree = "<group>"; };
@@ -245,11 +240,19 @@
 		6AEBA4A72695E3F200C61508 /* LeftMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftMenuViewController.swift; sourceTree = "<group>"; };
 		6AEBA4AD2695E81700C61508 /* SlideMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideMenuController.swift; sourceTree = "<group>"; };
 		6AEBA4AE2695E81800C61508 /* SlideMenuControllerSwift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideMenuControllerSwift.h; sourceTree = "<group>"; };
+		6E2BBAFB274DFDC100EEB60C /* ProfileTabVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTabVC.swift; sourceTree = "<group>"; };
+		6E2BBAFD274DFDFF00EEB60C /* CreateMeetUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateMeetUpVC.swift; sourceTree = "<group>"; };
+		6E2BBAFE274DFE0000EEB60C /* ExploreMeetUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreMeetUpVC.swift; sourceTree = "<group>"; };
+		6E2BBAFF274DFE0100EEB60C /* AcceptedMeetUpCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptedMeetUpCell.swift; sourceTree = "<group>"; };
+		6E2BBB00274DFE0100EEB60C /* AcceptedMeetUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptedMeetUpVC.swift; sourceTree = "<group>"; };
+		6E2BBB01274DFE0200EEB60C /* MeetUpDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetUpDetailVC.swift; sourceTree = "<group>"; };
+		6E2BBB02274DFE0200EEB60C /* MeetUpInvitaionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetUpInvitaionVC.swift; sourceTree = "<group>"; };
 		6E4BC388274D294700B1CE01 /* HobbiesCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HobbiesCollectionCell.swift; path = "../../../Soul Tribe Latest Code 5/Soul Tribe/KolodaView/HobbiesCollectionCell.swift"; sourceTree = "<group>"; };
 		6E4BC389274D294700B1CE01 /* HeaderCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HeaderCollectionCell.xib; path = "../../../Soul Tribe Latest Code 5/Soul Tribe/KolodaView/HeaderCollectionCell.xib"; sourceTree = "<group>"; };
 		6E4BC38A274D294700B1CE01 /* HobbiesCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HobbiesCollectionCell.xib; path = "../../../Soul Tribe Latest Code 5/Soul Tribe/KolodaView/HobbiesCollectionCell.xib"; sourceTree = "<group>"; };
 		6E4BC38B274D294800B1CE01 /* HeaderCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeaderCollectionCell.swift; path = "../../../Soul Tribe Latest Code 5/Soul Tribe/KolodaView/HeaderCollectionCell.swift"; sourceTree = "<group>"; };
 		6E614BFF274BA205009EF85E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6EB3713F274CEAF300EAC322 /* membership_PlanWebVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = membership_PlanWebVC.swift; sourceTree = "<group>"; };
 		70361BC526A0091100921FEB /* OpenSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiBold.ttf"; sourceTree = "<group>"; };
 		70361BC626A0091100921FEB /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Light.ttf"; sourceTree = "<group>"; };
 		70361BC726A0091100921FEB /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Italic.ttf"; sourceTree = "<group>"; };
@@ -294,7 +297,6 @@
 		8D019C35266E38B800BF4BE5 /* MessageTabVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTabVC.swift; sourceTree = "<group>"; };
 		8D019C3A266E38D600BF4BE5 /* TribeTabVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TribeTabVC.swift; sourceTree = "<group>"; };
 		8D019C3F266E391500BF4BE5 /* GroupTribeTabVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupTribeTabVC.swift; sourceTree = "<group>"; };
-		8D019C44266E392C00BF4BE5 /* ProfileTabVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTabVC.swift; sourceTree = "<group>"; };
 		8D1322E42665167300DE2B87 /* Soul Tribe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Soul Tribe.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D1322E72665167300DE2B87 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8D1322E92665167300DE2B87 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -600,7 +602,7 @@
 				8D019C35266E38B800BF4BE5 /* MessageTabVC.swift */,
 				8D019C3A266E38D600BF4BE5 /* TribeTabVC.swift */,
 				8D019C3F266E391500BF4BE5 /* GroupTribeTabVC.swift */,
-				8D019C44266E392C00BF4BE5 /* ProfileTabVC.swift */,
+				6E2BBAFB274DFDC100EEB60C /* ProfileTabVC.swift */,
 			);
 			path = "TabBar Management";
 			sourceTree = "<group>";
@@ -708,12 +710,12 @@
 		8D6FDC91268B4D7700AE09FD /* Create MeetUp */ = {
 			isa = PBXGroup;
 			children = (
-				066A833E274CA92D009C9972 /* AcceptedMeetUpCell.swift */,
-				066A833A274CA92C009C9972 /* AcceptedMeetUpVC.swift */,
-				066A8339274CA92C009C9972 /* CreateMeetUpVC.swift */,
-				066A833B274CA92C009C9972 /* ExploreMeetUpVC.swift */,
-				066A833C274CA92D009C9972 /* MeetUpDetailVC.swift */,
-				066A833D274CA92D009C9972 /* MeetUpInvitaionVC.swift */,
+				6E2BBAFF274DFE0100EEB60C /* AcceptedMeetUpCell.swift */,
+				6E2BBB00274DFE0100EEB60C /* AcceptedMeetUpVC.swift */,
+				6E2BBAFD274DFDFF00EEB60C /* CreateMeetUpVC.swift */,
+				6E2BBAFE274DFE0000EEB60C /* ExploreMeetUpVC.swift */,
+				6E2BBB01274DFE0200EEB60C /* MeetUpDetailVC.swift */,
+				6E2BBB02274DFE0200EEB60C /* MeetUpInvitaionVC.swift */,
 			);
 			path = "Create MeetUp";
 			sourceTree = "<group>";
@@ -840,6 +842,7 @@
 				8DE90D922673739400BF0D4F /* FAQ'sVC.swift */,
 				8D5A359E26805EAF00D3FFCF /* NotificationSettingVC.swift */,
 				70F4112F26987ED40037C149 /* LogoutVC.swift */,
+				6EB3713F274CEAF300EAC322 /* membership_PlanWebVC.swift */,
 			);
 			path = "Side Menu Controller";
 			sourceTree = "<group>";
@@ -1152,17 +1155,16 @@
 				8DE90D932673739400BF0D4F /* FAQ'sVC.swift in Sources */,
 				8D019C3B266E38D600BF4BE5 /* TribeTabVC.swift in Sources */,
 				6A82A83C269331DE003905AC /* SetProfilestep3VC.swift in Sources */,
-				066A8341274CA92D009C9972 /* ExploreMeetUpVC.swift in Sources */,
+				6E2BBB04274DFE0300EEB60C /* ExploreMeetUpVC.swift in Sources */,
 				8DB6054C2670D85F001BA160 /* MatchListVC.swift in Sources */,
 				8D019C31266E389B00BF4BE5 /* HomeTabVC.swift in Sources */,
 				8D702680266A66160045B05F /* VPMOTPView.swift in Sources */,
-				8D019C45266E392C00BF4BE5 /* ProfileTabVC.swift in Sources */,
 				704EE20A26B5649E008B2366 /* FirstIntroVC.swift in Sources */,
 				704EE21226B56501008B2366 /* FifthIntroVC.swift in Sources */,
 				8D2C9A0A268DF3A0003ADE2B /* MiniTribeRequestJoinVC.swift in Sources */,
-				066A8340274CA92D009C9972 /* AcceptedMeetUpVC.swift in Sources */,
 				8DB6054A2670D84A001BA160 /* MessageListVC.swift in Sources */,
 				6A31B96426942C88005819AD /* MemberListVC.swift in Sources */,
+				6E2BBAFC274DFDC100EEB60C /* ProfileTabVC.swift in Sources */,
 				8D702667266A1BD80045B05F /* VerficationViewController.swift in Sources */,
 				8D2C9A0E268DF3D8003ADE2B /* MiniTribeJoinVC.swift in Sources */,
 				8D6FDC8E268B4D4500AE09FD /* CreatePostVC.swift in Sources */,
@@ -1187,6 +1189,7 @@
 				8D6FDC9E268B4E6800AE09FD /* InviatationsVC.swift in Sources */,
 				8DE90D8F2673737000BF0D4F /* RateSoulTribeVC.swift in Sources */,
 				8DE90D83267372F000BF0D4F /* WhoLikedMeVC.swift in Sources */,
+				6E2BBB03274DFE0300EEB60C /* CreateMeetUpVC.swift in Sources */,
 				6A31B9BC26947F7F005819AD /* InterestCollectionCell.swift in Sources */,
 				6A31B9AD26947E02005819AD /* myCellCollectionViewCell.swift in Sources */,
 				8DE90D8B2673734900BF0D4F /* SettingsVC.swift in Sources */,
@@ -1213,9 +1216,9 @@
 				70558DD926B7D59200495BDE /* YourminitribeListVC.swift in Sources */,
 				704EE20C26B564BF008B2366 /* SecondIntroVC.swift in Sources */,
 				8D1322EC2665167300DE2B87 /* ViewController.swift in Sources */,
+				6E2BBB05274DFE0300EEB60C /* AcceptedMeetUpCell.swift in Sources */,
 				70A16583269F00C30062156B /* PremiumFeaturepopupVC.swift in Sources */,
 				8D1322E82665167300DE2B87 /* AppDelegate.swift in Sources */,
-				066A8344274CA92D009C9972 /* AcceptedMeetUpCell.swift in Sources */,
 				704C4AD926AECE0900D2496C /* customview.swift in Sources */,
 				06F45A162743BDD700B3A3B2 /* WebVwViewController.swift in Sources */,
 				6AE2EAEF26931C460031FCEF /* InvaitaionsendCell.swift in Sources */,
@@ -1225,6 +1228,7 @@
 				8D6FDCA7268B4F1100AE09FD /* MiniTribeDetailVC.swift in Sources */,
 				8D2C9A10268DF3EA003ADE2B /* MiniTribeJoinedVC.swift in Sources */,
 				8D7C3AB126874A42009635D6 /* FloatRatingView.swift in Sources */,
+				6EB37140274CEAF400EAC322 /* membership_PlanWebVC.swift in Sources */,
 				06F45A102743AFB600B3A3B2 /* basicFunctions.swift in Sources */,
 				70A1657B269EFFE60062156B /* ReportPopupVC.swift in Sources */,
 				6A31B9AB26947E02005819AD /* CustomOverlayView.swift in Sources */,
@@ -1234,23 +1238,21 @@
 				8DE90D8D2673735B00BF0D4F /* InviteFriendVC.swift in Sources */,
 				8D6FDCA2268B4E9A00AE09FD /* SentInviatationsVC.swift in Sources */,
 				8D70266C266A1BEA0045B05F /* ResetPasswordViewController.swift in Sources */,
-				066A833F274CA92D009C9972 /* CreateMeetUpVC.swift in Sources */,
 				8D6FDC90268B4D6400AE09FD /* CreatedPostDetailVC.swift in Sources */,
 				8D6FDCA5268B4EF000AE09FD /* CreateMiniTribeVC.swift in Sources */,
 				6AEBA4A92695E3F200C61508 /* LeftMenuViewController.swift in Sources */,
 				6A31B9B526947EEF005819AD /* imgesCollectionCell.swift in Sources */,
 				707DE02326A97EE90084348F /* TribefullDeatilsVC.swift in Sources */,
-				066A8343274CA92D009C9972 /* MeetUpInvitaionVC.swift in Sources */,
 				70A16587269F01110062156B /* MatchPopUpVC.swift in Sources */,
 				06F45A0E2743AFB600B3A3B2 /* buttonwithImage.swift in Sources */,
 				6A31B9A726947E02005819AD /* myView.swift in Sources */,
 				8DE90D85267372FE00BF0D4F /* BlockListVC.swift in Sources */,
 				8D1322EA2665167300DE2B87 /* SceneDelegate.swift in Sources */,
-				066A8342274CA92D009C9972 /* MeetUpDetailVC.swift in Sources */,
 				06F45A122743AFB600B3A3B2 /* LoaderVC.swift in Sources */,
 				8D019C2C266E384B00BF4BE5 /* TabbarController.swift in Sources */,
 				06F45A112743AFB600B3A3B2 /* ResponsiveButton.swift in Sources */,
 				6A82A832269331BE003905AC /* ProfileController.swift in Sources */,
+				6E2BBB07274DFE0300EEB60C /* MeetUpDetailVC.swift in Sources */,
 				8DB605562670DAA4001BA160 /* MatchListCell.swift in Sources */,
 				06F45A142743AFB600B3A3B2 /* Toast.swift in Sources */,
 				6A31B96826942C88005819AD /* ChatListVC.swift in Sources */,
@@ -1263,9 +1265,11 @@
 				8D1322F22665167300DE2B87 /* Soul_Tribe.xcdatamodeld in Sources */,
 				704C81B526A6AAF000CEC323 /* SlideCell.swift in Sources */,
 				8DE90D892673733500BF0D4F /* AdvertiseOnSoulTribeVC.swift in Sources */,
+				6E2BBB06274DFE0300EEB60C /* AcceptedMeetUpVC.swift in Sources */,
 				8DE90D912673738100BF0D4F /* T&CVC.swift in Sources */,
 				06F935B12744BDB00086CFA9 /* KolView.swift in Sources */,
 				8D5A359F26805EAF00D3FFCF /* NotificationSettingVC.swift in Sources */,
+				6E2BBB08274DFE0300EEB60C /* MeetUpInvitaionVC.swift in Sources */,
 				70A16577269EFF310062156B /* SoultribepopupVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

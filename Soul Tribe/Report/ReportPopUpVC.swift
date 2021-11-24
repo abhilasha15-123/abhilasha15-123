@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class ReportPopUpVC: UIViewController,UIPickerViewDelegate,UIPickerViewDataSource,UITextFieldDelegate,UITextViewDelegate {
 
@@ -27,10 +28,13 @@ class ReportPopUpVC: UIViewController,UIPickerViewDelegate,UIPickerViewDataSourc
     var getUserName = String()
     var GetAddress = String()
     var GetSwipeUserID = Int()
+    var GetImageStr = String()
     var reportReasonId = Int()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.userImage.layer.cornerRadius = self.userImage.frame.height/2
+        self.userImage.sd_setImage(with: URL(string: Config().baseImageUrl + self.GetImageStr), completed: nil)
         self.reasonTextFld.delegate = self
         reasonTextFld.inputView = productPickerView
         productPickerView.delegate = self

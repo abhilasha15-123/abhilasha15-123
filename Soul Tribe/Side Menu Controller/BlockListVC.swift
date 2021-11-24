@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import StoreKit
 class BlockListCell: UITableViewCell{
     @IBOutlet weak var imguser: UIImageView!
     @IBOutlet weak var lblname: UILabel!
@@ -17,8 +18,9 @@ class BlockListVC: UIViewController {
     @IBOutlet weak var headerview: UIView!
     @IBOutlet weak var tableview: UITableView!
 
+    var selectedBlockId = Int()
     var blockID = Int()
-    var blockedList = NSDictionary()
+    var blockedList = [NSDictionary]()
     var leftDrawerTransition:DrawerTransition!
     var left = LeftMenuViewController()
     override func viewDidLoad() {
@@ -57,8 +59,8 @@ class BlockListVC: UIViewController {
              let message  = DataManager.getVal(responseData?["message"]) as? String ?? ""
 
              if status == "1" {
-                 self.blockedList = DataManager.getVal(responseData?["data"]) as? NSDictionary ?? [:]
-                 print(self.blockedList)
+                 self.blockedList = DataManager.getVal(responseData?["data"]) as? [NSDictionary] ?? [[:]]
+                 print(self.blockedList.count)
                  self.tableview.reloadData()
              }
              else {
@@ -66,14 +68,22 @@ class BlockListVC: UIViewController {
              }
          }
      }
-    func unBlockUser_API(){
+    
+    @objc func unblock(_ sender: UIButton){
+        let dict = self.blockedList[sender.tag]
+        self.selectedBlockId = dict.value(forKey: "id") as! Int
+        unBlockUser_API(id: self.selectedBlockId)
+    }
+    
+    func unBlockUser_API(id: Int){
          self.view.endEditing(true)
 
+        let userID = Config().AppUserDefaults.value(forKey:"user_id") as? String ?? ""
          let parameterDictionary = NSMutableDictionary()
       
         parameterDictionary.setValue("tribe123", forKey: "api_key")
-        parameterDictionary.setValue("14", forKey: "user_id")
-        parameterDictionary.setValue(self.blockID, forKey: "blocked_id")
+        parameterDictionary.setValue(userID, forKey: "user_id")
+        parameterDictionary.setValue(id, forKey: "blocked_id")
 
         print(parameterDictionary)
          let methodName = "unblock_user"
@@ -83,6 +93,7 @@ class BlockListVC: UIViewController {
              let message  = DataManager.getVal(responseData?["message"]) as? String ?? ""
 
              if status == "1" {
+                 self.getBlockedList()
                  self.tableview.reloadData()
              }
              else {
@@ -95,7 +106,7 @@ class BlockListVC: UIViewController {
     }
 
     @IBAction func blockBtnAction(_ sender: Any) {
-        unBlockUser_API()
+
     }
 }
 
@@ -124,16 +135,23 @@ extension BlockListVC: UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BlockListCell", for: indexPath) as! BlockListCell
-        let dict = self.blockedList[indexPath.row] as? NSDictionary ?? [:]
+        cell.imguser.layer.cornerRadius = cell.imguser.frame.height/2
+        let dict = self.blockedList[indexPath.row]
         cell.lblname.text = dict.value(forKey: "name") as? String
         let userImage = dict.value(forKey: "profile_image") as? String ?? ""
         cell.imguser.sd_setImage(with: URL(string: Config().baseImageUrl + userImage), completed: nil)
         self.blockID = dict.value(forKey: "id") as! Int
         
+        cell.btnblock.tag = indexPath.row
+        
+        cell.btnblock.addTarget(self, action: #selector(unblock(_:)), for: .touchUpInside)
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
-    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let dict = self.blockedList[indexPath.row]
+//        self.selectedBlockId = dict.value(forKey: "id") as! Int
+//    }
 }
