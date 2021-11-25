@@ -24,6 +24,8 @@ class InviteMemberVC: UIViewController {
     
     
     var arrSelectedIds = [[String:Any]]()
+    var comesFrom = ""
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,9 +43,6 @@ class InviteMemberVC: UIViewController {
         membertable.reloadData()
         
         filteredData = arrData
-        
-       
-        
         
 
         // Do any additional setup after loading the view.
@@ -101,9 +100,16 @@ class InviteMemberVC: UIViewController {
     
     @IBAction func inviteBtnAction(_ sender: Any) {
        
-        self.dismiss(animated: true, completion: {
-            NotificationCenter.default.post(name: NSNotification.Name("memberdata"), object: nil, userInfo: ["data":self.arrSelectedIds])
-        })
+        if comesFrom == "tribe"{
+            self.dismiss(animated: true, completion: {
+                NotificationCenter.default.post(name: NSNotification.Name("memberdata1"), object: nil, userInfo: ["data":self.arrSelectedIds])
+            })
+        }else{
+            self.dismiss(animated: true, completion: {
+                NotificationCenter.default.post(name: NSNotification.Name("memberdata"), object: nil, userInfo: ["data":self.arrSelectedIds])
+            })
+        }
+        
     }
 }
 extension InviteMemberVC: UITableViewDelegate,UITableViewDataSource{

@@ -14,10 +14,63 @@ class minitribeGroupOptions : UITableViewCell{
 
 class GroupTribeTabVC: UIViewController,UITableViewDelegate,UITableViewDataSource,SlideMenuControllerDelegate {
     
+    @IBAction func btn_cancelAction(_ sender: UIButton) {
+        if btn_cenacel.title(for: .normal) == "Cancel"{
+            vw_confirmation.isHidden = true
+        }else{
+            api_call_acceptReject(status: "2")
+        }
+    }
+    
+    @IBAction func btn_requestAction(_ sender: UIButton) {
+        
+        if btn_request.title(for: .normal) == "Request"{
+            basicFunctions.presentLoader()
+           
+            let paraDict = NSMutableDictionary()
+            paraDict.setValue(Config().api_key, forKey: "api_key")
+            paraDict.setValue(selectedRequestJoinUserId, forKey: "user_id")
+            paraDict.setValue(selectedMiniTribeId, forKey: "mini_tribe_id")
+            paraDict.setValue(Config().AppUserDefaults.value(forKey:"user_id") as? String ?? "", forKey: "join_request_user_id")
+            
+            print(paraDict)
+            
+            let methodName = "request_to_join_mini_tribe"
+            DataManager.getAPIResponse(paraDict , methodName: methodName, methodType: "POST"){(responseData,error)-> Void in
+                let status  = DataManager.getVal(responseData?["status"]) as? String ?? ""
+                let message  = DataManager.getVal(responseData?["message"]) as? String ?? ""
+                print(message)
+                if status == "1" {
+                    self.vw_confirmation.isHidden = true
+                    self.view.makeToast(message)
+                    DispatchQueue.main.asyncAfter(deadline: .now()+1.5, execute: {
+                        self.api_call()
+                    })
+                }
+                else {
+                    self.vw_confirmation.isHidden = true
+                    self.view.makeToast(message)
+                }
+            basicFunctions.stopLoading()
+            }
+        }else{
+            api_call_acceptReject(status: "1")
+        }
+    }
+    
+    @IBAction func btn_closePopupAction(_ sender: UIButton) {
+        self.vw_confirmation.isHidden = true
+    }
+    
+    @IBOutlet weak var btn_closePopup: ResponsiveButton!
+    @IBOutlet weak var lbl_subviewHeading: UILabel!
+    @IBOutlet weak var btn_cenacel: UIButton!
+    @IBOutlet weak var btn_request: UIButton!
+    @IBOutlet weak var vw_confirmation: UIView!
+    @IBOutlet weak var vw_subView: UIView!
     @IBOutlet weak var txt_search: UITextField!
     @IBOutlet weak var tribeListTableview: UITableView!
     @IBOutlet weak var searchview: UIView!
-    
     @IBOutlet weak var tableView_OptionsMiniTribe: UITableView!
     
     var leftDrawerTransition:DrawerTransition!
@@ -28,8 +81,21 @@ class GroupTribeTabVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
     
     var arr_tribeOptions = ["Create Mini Tribe","My Mini Tribes","Mini Tribes"]
     
+    var selectedMiniTribeId = ""
+    var selectedRequestJoinUserId = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+            
+        btn_cenacel.layer.cornerRadius = 6
+        btn_request.layer.cornerRadius = 6
+        vw_subView.layer.cornerRadius = 6
+        
+        btn_cenacel.layer.borderWidth = 1
+        btn_cenacel.layer.borderColor = #colorLiteral(red: 0.8941176471, green: 0.9019607843, blue: 0.9176470588, alpha: 1)
+        
+        vw_confirmation.isHidden = true
+        
         searchview.layer.cornerRadius = 6
         searchview.layer.borderWidth = 1
         searchview.layer.borderColor = #colorLiteral(red: 0.8941176471, green: 0.9019607843, blue: 0.9176470588, alpha: 1)
@@ -65,12 +131,39 @@ class GroupTribeTabVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
         tribeListTableview.reloadData()
     }
     
+    func api_call_acceptReject(status: String){
+        basicFunctions.presentLoader()
+        
+        let paraDict = NSMutableDictionary()
+        paraDict.setValue(Config().api_key, forKey: "api_key")
+        paraDict.setValue(selectedRequestJoinUserId, forKey: "user_id")
+        paraDict.setValue(selectedMiniTribeId, forKey: "mini_tribe_id")
+        paraDict.setValue(Config().AppUserDefaults.value(forKey:"user_id") as? String ?? "", forKey: "invited_user_id")
+        paraDict.setValue(status, forKey: "status")
+        print(paraDict)
+        
+        let methodName = "accept_reject_invite_request_mini_tribe"
+        DataManager.getAPIResponse(paraDict , methodName: methodName, methodType: "POST"){(responseData,error)-> Void in
+            let status  = DataManager.getVal(responseData?["status"]) as? String ?? ""
+            let message  = DataManager.getVal(responseData?["message"]) as? String ?? ""
+            print(message)
+            if status == "1" {
+                self.vw_confirmation.isHidden = true
+                self.view.makeToast(message)
+                DispatchQueue.main.asyncAfter(deadline: .now()+1.5, execute: {
+                    self.api_call()
+                })
+            }
+            else {
+                print(message)
+            }
+        basicFunctions.stopLoading()
+        }
+    }
     
     
     func api_call(){
         
-        basicFunctions.presentLoader()
-       
         let paraDict = NSMutableDictionary()
         paraDict.setValue(Config().api_key, forKey: "api_key")
         paraDict.setValue(Config().AppUserDefaults.value(forKey:"user_id") as? String ?? "", forKey: "user_id")
@@ -91,7 +184,6 @@ class GroupTribeTabVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
             }
             
         self.tribeListTableview.reloadData()
-        basicFunctions.stopLoading()
         }
     }
     
@@ -130,12 +222,22 @@ class GroupTribeTabVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
             cell.lbl_description.text = DataManager.getVal(dict["about"]) as? String ?? ""
             cell.btn_memberCount.setTitle("  \(DataManager.getVal(dict["members_count"]) as? String ?? "") Member", for: .normal)
             
+            if DataManager.getVal(dict["tribe_status"]) as? String ?? "" == "join"{
+                cell.btn_requestToJoin.setTitle("Request to Join", for: .normal)
+            }
+            else if DataManager.getVal(dict["tribe_status"]) as? String ?? "" == "requested"{
+                cell.btn_requestToJoin.setTitle("Requested", for: .normal)
+            }else if DataManager.getVal(dict["tribe_status"]) as? String ?? "" == "invited"{
+                cell.btn_requestToJoin.setTitle("Invited", for: .normal)
+            }else if DataManager.getVal(dict["tribe_status"]) as? String ?? "" == "joined"{
+                cell.btn_requestToJoin.setTitle("Joined", for: .normal)
+            }
+           
             cell.btn_requestToJoin.tag = indexPath.row
             cell.btn_requestToJoin.addTarget(self, action: #selector(requestToJoinClicked(_:)), for: .touchUpInside)
             
             return cell
         }
-       
     }
     
     
@@ -145,11 +247,14 @@ class GroupTribeTabVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
                 let vc = self.storyboard?.instantiateViewController(identifier: "CreateMiniTribeVC") as! CreateMiniTribeVC
                 navigationController?.pushViewController(vc, animated: true)
             }else if indexPath.row == 1 {
+                let vc = self.storyboard?.instantiateViewController(identifier: "YourminitribeListVC") as! YourminitribeListVC
+                navigationController?.pushViewController(vc, animated: true)
             }else {
+                
             }
         }else{
             let dict = arr_data[indexPath.row]
-            if DataManager.getVal(dict["visibility_status"]) as? String ?? "" == "2" && (DataManager.getVal(dict["tribe_status"]) as? String ?? "" == "requested" || DataManager.getVal(dict["tribe_status"]) as? String ?? "" == "join"){
+            if DataManager.getVal(dict["visibility_status"]) as? String ?? "" == "1" && (DataManager.getVal(dict["tribe_status"]) as? String ?? "" == "requested" || DataManager.getVal(dict["tribe_status"]) as? String ?? "" == "join"){
                 let vc = self.storyboard?.instantiateViewController(identifier: "MiniTribeRequetedVC") as! MiniTribeRequetedVC
                 vc.miniTribeId = DataManager.getVal(dict["id"]) as? String ?? ""
                 navigationController?.pushViewController(vc, animated: true)
@@ -162,6 +267,27 @@ class GroupTribeTabVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
     }
     
     @objc func requestToJoinClicked (_ sender : UIButton){
+       
+        let dict = filteredArr[sender.tag]
+        selectedMiniTribeId = DataManager.getVal(dict["id"]) as? String ?? ""
+        selectedRequestJoinUserId = DataManager.getVal(dict["user_id"]) as? String ?? ""
+        
+        if DataManager.getVal(dict["tribe_status"]) as? String ?? "" == "join"{
+            lbl_subviewHeading.text = "Request to join this Mini Tribe"
+            btn_request.setTitle("Request", for: .normal)
+            btn_cenacel.setTitle("Cancel", for: .normal)
+          
+            vw_confirmation.isHidden = false
+        }
+        else if DataManager.getVal(dict["tribe_status"]) as? String ?? "" == "requested"{
+        }else if DataManager.getVal(dict["tribe_status"]) as? String ?? "" == "invited"{
+            lbl_subviewHeading.text = "Would you like to accept or reject this tribe request?"
+            btn_request.setTitle("Accept", for: .normal)
+            btn_cenacel.setTitle("Reject", for: .normal)
+            
+            vw_confirmation.isHidden = false
+        }else if DataManager.getVal(dict["tribe_status"]) as? String ?? "" == "joined"{
+        }
         
     }
     

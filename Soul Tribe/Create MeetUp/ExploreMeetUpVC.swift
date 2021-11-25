@@ -163,17 +163,13 @@ extension ExploreMeetUpVC: UITableViewDataSource,UITableViewDelegate{
         cell.onlyImages.reloadData()
         
         
-        
-        
-        
-        
-        
         return cell
     }
     //MARK:- DelegateMethods
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 265
+        return 220
+        
     }
     
     
@@ -291,8 +287,6 @@ extension ExploreMeetUpVC : CLLocationManagerDelegate{
             }
         })
     }
-
-    
 }
 
 extension ExploreMeetUpVC : UITextFieldDelegate {
