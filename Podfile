@@ -22,8 +22,14 @@ pod 'FBSDKLoginKit'
 pod 'Firebase/Core'
 pod 'Firebase/Auth'
 pod 'FirebaseMessaging'
-
+pod 'SGSegmentedProgressBarLibrary'
+pod 'JJFloatingActionButton'
 pod 'OnlyPictures'
+
+pod 'Socket.IO-Client-Swift', '~> 13.1.0'
+pod 'Agrume'
+pod 'AssetsPickerViewController'
+pod 'PryntTrimmerView'
 
 
   # Pods for Soul Tribe

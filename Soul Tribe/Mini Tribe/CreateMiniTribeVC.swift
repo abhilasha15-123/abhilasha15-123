@@ -52,6 +52,8 @@ class CreateMiniTribeVC: UIViewController,UITextViewDelegate {
         txtdiscription.textColor = UIColor.lightGray
     }
     
+    
+    
     @IBAction func backBtnAction(_ sender: Any) {
         navigationController?.popViewController(animated: true)
     }

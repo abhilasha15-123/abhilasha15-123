@@ -89,6 +89,7 @@ class ProfileTabVC: UIViewController,UICollectionViewDelegate,UICollectionViewDa
     }
     
     
+    
     func get_profileAPI()  {
         
         let parameterDictionary = NSMutableDictionary()
@@ -132,6 +133,12 @@ class ProfileTabVC: UIViewController,UICollectionViewDelegate,UICollectionViewDa
     
                 let product_images = DataManager.getVal(data?["get_product_images"]) as? NSArray ?? []
 
+                let snapsCount = DataManager.getVal(data?["snaps_count"]) as? String
+                if snapsCount == "0" {
+                    self.imgprofile.layer.borderColor = UIColor.white.cgColor
+                }else{
+                    self.imgprofile.layer.borderColor = UIColor.blue.cgColor
+                }
                 self.product_imagesArray = product_images as! [[String : Any]]
 //                let gallery_image  = DataManager.getVal(product_images?["images"]) as? String ?? ""
                 
@@ -213,7 +220,15 @@ class ProfileTabVC: UIViewController,UICollectionViewDelegate,UICollectionViewDa
         }
     }
     
+    @IBAction func showStoryBtnAction(_ sender: Any) {
+        let vc = SB_instaStory.instantiateViewController(withIdentifier: "PresentStoryViewController") as! PresentStoryViewController
+        self.navigationController?.present(vc, animated: true, completion: nil)
+    }
     
+    @IBAction func addStoryBtnAction(_ sender: Any) {
+        let vc = SB_instaStory.instantiateViewController(withIdentifier: "AddStoryVC") as! AddStoryVC
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     
     @IBAction func sidemenuBtnAction(_ sender: Any) {
         self.slideMenuController()?.toggleLeft()

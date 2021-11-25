@@ -11,6 +11,7 @@ import Foundation
 import UIKit
 import CoreData
 
+let SB_instaStory = UIStoryboard(name: "SB_instaStory", bundle: nil)
 
 class Config: NSObject,UIAlertViewDelegate {
     let API_URL = "https://soultribenow.com/api/user/"
@@ -26,6 +27,7 @@ class Config: NSObject,UIAlertViewDelegate {
     
     /********************************* App Color Codes ***************************************/
 //    #16C79A
+    
    
     let AppThemeMainColor = UIColor(red: 0.09, green: 0.78, blue: 0.60, alpha: 0.5)
 }

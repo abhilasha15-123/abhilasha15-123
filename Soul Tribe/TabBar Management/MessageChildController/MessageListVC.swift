@@ -13,7 +13,8 @@ class MessageListVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     @IBOutlet weak var searchview: UIView!
     @IBOutlet weak var txt_search: UITextField!
     
-    
+    var comeVIbeType = String()
+    var senderID = String()
     var arr_data = [[String:Any]]()
     var requestListDisplay = false
     
@@ -31,7 +32,7 @@ class MessageListVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        api_call()
+        api_call(vibe: self.comeVIbeType)
     }
     
     
@@ -48,14 +49,14 @@ class MessageListVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         messageListTableview.reloadData()
     }
     
-    func api_call(){
+    func api_call(vibe: String){
         self.arr_data.removeAll()
         
         basicFunctions.presentLoader()
 
         let parameterDictionary = NSMutableDictionary()
         parameterDictionary.setValue(Config().AppUserDefaults.value(forKey:"user_id") as? String ?? "", forKey: "user_id")
-        parameterDictionary.setValue("Soul Love", forKey: "vibe")
+        parameterDictionary.setValue(vibe, forKey: "vibe")
         parameterDictionary.setValue(Config().api_key, forKey: "api_key")
         print(parameterDictionary)
 
@@ -80,7 +81,18 @@ class MessageListVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
             basicFunctions.stopLoading()
         }
     }
-    
+    @objc func ShowStoryBtn(_ sender: UIButton) {
+        let dict = self.filteredArr[sender.tag]
+        self.senderID = DataManager.getVal(dict["id"]) as? String ?? ""
+        let snapsCount = DataManager.getVal(dict["snaps_count"]) as? String ?? ""
+        if snapsCount == "0" {
+            self.view.makeToast("Story not found")
+        }else{
+            let controller1 = SB_instaStory.instantiateViewController(identifier: "PresentStoryViewController") as! PresentStoryViewController
+            controller1.comeUserID = self.senderID
+            self.navigationController?.present(controller1, animated: true, completion: nil)
+        }
+    }
     
     @IBAction func requestbtn(_ sender: Any) {
         let controller1 = storyboard?.instantiateViewController(identifier: "MessageRequestVC") as! MessageRequestVC
@@ -111,19 +123,20 @@ class MessageListVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         cell.lbl_name.text = DataManager.getVal(dict["name"]) as? String ?? ""
         cell.lbl_time.text = DataManager.getVal(dict["date_time"]) as? String ?? ""
         cell.lbl_msg.text = DataManager.getVal(dict["message"]) as? String ?? ""
-        
+        self.senderID = DataManager.getVal(dict["id"]) as? String ?? ""
         let urlStr = "\(Config().baseImageUrl)\(DataManager.getVal(dict["profile_image"]) as? String ?? "")"
         cell.img_profile.sd_setImage(with: URL(string: urlStr), completed: nil)
-        
+        cell.showStoryBtn.tag = indexPath.row
+        cell.showStoryBtn.addTarget(self, action: #selector(ShowStoryBtn), for: .touchUpInside)
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 85
     }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 0{
-            let controller = storyboard?.instantiateViewController(withIdentifier: "MessageVC") as! MessageVC
-            self.navigationController?.pushViewController(controller, animated: true)
-        }
-    }
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+////        if indexPath.row == 0{
+//            let controller = storyboard?.instantiateViewController(withIdentifier: "MessageVC") as! MessageVC
+//            self.navigationController?.pushViewController(controller, animated: true)
+////        }
+//    }
 }

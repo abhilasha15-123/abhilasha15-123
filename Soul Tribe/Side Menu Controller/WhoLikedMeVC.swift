@@ -12,7 +12,6 @@ class WhoLikedMetblcell: UITableViewCell{
     @IBOutlet weak var interestcollection: UICollectionView!
     @IBOutlet weak var mainviewcornor: UIView!
     
-    
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -43,23 +42,33 @@ class WhoLikedMeVC: UIViewController {
     var interestTxt = ["Aliens","Art","Cooking","Dancing","Fitness","Gaming","Hiking","Law of Attraction","Meditation","Music","Outdoors","Plant Medicine","Quantam Physics","Reading","Shopping","Social Events","Spirituality","Sports","Travel","Yoga"]
    
     @IBOutlet weak var table_view: UITableView!
+    @IBOutlet weak var tribeLbl: UILabel!
+    @IBOutlet weak var soulLoveLbl: UILabel!
+    @IBOutlet weak var tribeBtn: UIButton!
+    @IBOutlet weak var soulLoveBtn: UIButton!
     var leftDrawerTransition:DrawerTransition!
     var left = LeftMenuViewController()
-    var wholikeList = NSDictionary()
-  
+    var wholikeList = NSMutableArray()
+    var categoryVibeType = String()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
-        getlikeduser_list()
+        self.soulLoveLbl.backgroundColor = UIColor(red: 13/255, green: 58/255, blue: 169/255, alpha: 1)
+        self.soulLoveBtn.setTitleColor(UIColor(red: 13/255, green: 58/255, blue: 169/255, alpha: 1), for: .normal)
+        self.tribeLbl.backgroundColor = UIColor.white
+        self.tribeBtn.setTitleColor(UIColor(red: 13/255, green: 58/255, blue: 169/255, alpha: 1), for: .normal)
+        
+        getlikeduser_list(vibetype: "Soul Love")
         // Do any additional setup after loading the view.
     }
     
-    func getlikeduser_list(){
+    func getlikeduser_list(vibetype: String){
         let parameterDictionary = NSMutableDictionary()
      let userID = Config().AppUserDefaults.value(forKey:"user_id") as? String ?? ""
        parameterDictionary.setValue("tribe123", forKey: "api_key")
         parameterDictionary.setValue(userID, forKey: "user_id")
-
+        parameterDictionary.setValue("userID", forKey: "vibe")
        print(parameterDictionary)
         let methodName = "get_liked_users_list"
 
@@ -68,7 +77,7 @@ class WhoLikedMeVC: UIViewController {
             let message  = DataManager.getVal(responseData?["message"]) as? String ?? ""
 
             if status == "1" {
-                self.wholikeList = DataManager.getVal(responseData?["data"]) as! NSDictionary
+                self.wholikeList = DataManager.getVal(responseData?["data"]) as! NSMutableArray
                 print(self.wholikeList)
             }
             else {
@@ -79,6 +88,24 @@ class WhoLikedMeVC: UIViewController {
     @IBAction func backbtnaction(_ sender:UIButton) {
         self.slideMenuController()?.toggleLeft()
 
+    }
+    @IBAction func SoulLovebtnAction(_ sender:UIButton) {
+        self.soulLoveLbl.backgroundColor = UIColor(red: 13/255, green: 58/255, blue: 169/255, alpha: 1)
+        self.soulLoveBtn.setTitleColor(UIColor(red: 13/255, green: 58/255, blue: 169/255, alpha: 1), for: .normal)
+        self.tribeLbl.backgroundColor = UIColor.white
+        self.tribeBtn.setTitleColor(UIColor(red: 13/255, green: 58/255, blue: 169/255, alpha: 1), for: .normal)
+        self.categoryVibeType = "Soul Love"
+        getlikeduser_list(vibetype: self.categoryVibeType)
+        table_view.reloadData()
+    }
+    @IBAction func tribebtnAction(_ sender:UIButton) {
+        self.soulLoveLbl.backgroundColor = UIColor.white
+        self.soulLoveBtn.setTitleColor(UIColor(red: 13/255, green: 58/255, blue: 169/255, alpha: 1), for: .normal)
+        self.tribeLbl.backgroundColor = UIColor(red: 13/255, green: 58/255, blue: 169/255, alpha: 1)
+        self.tribeBtn.setTitleColor(UIColor(red: 13/255, green: 58/255, blue: 169/255, alpha: 1), for: .normal)
+        self.categoryVibeType = "Tribe"
+        getlikeduser_list(vibetype: self.categoryVibeType)
+        table_view.reloadData()
     }
 
 }
@@ -112,7 +139,6 @@ extension WhoLikedMeVC: UITableViewDelegate,UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 700
-        
     }
 }
     extension WhoLikedMetblcell: UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {

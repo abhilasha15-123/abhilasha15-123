@@ -14,11 +14,12 @@ class MessageListCell: UITableViewCell {
     @IBOutlet weak var lbl_msg: UILabel!
     @IBOutlet weak var lbl_name: UILabel!
     @IBOutlet weak var img_profile: UIImageView!
-    
+    @IBOutlet weak var showStoryBtn: UIButton!
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
