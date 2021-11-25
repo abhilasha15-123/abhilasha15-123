@@ -92,7 +92,7 @@ class CreateMeetUpVC: UIViewController,UIPopoverPresentationControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        onlyImages.alignment = .left
+        onlyImages.alignment = .right
         
         self.imguser.layer.cornerRadius =  self.imguser.frame.size.width/2
         self.img_userNee.layer.cornerRadius =  self.img_userNee.frame.size.width/2
@@ -168,6 +168,7 @@ class CreateMeetUpVC: UIViewController,UIPopoverPresentationControllerDelegate, 
         //navigationController?.pushViewController(vc, animated: true)
         vc.modalTransitionStyle = .coverVertical
         vc.modalPresentationStyle = .overFullScreen
+        vc.comesFrom = "meetup"
         present(vc, animated: true, completion: nil)
         
     }
@@ -400,9 +401,12 @@ class CreateMeetUpVC: UIViewController,UIPopoverPresentationControllerDelegate, 
             let id = DataManager.getVal(dict["id"]) as? String ?? ""
             self.idaar.append("\(id),")
         }
+        if self.idaar != ""{
+            self.idaar.removeLast()
+        }
+   
         
-        self.idaar.removeLast()
-        
+       
         
         basicFunctions.presentLoader()
         self.view.endEditing(true)

@@ -66,7 +66,7 @@ class ValidationClass: NSObject {
         }
         
        
-        else  if (thetext == ("Write your answer here (Optional)")) || (thetext == ("About Business*")) || (thetext == ("A Share something that is unique and stands out. Something that makes users want to stop swiping and explore more about you!")) || (thetext == ("Description*")) || (thetext == ("Message")) || (thetext == ("Enter Description")) || (thetext == ("Bio")) || (thetext == ("Additional Information")) || (thetext == ("Your Speciality")) || (thetext == ("Write a message...")) || (thetext == ("Post your review here")) || (thetext == ("Write a message...")) || (thetext == ("Please write a comment first.")) || (thetext == ("رسالة")) || (thetext == ("السيرة الذاتية")) || (thetext == ("معلومات إضافية")) || (thetext == ("تخصصك")) || (thetext == ("...كتابة رسالة")) || (thetext == ("قم بنشر رأيك هنا")) || (thetext == ("...كتابة رسالة")) || (thetext == ("الرجاء كتابة تعليق أولاً") || (thetext == Bundle.main.localizedString(forKey: "describeYourItem", value: nil, table: "Localizable")) || (thetext == Bundle.main.localizedString(forKey: "describeYourService", value: nil, table: "Localizable")))
+        else  if (thetext == ("Describe your Mini Tribe")) || (thetext == ("Write your answer here (Optional)")) || (thetext == ("About Business*")) || (thetext == ("A Share something that is unique and stands out. Something that makes users want to stop swiping and explore more about you!")) || (thetext == ("Description*")) || (thetext == ("Message")) || (thetext == ("Enter Description")) || (thetext == ("Bio")) || (thetext == ("Additional Information")) || (thetext == ("Your Speciality")) || (thetext == ("Write a message...")) || (thetext == ("Post your review here")) || (thetext == ("Write a message...")) || (thetext == ("Please write a comment first.")) || (thetext == ("رسالة")) || (thetext == ("السيرة الذاتية")) || (thetext == ("معلومات إضافية")) || (thetext == ("تخصصك")) || (thetext == ("...كتابة رسالة")) || (thetext == ("قم بنشر رأيك هنا")) || (thetext == ("...كتابة رسالة")) || (thetext == ("الرجاء كتابة تعليق أولاً") || (thetext == Bundle.main.localizedString(forKey: "describeYourItem", value: nil, table: "Localizable")) || (thetext == Bundle.main.localizedString(forKey: "describeYourService", value: nil, table: "Localizable")))
         {
             return true
         }
@@ -732,6 +732,48 @@ class ValidationClass: NSObject {
         }
     }
 
+    
+    
+    
+    
+    func ValidateCreateMiniTribe(_ createMiniTribeVCValidateObj:CreateMiniTribeVC) -> Bool {
+        
+        if createMiniTribeVCValidateObj.picSelected == false{
+            
+            let titleTxt = "Please select an image for the mini tribe."
+            createMiniTribeVCValidateObj.view.endEditing(true)
+            createMiniTribeVCValidateObj.view.makeToast(titleTxt)
+            return false
+        }
+        else if isBlank(createMiniTribeVCValidateObj.txtname) {
+           
+            let titleTxt = "Please add a name for the mini tribe."
+           
+            createMiniTribeVCValidateObj.view.endEditing(true)
+            createMiniTribeVCValidateObj.txtname.layer.borderColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+            createMiniTribeVCValidateObj.view.makeToast(titleTxt)
+
+            return false
+        }
+        else if isBlankTextView(createMiniTribeVCValidateObj.txtdiscription) {
+           
+            let titleTxt = "Please add a description for the mini tribe."
+           
+            createMiniTribeVCValidateObj.view.endEditing(true)
+            
+            createMiniTribeVCValidateObj.txtdiscription.layer.borderColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+            createMiniTribeVCValidateObj.view.makeToast(titleTxt)
+
+            return false
+        }
+ 
+        else{
+            return true
+        }
+    }
+    
+    
+    
 //    func ValidateChangePasswordForm(_ changePasswordVCValidateObj:ChangePasswordViewController) -> Bool {
 //
 //        let language = DataManager.getVal(Config().AppUserDefaults.value(forKey:"language")) as? String ?? "en"
