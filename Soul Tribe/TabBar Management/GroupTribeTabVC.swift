@@ -248,9 +248,12 @@ class GroupTribeTabVC: UIViewController,UITableViewDelegate,UITableViewDataSourc
                 navigationController?.pushViewController(vc, animated: true)
             }else if indexPath.row == 1 {
                 let vc = self.storyboard?.instantiateViewController(identifier: "YourminitribeListVC") as! YourminitribeListVC
+                vc.comesFrom = "MyMiniTribes"
                 navigationController?.pushViewController(vc, animated: true)
             }else {
-                
+                let vc = self.storyboard?.instantiateViewController(identifier: "YourminitribeListVC") as! YourminitribeListVC
+                vc.comesFrom = "JoinedMiniTribes"
+                navigationController?.pushViewController(vc, animated: true)
             }
         }else{
             let dict = arr_data[indexPath.row]

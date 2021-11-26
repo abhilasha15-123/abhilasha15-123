@@ -24,6 +24,10 @@
 		06F45A162743BDD700B3A3B2 /* WebVwViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F45A152743BDD700B3A3B2 /* WebVwViewController.swift */; };
 		06F935B02744BDB00086CFA9 /* KolView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 06F935AE2744BDB00086CFA9 /* KolView.xib */; };
 		06F935B12744BDB00086CFA9 /* KolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F935AF2744BDB00086CFA9 /* KolView.swift */; };
+		06FC81022750AAEC00F8032B /* HeaderCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 06FC80FE2750AAEB00F8032B /* HeaderCollectionCell.xib */; };
+		06FC81032750AAEC00F8032B /* HobbiesCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FC80FF2750AAEB00F8032B /* HobbiesCollectionCell.swift */; };
+		06FC81042750AAEC00F8032B /* HobbiesCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 06FC81002750AAEB00F8032B /* HobbiesCollectionCell.xib */; };
+		06FC81052750AAEC00F8032B /* HeaderCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FC81012750AAEC00F8032B /* HeaderCollectionCell.swift */; };
 		5554AEE5D259B75560E2A060 /* Pods_Soul_TribeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8224AD56BD7936521C307E8 /* Pods_Soul_TribeTests.framework */; };
 		58732032BAB0FF1C502BF752 /* Pods_Soul_Tribe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2ABBAD53EF5CC8D1DBF3F3B /* Pods_Soul_Tribe.framework */; };
 		6A31B96426942C88005819AD /* MemberListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A31B95926942C85005819AD /* MemberListVC.swift */; };
@@ -67,10 +71,6 @@
 		6E2BBB07274DFE0300EEB60C /* MeetUpDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2BBB01274DFE0200EEB60C /* MeetUpDetailVC.swift */; };
 		6E2BBB08274DFE0300EEB60C /* MeetUpInvitaionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2BBB02274DFE0200EEB60C /* MeetUpInvitaionVC.swift */; };
 		6E614C00274BA205009EF85E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6E614BFF274BA205009EF85E /* GoogleService-Info.plist */; };
-		6E8AEBF0274F44EF002BFF45 /* HobbiesCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8AEBEC274F44ED002BFF45 /* HobbiesCollectionCell.swift */; };
-		6E8AEBF1274F44EF002BFF45 /* HeaderCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8AEBED274F44ED002BFF45 /* HeaderCollectionCell.swift */; };
-		6E8AEBF2274F44EF002BFF45 /* HeaderCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E8AEBEE274F44EE002BFF45 /* HeaderCollectionCell.xib */; };
-		6E8AEBF3274F44EF002BFF45 /* HobbiesCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6E8AEBEF274F44EE002BFF45 /* HobbiesCollectionCell.xib */; };
 		6E8AEBF5274F5BA9002BFF45 /* SB_instaStory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E8AEBF4274F5BA9002BFF45 /* SB_instaStory.storyboard */; };
 		6E8AEC0E274F6399002BFF45 /* Extenstion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8AEC03274F6396002BFF45 /* Extenstion.swift */; };
 		6E8AEC0F274F6399002BFF45 /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8AEC04274F6397002BFF45 /* GalleryCollectionViewCell.swift */; };
@@ -213,6 +213,10 @@
 		06F45A152743BDD700B3A3B2 /* WebVwViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebVwViewController.swift; sourceTree = "<group>"; };
 		06F935AE2744BDB00086CFA9 /* KolView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KolView.xib; sourceTree = "<group>"; };
 		06F935AF2744BDB00086CFA9 /* KolView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KolView.swift; sourceTree = "<group>"; };
+		06FC80FE2750AAEB00F8032B /* HeaderCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HeaderCollectionCell.xib; path = ../../../../Downloads/HeaderCollectionCell.xib; sourceTree = "<group>"; };
+		06FC80FF2750AAEB00F8032B /* HobbiesCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HobbiesCollectionCell.swift; path = ../../../../Downloads/HobbiesCollectionCell.swift; sourceTree = "<group>"; };
+		06FC81002750AAEB00F8032B /* HobbiesCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HobbiesCollectionCell.xib; path = ../../../../Downloads/HobbiesCollectionCell.xib; sourceTree = "<group>"; };
+		06FC81012750AAEC00F8032B /* HeaderCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeaderCollectionCell.swift; path = ../../../../Downloads/HeaderCollectionCell.swift; sourceTree = "<group>"; };
 		0E19E1EFB84AAAA2A7670DF1 /* Pods_Soul_Tribe_Soul_TribeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Soul_Tribe_Soul_TribeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DD4AD03D0E5BFAB7859900C /* Pods-Soul Tribe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Soul Tribe.debug.xcconfig"; path = "Target Support Files/Pods-Soul Tribe/Pods-Soul Tribe.debug.xcconfig"; sourceTree = "<group>"; };
 		3B91093C59F7C088747170E5 /* Pods-Soul Tribe-Soul TribeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Soul Tribe-Soul TribeUITests.release.xcconfig"; path = "Target Support Files/Pods-Soul Tribe-Soul TribeUITests/Pods-Soul Tribe-Soul TribeUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -259,10 +263,6 @@
 		6E2BBB01274DFE0200EEB60C /* MeetUpDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetUpDetailVC.swift; sourceTree = "<group>"; };
 		6E2BBB02274DFE0200EEB60C /* MeetUpInvitaionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetUpInvitaionVC.swift; sourceTree = "<group>"; };
 		6E614BFF274BA205009EF85E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		6E8AEBEC274F44ED002BFF45 /* HobbiesCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HobbiesCollectionCell.swift; path = "../../../Soul Tribe Latest Code 5/Soul Tribe/KolodaView/HobbiesCollectionCell.swift"; sourceTree = "<group>"; };
-		6E8AEBED274F44ED002BFF45 /* HeaderCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeaderCollectionCell.swift; path = "../../../Soul Tribe Latest Code 5/Soul Tribe/KolodaView/HeaderCollectionCell.swift"; sourceTree = "<group>"; };
-		6E8AEBEE274F44EE002BFF45 /* HeaderCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HeaderCollectionCell.xib; path = "../../../Soul Tribe Latest Code 5/Soul Tribe/KolodaView/HeaderCollectionCell.xib"; sourceTree = "<group>"; };
-		6E8AEBEF274F44EE002BFF45 /* HobbiesCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HobbiesCollectionCell.xib; path = "../../../Soul Tribe Latest Code 5/Soul Tribe/KolodaView/HobbiesCollectionCell.xib"; sourceTree = "<group>"; };
 		6E8AEBF4274F5BA9002BFF45 /* SB_instaStory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SB_instaStory.storyboard; sourceTree = "<group>"; };
 		6E8AEC03274F6396002BFF45 /* Extenstion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extenstion.swift; sourceTree = "<group>"; };
 		6E8AEC04274F6397002BFF45 /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -432,10 +432,10 @@
 		06F935AD2744BDB00086CFA9 /* KolodaView */ = {
 			isa = PBXGroup;
 			children = (
-				6E8AEBED274F44ED002BFF45 /* HeaderCollectionCell.swift */,
-				6E8AEBEE274F44EE002BFF45 /* HeaderCollectionCell.xib */,
-				6E8AEBEC274F44ED002BFF45 /* HobbiesCollectionCell.swift */,
-				6E8AEBEF274F44EE002BFF45 /* HobbiesCollectionCell.xib */,
+				06FC81012750AAEC00F8032B /* HeaderCollectionCell.swift */,
+				06FC80FE2750AAEB00F8032B /* HeaderCollectionCell.xib */,
+				06FC80FF2750AAEB00F8032B /* HobbiesCollectionCell.swift */,
+				06FC81002750AAEB00F8032B /* HobbiesCollectionCell.xib */,
 				06F935AE2744BDB00086CFA9 /* KolView.xib */,
 				06F935AF2744BDB00086CFA9 /* KolView.swift */,
 			);
@@ -1006,7 +1006,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E8AEBF2274F44EF002BFF45 /* HeaderCollectionCell.xib in Resources */,
 				6E8AEC16274F6399002BFF45 /* GalleryCollectionViewCell.xib in Resources */,
 				70361BD526A0091100921FEB /* OpenSans-Bold.ttf in Resources */,
 				70361BD026A0091100921FEB /* OpenSans-SemiBold.ttf in Resources */,
@@ -1022,7 +1021,6 @@
 				70361BD126A0091100921FEB /* OpenSans-Light.ttf in Resources */,
 				6A31B9A926947E02005819AD /* CustomOverlayView.xib in Resources */,
 				70A16575269EFE680062156B /* CreateMeetuppopupVC.xib in Resources */,
-				6E8AEBF3274F44EF002BFF45 /* HobbiesCollectionCell.xib in Resources */,
 				70361BD226A0091100921FEB /* OpenSans-Italic.ttf in Resources */,
 				8D1322F72665167600DE2B87 /* LaunchScreen.storyboard in Resources */,
 				70A16579269EFF3E0062156B /* SoultribepopupVC.xib in Resources */,
@@ -1038,6 +1036,8 @@
 				70361BD826A0091100921FEB /* LICENSE.txt in Resources */,
 				70361BD926A0091100921FEB /* OpenSans-Regular.ttf in Resources */,
 				70361BD326A0091100921FEB /* OpenSans-ExtraBold.ttf in Resources */,
+				06FC81042750AAEC00F8032B /* HobbiesCollectionCell.xib in Resources */,
+				06FC81022750AAEC00F8032B /* HeaderCollectionCell.xib in Resources */,
 				06F935B02744BDB00086CFA9 /* KolView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1234,10 +1234,10 @@
 				06F45A0A2743AFB600B3A3B2 /* ValidationClass.swift in Sources */,
 				6A31B9AC26947E02005819AD /* CustomKolodaView.swift in Sources */,
 				06A4DC31274509A100C34351 /* DistanceFormatTableViewCell.swift in Sources */,
+				06FC81032750AAEC00F8032B /* HobbiesCollectionCell.swift in Sources */,
 				70A1656F269EF8360062156B /* BackModel.swift in Sources */,
 				06F45A0C2743AFB600B3A3B2 /* Config.swift in Sources */,
 				8DE90D81267372DB00BF0D4F /* NotificationsVC.swift in Sources */,
-				6E8AEBF1274F44EF002BFF45 /* HeaderCollectionCell.swift in Sources */,
 				8DB605512670DA5C001BA160 /* GalleryCell.swift in Sources */,
 				8DE90D872673731D00BF0D4F /* MemberShipPlanVC.swift in Sources */,
 				704EE20E26B564DA008B2366 /* ThirdIntroVC.swift in Sources */,
@@ -1255,6 +1255,7 @@
 				70A16571269EFE080062156B /* CreateMeetuppopupVC.swift in Sources */,
 				6A82A83B269331DE003905AC /* SetprofileVC.swift in Sources */,
 				6A31B9A626947E02005819AD /* BackgroundKolodaAnimator.swift in Sources */,
+				06FC81052750AAEC00F8032B /* HeaderCollectionCell.swift in Sources */,
 				6A31B9A526947E02005819AD /* ExampleOverlayView.swift in Sources */,
 				8DE90D7D2673558100BF0D4F /* SideMenuCell.swift in Sources */,
 				8D702655266A1BA70045B05F /* LoginViewController.swift in Sources */,
@@ -1330,7 +1331,6 @@
 				8D5A359F26805EAF00D3FFCF /* NotificationSettingVC.swift in Sources */,
 				6E2BBB08274DFE0300EEB60C /* MeetUpInvitaionVC.swift in Sources */,
 				70A16577269EFF310062156B /* SoultribepopupVC.swift in Sources */,
-				6E8AEBF0274F44EF002BFF45 /* HobbiesCollectionCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

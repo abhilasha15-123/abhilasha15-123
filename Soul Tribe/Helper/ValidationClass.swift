@@ -65,8 +65,8 @@ class ValidationClass: NSObject {
                return true
         }
         
-       
-        else  if (thetext == ("Describe your Mini Tribe")) || (thetext == ("Write your answer here (Optional)")) || (thetext == ("About Business*")) || (thetext == ("A Share something that is unique and stands out. Something that makes users want to stop swiping and explore more about you!")) || (thetext == ("Description*")) || (thetext == ("Message")) || (thetext == ("Enter Description")) || (thetext == ("Bio")) || (thetext == ("Additional Information")) || (thetext == ("Your Speciality")) || (thetext == ("Write a message...")) || (thetext == ("Post your review here")) || (thetext == ("Write a message...")) || (thetext == ("Please write a comment first.")) || (thetext == ("رسالة")) || (thetext == ("السيرة الذاتية")) || (thetext == ("معلومات إضافية")) || (thetext == ("تخصصك")) || (thetext == ("...كتابة رسالة")) || (thetext == ("قم بنشر رأيك هنا")) || (thetext == ("...كتابة رسالة")) || (thetext == ("الرجاء كتابة تعليق أولاً") || (thetext == Bundle.main.localizedString(forKey: "describeYourItem", value: nil, table: "Localizable")) || (thetext == Bundle.main.localizedString(forKey: "describeYourService", value: nil, table: "Localizable")))
+        
+        else if (thetext == ("Share Your Perspective...")) || (thetext == ("Describe your Mini Tribe")) || (thetext == ("Write your answer here (Optional)")) || (thetext == ("About Business*")) || (thetext == ("A Share something that is unique and stands out. Something that makes users want to stop swiping and explore more about you!")) || (thetext == ("Description*")) || (thetext == ("Message")) || (thetext == ("Enter Description")) || (thetext == ("Bio")) || (thetext == ("Additional Information")) || (thetext == ("Your Speciality")) || (thetext == ("Write a message...")) || (thetext == ("Post your review here")) || (thetext == ("Write a message...")) || (thetext == ("Please write a comment first.")) || (thetext == ("رسالة")) || (thetext == ("السيرة الذاتية")) || (thetext == ("معلومات إضافية")) || (thetext == ("تخصصك")) || (thetext == ("...كتابة رسالة")) || (thetext == ("قم بنشر رأيك هنا")) || (thetext == ("...كتابة رسالة")) || (thetext == ("الرجاء كتابة تعليق أولاً") || (thetext == Bundle.main.localizedString(forKey: "describeYourItem", value: nil, table: "Localizable")) || (thetext == Bundle.main.localizedString(forKey: "describeYourService", value: nil, table: "Localizable")))
         {
             return true
         }
@@ -768,6 +768,30 @@ class ValidationClass: NSObject {
         }
  
         else{
+            createMiniTribeVCValidateObj.txtname.layer.borderColor = correctColor
+            createMiniTribeVCValidateObj.txtdiscription.layer.borderColor = correctColor
+            return true
+        }
+    }
+    
+    
+    
+    
+    func ValidateCreateMiniTribePost(_ createMiniTribeVCValidateObj:CreatePostVC) -> Bool {
+         if isBlankTextView(createMiniTribeVCValidateObj.txt_perspective) {
+           
+            let titleTxt = "Please add a perspective for the mini tribe post."
+           
+            createMiniTribeVCValidateObj.view.endEditing(true)
+            
+            createMiniTribeVCValidateObj.txt_perspective.layer.borderColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+            createMiniTribeVCValidateObj.view.makeToast(titleTxt)
+
+            return false
+        }
+ 
+        else{
+            createMiniTribeVCValidateObj.txt_perspective.layer.borderColor = correctColor
             return true
         }
     }
