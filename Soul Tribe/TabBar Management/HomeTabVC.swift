@@ -96,6 +96,7 @@ class HomeTabVC: UIViewController, SlideMenuControllerDelegate{
         self.topOptionMenuView.isHidden = true
         popupview.isHidden = true
         self.CategorySelect = "Soul Love"
+        SELECT_VIBE = "Soul Love"
         self.HomeVibeBtn.setTitle("Soul Love", for: .normal)
         self.getData(vibeType: self.CategorySelect)
     }
@@ -106,6 +107,7 @@ class HomeTabVC: UIViewController, SlideMenuControllerDelegate{
         popupview.isHidden = true
         innerpopupvc.isHidden = true
         self.CategorySelect = "Tribe"
+        SELECT_VIBE = "Tribe"
         self.HomeVibeBtn.setTitle("Tribe", for: .normal)
         self.getData(vibeType: self.CategorySelect)
     }

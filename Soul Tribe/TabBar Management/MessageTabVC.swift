@@ -81,7 +81,23 @@ class MessageTabVC: UIViewController,SlideMenuControllerDelegate{
 //        self.topOptionMenuView.isHidden = true
 //        popupview.isHidden = true
         self.CategorySelect = "Soul Love"
+        SELECT_VIBE = "Soul Love"
         self.HomeVibeBtn.setTitle("Soul Love", for: .normal)
+        
+        messageLbl.isHidden = false
+        messageLbl.backgroundColor = UIColor(red: 13/255, green: 58/255, blue: 169/255, alpha: 1.0)
+        matchLbl.backgroundColor = UIColor.clear
+        matchLbl.isHidden = true
+        messageBtn.setTitleColor(UIColor(red: 13/255, green: 58/255, blue: 169/255, alpha: 1.0), for: .normal)
+        metchBtn.setTitleColor(UIColor(red: 34/255, green: 51/255, blue: 69/255, alpha: 1.0), for: .normal)
+        
+        let controller1 = storyboard?.instantiateViewController(identifier: "MessageListVC") as! MessageListVC
+        controller1.comeVIbeType = SELECT_VIBE
+        controller1.view.frame = CGRect(x: 0, y: 0, width: self.view_main.frame.size.width, height: self.view_main.frame.size.height)
+        controller1.willMove(toParent: self)
+        self.view_main.addSubview(controller1.view)
+        self.addChild(controller1)
+        controller1.didMove(toParent: self)
 //        self.getData(vibeType: self.CategorySelect)
     }
     @IBAction func HometopMenuTribeAction(_ sender: Any) {
@@ -91,7 +107,26 @@ class MessageTabVC: UIViewController,SlideMenuControllerDelegate{
 //        popupview.isHidden = true
 //        innerpopupvc.isHidden = true
         self.CategorySelect = "Tribe"
+        SELECT_VIBE = "Tribe"
         self.HomeVibeBtn.setTitle("Tribe", for: .normal)
+        
+        
+        
+        
+        messageLbl.isHidden = false
+        messageLbl.backgroundColor = UIColor(red: 13/255, green: 58/255, blue: 169/255, alpha: 1.0)
+        matchLbl.backgroundColor = UIColor.clear
+        matchLbl.isHidden = true
+        messageBtn.setTitleColor(UIColor(red: 13/255, green: 58/255, blue: 169/255, alpha: 1.0), for: .normal)
+        metchBtn.setTitleColor(UIColor(red: 34/255, green: 51/255, blue: 69/255, alpha: 1.0), for: .normal)
+        
+        let controller1 = storyboard?.instantiateViewController(identifier: "MessageListVC") as! MessageListVC
+        controller1.comeVIbeType = SELECT_VIBE
+        controller1.view.frame = CGRect(x: 0, y: 0, width: self.view_main.frame.size.width, height: self.view_main.frame.size.height)
+        controller1.willMove(toParent: self)
+        self.view_main.addSubview(controller1.view)
+        self.addChild(controller1)
+        controller1.didMove(toParent: self)
 //        self.getData(vibeType: self.CategorySelect)
     }
     
@@ -176,7 +211,7 @@ class MessageTabVC: UIViewController,SlideMenuControllerDelegate{
         metchBtn.setTitleColor(UIColor(red: 34/255, green: 51/255, blue: 69/255, alpha: 1.0), for: .normal)
         
         let controller1 = storyboard?.instantiateViewController(identifier: "MessageListVC") as! MessageListVC
-        controller1.comeVIbeType = self.CategorySelect
+        controller1.comeVIbeType = SELECT_VIBE
         controller1.view.frame = CGRect(x: 0, y: 0, width: self.view_main.frame.size.width, height: self.view_main.frame.size.height)
         controller1.willMove(toParent: self)
         self.view_main.addSubview(controller1.view)
@@ -194,7 +229,7 @@ class MessageTabVC: UIViewController,SlideMenuControllerDelegate{
         messageBtn.setTitleColor(UIColor(red: 34/255, green: 51/255, blue: 69/255, alpha: 1.0), for: .normal)
         
         let controller1 = storyboard?.instantiateViewController(identifier: "MessageListVC") as! MessageListVC
-        controller1.comeVIbeType = self.CategorySelect
+        controller1.comeVIbeType = SELECT_VIBE
         controller1.view.frame = CGRect(x: 0, y: 0, width: self.view_main.frame.size.width, height: self.view_main.frame.size.height)
         controller1.willMove(toParent: self)
         self.view_main.addSubview(controller1.view)

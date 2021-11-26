@@ -13,6 +13,8 @@ class MessageListVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     @IBOutlet weak var searchview: UIView!
     @IBOutlet weak var txt_search: UITextField!
     
+    var ChatroomID = String()
+    var chatUSerImageUrl = String()
     var comeVIbeType = String()
     var senderID = String()
     var arr_data = [[String:Any]]()
@@ -32,7 +34,7 @@ class MessageListVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        api_call(vibe: self.comeVIbeType)
+        api_call(vibe: SELECT_VIBE)
     }
     
     
@@ -73,7 +75,7 @@ class MessageListVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
                 self.filteredArr = self.arr_data
             }
             else {
-                self.view.makeToast(message, duration: 2.0, position: .bottom, title: nil, image: nil, style: ToastManager.shared.style, completion: nil)
+                self.view.makeToast("Please select vibe", duration: 2.0, position: .bottom, title: nil, image: nil, style: ToastManager.shared.style, completion: nil)
             }
             
             self.messageListTableview.reloadData()
@@ -119,13 +121,13 @@ class MessageListVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         cell.img_profile.layer.cornerRadius = cell.img_profile.frame.size.width/2
         
         let dict = filteredArr[indexPath.row]
-        
+        self.ChatroomID = DataManager.getVal(dict["room"]) as? String ?? ""
         cell.lbl_name.text = DataManager.getVal(dict["name"]) as? String ?? ""
         cell.lbl_time.text = DataManager.getVal(dict["date_time"]) as? String ?? ""
         cell.lbl_msg.text = DataManager.getVal(dict["message"]) as? String ?? ""
         self.senderID = DataManager.getVal(dict["id"]) as? String ?? ""
-        let urlStr = "\(Config().baseImageUrl)\(DataManager.getVal(dict["profile_image"]) as? String ?? "")"
-        cell.img_profile.sd_setImage(with: URL(string: urlStr), completed: nil)
+        self.chatUSerImageUrl = "\(Config().baseImageUrl)\(DataManager.getVal(dict["profile_image"]) as? String ?? "")"
+        cell.img_profile.sd_setImage(with: URL(string: self.chatUSerImageUrl), completed: nil)
         cell.showStoryBtn.tag = indexPath.row
         cell.showStoryBtn.addTarget(self, action: #selector(ShowStoryBtn), for: .touchUpInside)
         return cell
@@ -133,10 +135,19 @@ class MessageListVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 85
     }
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-////        if indexPath.row == 0{
-//            let controller = storyboard?.instantiateViewController(withIdentifier: "MessageVC") as! MessageVC
-//            self.navigationController?.pushViewController(controller, animated: true)
-////        }
-//    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        if indexPath.row == 0{
+        let dict = filteredArr[indexPath.row]
+        self.senderID = DataManager.getVal(dict["id"]) as? String ?? ""
+        self.ChatroomID = DataManager.getVal(dict["room"]) as? String ?? ""
+        let userName = DataManager.getVal(dict["name"]) as? String ?? ""
+        let profileImage = "\(Config().baseImageUrl)\(DataManager.getVal(dict["profile_image"]) as? String ?? "")"
+            let controller = storyboard?.instantiateViewController(withIdentifier: "MessageVC") as! MessageVC
+        controller.Come_chatUser_ID = self.senderID
+        controller.Come_userName = userName
+        controller.come_RoomID = self.ChatroomID
+        controller.Come_user_profile_image = profileImage
+        self.navigationController?.pushViewController(controller, animated: true)
+//        }
+    }
 }

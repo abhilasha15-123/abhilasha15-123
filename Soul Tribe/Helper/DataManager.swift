@@ -827,7 +827,68 @@ class DataManager {
         return body
     }
     
-    
+    class func UploadSingleDocumentFile( parameterDictionary :NSMutableDictionary,methodName:String, dataArray:NSArray, success: @escaping (( _ iTunesData: NSDictionary?,_ error:NSError?) -> Void)) {
+            
+            print(parameterDictionary)
+            
+            let apiPath = "\(Config().API_URL)\(methodName)"
+            print(apiPath)
+            let request = NSMutableURLRequest(url:NSURL(string: apiPath)! as URL);
+            request.httpMethod = "POST"
+            
+            let boundary = self.generateBoundaryString()
+            
+            request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+            
+            var imageData = Data()
+            var imageName  = ""
+            var ext = String()
+            print(dataArray)
+            
+            for dataDict in dataArray {
+                let dataDictionary = dataDict as! NSDictionary
+                imageName = dataDictionary.object(forKey: "image") as! String
+                imageData = dataDictionary.object(forKey: "document_data") as! Data
+                ext = dataDictionary.object(forKey: "ext") as! String
+            }
+            
+            var param : [String:String] = [:]
+            
+            for (key,val) in parameterDictionary {
+                param[key as! String] = val as? String
+            }
+            
+            request.httpBody = createBodyWithParametersSingleDocument(parameters: param, filePathKey: imageName, mimetype: ext, imageDataKey: imageData as NSData, boundary: boundary) as Data
+            
+            loadDataFromURL(request, completion:{(data, error) -> Void in
+                //2
+                if let urlData = data {
+                    success(urlData,error)
+                }else{
+                    print(error!)
+                }
+            })
+        }
+        class func createBodyWithParametersSingleDocument(parameters: [String: String]?, filePathKey: String?,mimetype: String, imageDataKey: NSData, boundary: String) -> NSData {
+            let body = NSMutableData();
+            
+            if parameters != nil {
+                for (key, value) in parameters! {
+                    body.append(("--\(boundary)\r\n" as NSString).data(using: String.Encoding.utf8.rawValue)!)
+                    body.append(("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n" as NSString).data(using: String.Encoding.utf8.rawValue)!)
+                    body.append(("\(value)\r\n" as NSString).data(using: String.Encoding.utf8.rawValue)!)
+                }
+            }
+            //MARK:- Document Array
+            let document_mime_type = "application/\(mimetype)"
+            body.append(("--\(boundary)\r\n" as NSString).data(using: String.Encoding.utf8.rawValue)!)
+            body.append(("Content-Disposition: form-data; name=\"\(filePathKey!)\"; filename=\"myDoc.\(mimetype)\"\r\n" as NSString).data(using: String.Encoding.utf8.rawValue)!)
+            body.append(("Content-Type: \(document_mime_type)\r\n\r\n" as NSString).data(using: String.Encoding.utf8.rawValue)!)
+            body.append(imageDataKey as Data)
+            body.append(("\r\n" as NSString).data(using: String.Encoding.utf8.rawValue)!)
+            body.append(("--\(boundary)--\r\n" as NSString).data(using: String.Encoding.utf8.rawValue)!)
+            return body
+        }
     
     class func MultipleImageArrayAndSingleImage( parameterDictionary :NSDictionary,methodName:String, dataArray:NSArray,CertificateArray:NSArray, success: @escaping (( _ iTunesData: NSDictionary?, _ error:NSError?) -> Void)) {
         
