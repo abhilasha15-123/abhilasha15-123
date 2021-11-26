@@ -20,9 +20,17 @@ class YourminitribeListVC: UIViewController {
     @IBOutlet weak var txt_search: UITextField!
     @IBOutlet weak var tableview: UITableView!
     
+    @IBAction func btn_backAction(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBOutlet weak var btn_back: UIButton!
     
     var arr_data = [[String:Any]]()
     var filteredArr = [[String:Any]]()
+    
+    var comesFrom = ""
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +46,15 @@ class YourminitribeListVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        api_call()
+        if comesFrom == "MyMiniTribes" {
+      
+            btn_back.setTitle(" My Mini Tribes", for: .normal)
+            api_call()
+        }else{
+          
+            btn_back.setTitle(" Mini Tribes", for: .normal)
+            api_call2()
+        }
     }
     
     @objc func searchRecordsAsPerText(_ textfield:UITextField) {
@@ -57,11 +73,37 @@ class YourminitribeListVC: UIViewController {
     func api_call(){
         let paraDict = NSMutableDictionary()
         paraDict.setValue(Config().api_key, forKey: "api_key")
-        paraDict.setValue(Config().AppUserDefaults.value(forKey:"user_id") as? String ?? "", forKey: "user_id")
-            
+       paraDict.setValue(Config().AppUserDefaults.value(forKey:"user_id") as? String ?? "", forKey: "user_id")
+//        paraDict.setValue("25", forKey: "user_id")
         print(paraDict)
         
         let methodName = "get_my_mini_tribe"
+        DataManager.getAPIResponse(paraDict , methodName: methodName, methodType: "POST"){(responseData,error)-> Void in
+            let status  = DataManager.getVal(responseData?["status"]) as? String ?? ""
+            let message  = DataManager.getVal(responseData?["message"]) as? String ?? ""
+            print(message)
+            if status == "1" {
+                self.arr_data = DataManager.getVal(responseData?["data"]) as? [[String:Any]] ?? []
+                self.filteredArr = self.arr_data
+            }
+            else {
+                print(message)
+            }
+            
+        self.tableview.reloadData()
+        }
+    }
+    
+    
+    func api_call2(){
+        let paraDict = NSMutableDictionary()
+        paraDict.setValue(Config().api_key, forKey: "api_key")
+      paraDict.setValue(Config().AppUserDefaults.value(forKey:"user_id") as? String ?? "", forKey: "user_id")
+//
+//        paraDict.setValue("25", forKey: "user_id")
+        print(paraDict)
+        
+        let methodName = "get_joined_mini_tribe"
         DataManager.getAPIResponse(paraDict , methodName: methodName, methodType: "POST"){(responseData,error)-> Void in
             let status  = DataManager.getVal(responseData?["status"]) as? String ?? ""
             let message  = DataManager.getVal(responseData?["message"]) as? String ?? ""
@@ -103,4 +145,11 @@ extension YourminitribeListVC: UITableViewDelegate,UITableViewDataSource {
         return 70
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let dict = filteredArr[indexPath.row]
+        
+        let vc = self.storyboard?.instantiateViewController(identifier: "TribefullDeatilsVC") as! TribefullDeatilsVC
+        vc.miniTribeId = DataManager.getVal(dict["id"]) as? String ?? ""
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }
